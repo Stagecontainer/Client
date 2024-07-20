@@ -1,8 +1,10 @@
 # React + Vite
+이 프로젝트는 Vite, React, JavascriptSWC를 사용하여 구축되었습니다
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 요구사항
+- Node.js (v21.5.0)
+- Yarn (v1.22.19)
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 구동
+- yarn install
+- yarn dev
