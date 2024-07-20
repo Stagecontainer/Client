@@ -1,5 +1,5 @@
-function SelectActionPage() {
+const SelectActionPage = () => {
   return <div></div>;
-}
+};
 
 export default SelectActionPage;
