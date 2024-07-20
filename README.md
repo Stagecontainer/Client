@@ -10,16 +10,16 @@
 - yarn dev(http://localhost:5173/)
 
 ## src 구조
-─ src
- ├─ components
- ├─ assets 
- ├─ hooks (= hoc)
- ├─ pages
- ├─ constants
- ├─ config
- ├─ styles
- ├─ services (= api)
- ├─ utils
- ├─ contexts
- ├─ App.jsx
- └─ main.jsx
+─ src</br>
+ ├─ components</br>
+ ├─ assets </br>
+ ├─ hooks (= hoc)</br>
+ ├─ pages</br>
+ ├─ constants</br>
+ ├─ config</br>
+ ├─ styles</br>
+ ├─ services (= api)</br>
+ ├─ utils</br>
+ ├─ contexts</br>
+ ├─ App.jsx</br>
+ └─ main.jsx</br>
