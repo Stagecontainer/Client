@@ -7,4 +7,4 @@
 
 ## 구동
 - yarn install
-- yarn dev
+- yarn dev(http://localhost:5173/)
