@@ -1,4 +1,4 @@
-# Vite React with SWC Project
+# Vite React with Javascript + SWC 
 ## 요구사항
 - Node.js (v10.2.4)
 - Yarn (v1.22.19)
