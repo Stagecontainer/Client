@@ -8,3 +8,18 @@
 ## 구동
 - yarn install
 - yarn dev(http://localhost:5173/)
+
+## src 구조
+─ src
+ ├─ components
+ ├─ assets 
+ ├─ hooks (= hoc)
+ ├─ pages
+ ├─ constants
+ ├─ config
+ ├─ styles
+ ├─ services (= api)
+ ├─ utils
+ ├─ contexts
+ ├─ App.jsx
+ └─ main.jsx
