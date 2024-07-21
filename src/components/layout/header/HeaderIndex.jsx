@@ -1,4 +1,3 @@
-import Menu from "./Menu";
 import Search from "./Search";
 import {
   Container,
@@ -24,7 +23,6 @@ const HeaderIndex = () => {
         <NavButton bgcolor={"orange"}>일반 로그인</NavButton>
         <NavButton>고객센터</NavButton>
       </TopBar>
-      <Menu />
     </Container>
   );
 };
