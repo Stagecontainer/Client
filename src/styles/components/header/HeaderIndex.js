@@ -7,7 +7,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid ${(props) => props.theme.color.black};
+  
   & .icon-box {
     width: 193px;
     height: 48px;
