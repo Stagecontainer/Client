@@ -4,8 +4,10 @@ import {
   TopBar,
   NavButton,
 } from "../../../styles/components/header/HeaderIndex";
+import { useNavigate } from "react-router";
 
 const HeaderIndex = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <TopBar>
@@ -16,11 +18,14 @@ const HeaderIndex = () => {
             justifyContent: "center",
             alignItems: "center",
           }}
+          onClick={() => navigate("/")}
         >
           아이콘 예정
         </div>
         <Search />
-        <NavButton bgcolor={"orange"}>일반 로그인</NavButton>
+        <NavButton bgcolor={"orange"} onClick={() => navigate("/login")}>
+          일반 로그인
+        </NavButton>
         <NavButton>고객센터</NavButton>
       </TopBar>
     </Container>
