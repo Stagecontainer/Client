@@ -1,22 +1,22 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 628px;
-  height: 48px;
+  width: ${(props) => props.width + "px"};
+  height: ${(props) => props.height + "px"};
 
   border: 1px solid #eeeeee;
-  border-radius: 16px;
+  border-radius: ${(props) => props.radius + "px"};
 
   display: flex;
   justify-content: center;
   & > .wrap {
-    width: 604px;
+    width: ${(props) => props.width - 2 * props.pad}px;
     height: 100%;
     display: flex;
     align-items: center;
 
     & > input {
-      width: 580px;
+      width: calc(100% - 24px);
       height: 22px;
       font-size: 16px;
       border: none;
@@ -24,7 +24,7 @@ const Container = styled.div`
         outline: none;
       }
       &::placeholder {
-        color: #4d4d4d;
+        color: ${(props) => props.textColor};
       }
     }
   }
