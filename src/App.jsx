@@ -19,10 +19,9 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<UserHomePage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/company" element={<CompanyHomePage />}>
-              <Route path="/company/select" element={<SelectActionPage />} />
-              <Route path="/company/request" element={<RequestItemPage />} />
-            </Route>
+            <Route path="/company" element={<CompanyHomePage />}/>
+            <Route path="/company/select" element={<SelectActionPage />} />
+            <Route path="/company/request" element={<RequestItemPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
