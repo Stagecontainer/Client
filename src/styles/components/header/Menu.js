@@ -5,18 +5,34 @@ const Container = styled.div`
 
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid ${(props) => props.theme.color.gray100};
   & > .wrap {
     width: 1280px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+  }
+  & .menu-left {
+    display: flex;
     gap: 32px;
-
-    & > span {
-      color: #333333;
-      font-weight: 600;
+    & span {
+      color: ${(props) => props.theme.color.gray100};
+      font-weight : 600;
     }
   }
+
+  & .menu-right {
+    width: 192px;
+    display: flex;
+    justify-content: center;
+    gap: 46px;
+    & > span {
+      font-family: 'GangwonEduPowerExtraBoldA' !important;
+      font-size: 16px;
+      font-weight: 800;
+    }
+  }
+
+  
 `;
 
 export default Container;
