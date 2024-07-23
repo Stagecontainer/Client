@@ -20,7 +20,7 @@ const RadiusBigBtn = styled.div`
   width: 410px;
   height: 410px;
 
-  border: 4px solid ${(props) => props.theme.color.black};
+  border: 4px solid ${(props) => props.theme.color.gray100};
   border-radius: 50%;
 
   display: flex;
