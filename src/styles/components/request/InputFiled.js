@@ -7,7 +7,7 @@ const CustomInput = styled.input`
 
   font-size: 16px;
   font-weight: 500;
-  color: ${(props) => props.theme.color.black};
+  color: ${(props) => props.theme.color.gray100};
 
   border: 1px solid #eaeaea;
   border-radius: 8px;
@@ -15,7 +15,7 @@ const CustomInput = styled.input`
   display: flex;
   align-items: center;
   &::placeholder {
-    color: ${(props) => props.theme.color.gray};
+    color: ${(props) => props.theme.color.gray60};
   }
   &::-webkit-file-upload-button,
   &::file-selector-button {
@@ -31,12 +31,12 @@ const CustomTextarea = styled.textarea`
   font-size: 16px;
   font-weight: 500;
 
-  color: ${(props) => props.theme.color.black};
+  color: ${(props) => props.theme.color.gray100};
 
-  border: 1px solid #eaeaea;
+  border: 1px solid ${(props) => props.theme.color.gray20};
   border-radius: 8px;
   &::placeholder {
-    color: ${(props) => props.theme.color.gray};
+    color: ${(props) => props.theme.color.gray60};
   }
 `;
 
@@ -47,12 +47,12 @@ const CustomFileInput = styled.div`
 
   font-size: 16px;
   font-weight: 500;
-  border: 1px solid #eaeaea;
+  border: 1px solid ${(props) => props.theme.color.gray20};
   border-radius: 8px;
 
   display: flex;
   align-items: center;
-  color: ${(props) => props.theme.color.gray};
+  color: ${(props) => props.theme.color.gray60};
   & > label {
     cursor: pointer;
   }

@@ -19,13 +19,13 @@ const CustomButton = styled.div`
   height: ${(props) => props.height}px;
 
   border: 1px solid
-    ${(props) => (props.isChecked ? "" : props.theme.color.black)};
+    ${(props) => (props.isChecked ? "" : props.theme.color.gray100)};
   border-radius: ${(props) => props.radius}px;
 
   color: ${(props) =>
-    props.isChecked ? props.theme.color.white : props.theme.color.black};
+    props.isChecked ? props.theme.color.gray0 : props.theme.color.gray100};
   background-color: ${(props) =>
-    props.isChecked ? props.theme.color.orange : props.theme.color.white};
+    props.isChecked ? props.theme.color.main : props.theme.color.gray0};
 
   display: flex;
   justify-content: center;
@@ -48,7 +48,7 @@ const SubmitContainer = styled.div`
   & span {
     font-size: 16px;
     font-weight: 500;
-    color: #0033ff;
+    color: ${(props) => props.theme.color.blue};
   }
 `;
 
