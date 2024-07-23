@@ -4,9 +4,9 @@ import SearchIcon from "../../../assets/icon/search-icon.svg?react";
 const Search = ({
   width = "628",
   height = "48",
-  text = "나에게 딱 맞는 제작사는 어디 있을까?",
+  text = "나에게 필요한 소품을 찾고 싶어",
   textSize = 16,
-  textWeight = 500,
+  textWeight = 400,
   textColor = "#4D4D4D",
   radius = "16",
   pad = 12

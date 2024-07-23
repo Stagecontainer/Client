@@ -20,6 +20,7 @@ const Container = styled.div`
       height: 22px;
       font-size: 16px;
       border: none;
+      font-weight: ${(props) => props.textWeight};
       &:focus {
         outline: none;
       }

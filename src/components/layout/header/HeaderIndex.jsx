@@ -5,9 +5,14 @@ import {
   NavButton,
 } from "../../../styles/components/header/HeaderIndex";
 import { useNavigate } from "react-router";
+import Menu from "./Menu";
+import { userMenu, companyMenu } from "../../../constans/MenuData";
+import { useLocation } from "react-router-dom";
 
 const HeaderIndex = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location?.pathname)
   return (
     <Container>
       <TopBar>
@@ -28,6 +33,9 @@ const HeaderIndex = () => {
         </NavButton>
         <NavButton>고객센터</NavButton>
       </TopBar>
+      {
+        location?.pathname.startsWith('/company') ? <Menu dataIndex={companyMenu}/> : <Menu dataIndex={userMenu}/>
+      }
     </Container>
   );
 };
