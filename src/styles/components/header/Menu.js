@@ -5,7 +5,7 @@ const Container = styled.div`
 
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid ${(props) => props.theme.color.black};
+  border-bottom: 1px solid ${(props) => props.theme.color.gray100};
   & > .wrap {
     width: 1280px;
     display: flex;
