@@ -29,16 +29,16 @@ const NavButton = styled.button`
   width: 192px;
   height: 48px;
 
-  border: 1px solid ${(props) => props.theme.color.orange};
+  border: 1px solid ${(props) => props.theme.color.main};
   border-radius: 6px;
   background-color: ${(props) =>
     props.bgcolor === "orange"
-      ? props.theme.color.orange
-      : props.theme.color.white};
+      ? props.theme.color.main
+      : props.theme.color.gray0};
   color: ${(props) =>
     props.bgcolor === "orange"
-      ? props.theme.color.white
-      : props.theme.color.orange};
+      ? props.theme.color.gray0
+      : props.theme.color.main};
   font-size: 16px;
   line-height: 140%;
 `;

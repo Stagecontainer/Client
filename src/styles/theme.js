@@ -1,11 +1,13 @@
 const color = {
-  red: "#ff3b2f",
-  orange: "#FF7A00",
-  yellow: "#FFF500",
-  gray: "#999999",
-  black: "#000000",
-  bold: "#333333",
-  white: "#ffffff",
+  main : "#FF7A00",
+  serve : "#FFEFE0",
+  gray100 : "#1D1D1D",
+  gray80 : "#4D4D4D",
+  gray60 : "#999999",
+  gray40 : "#AAAAAA",
+  gray20 : "#F1F1F1",
+  gray0 : "#FFFFFF",
+  blue : "#0033FF"
 };
 
 const typography = {};
