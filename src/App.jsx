@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import CompanyHomePage from "./pages/company/CompanyHomePage";
 import UserHomePage from "./pages/user/UserHomePage";
-import RequestItemPage from "./pages/company/RequestItemPage";
-import SelectActionPage from "./pages/company/SelectActionPage";
+import RegistCompanyPage from "./pages/company/RegistCompanyPage";
 import SearchItemPage from "./pages/company/SearchItemPage";
 import SearchDetailPage from "./pages/company/SearchDetailPage";
 import ChattingPage from "./pages/chat/ChattingPage";
@@ -26,8 +25,7 @@ function App() {
 
               <Route path="/company">
                 <Route index element={<CompanyHomePage />} />
-                <Route path="/company/select" element={<SelectActionPage />} />
-                <Route path="/company/request" element={<RequestItemPage />} />
+                <Route path="/company/regist" element={<RegistCompanyPage />} />
                 <Route path="/company/search" element={<SearchItemPage />} />
                 <Route path="/company/:id">
                   <Route index element={<SearchDetailPage />} />
