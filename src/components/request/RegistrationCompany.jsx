@@ -59,6 +59,7 @@ const RegistrationCompany = () => {
               width={243}
               height={40}
               radius={200}
+              defaultColor={"#1D1D1D"}
               isChecked={companyInfo.companyType === "make"}
               onClick={() => {
                 updateValue("companyType", "make");
