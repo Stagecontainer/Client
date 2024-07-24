@@ -40,11 +40,11 @@ export const companyMenu = {
     },
     {
       name: "재활용 판매",
-      locate: "",
+      locate: "/company/search",
     },
     {
       name: "공연 제작자 등록",
-      locate: "",
+      locate: "/company/regist",
     },
   ],
 };
