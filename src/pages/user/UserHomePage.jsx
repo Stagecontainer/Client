@@ -1,8 +1,17 @@
+import CurrentShows from "../../components/user/CurrentShows";
+import HomeImgsButton from "../../components/user/HomeImgsButton";
+import Slideshow from "../../components/user/Slidershow";
+import Container from "../../styles/pages/UserHomePage";
+
 const UserHomePage = () => {
   return (
-    <div>
-      <h1>url 직접 조정하면서 작업해주세요~</h1>
-    </div>
+    <Container>
+      <Slideshow />
+      <div className="wrap">
+        <HomeImgsButton />
+        <CurrentShows />
+      </div>
+    </Container>
   );
 };
 

@@ -12,15 +12,16 @@ const Container = styled.div`
   & .field-box {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 `;
 
 const CustomButton = styled.div`
-  width: ${(props) => props.width}px;
+  min-width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
-
+  padding: ${(props) => props.pad};
   border: 1px solid
-    ${(props) => (props.isChecked ? "" : props.theme.color.gray100)};
+    ${(props) => (props.isChecked ? "" : props.defaultColor)};
   border-radius: ${(props) => props.radius}px;
 
   color: ${(props) =>
