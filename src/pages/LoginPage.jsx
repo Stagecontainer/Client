@@ -32,13 +32,15 @@ const LoginPage = () => {
               onChange={(e) => setId(e.target.value)}
               placeholder="아이디를 입력해주세요" />
           </Label>
-          <Label label={"비밀번호"} style={{ margin: "12px" }}>
-            <Input
-              type="password"
-              value={pw}
-              onChange={(e) => setPw(e.target.value)}
-              placeholder="비밀번호를 입력해주세요" />
-          </Label>
+          <div style={{ margin: "12px 0" }}>
+            <Label label={"비밀번호"}>
+              <Input
+                type="password"
+                value={pw}
+                onChange={(e) => setPw(e.target.value)}
+                placeholder="비밀번호를 입력해주세요" />
+            </Label>
+          </div>
         </div>
 
         <ButtonWrapper>
@@ -53,7 +55,7 @@ const LoginPage = () => {
             textColor={theme.color.gray100}
             bgColor={theme.color.gray0}
             borderColor={theme.color.gray100}
-            onClick={()=>navigate("/join")}
+            onClick={() => navigate("/join")}
           />
 
         </ButtonWrapper>
