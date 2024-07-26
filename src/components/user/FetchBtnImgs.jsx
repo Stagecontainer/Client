@@ -5,7 +5,7 @@ import Container from "../../styles/components/user/FetchBtnImgs";
 
 const FetchBtnImgs = () => {
   const [type, setType] = useState("뮤지컬");
-  
+
   return (
     <Container>
       <div className="btn-wrap">
