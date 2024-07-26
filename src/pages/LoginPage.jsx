@@ -1,17 +1,17 @@
 import styled from "styled-components";
+import theme from "../styles/theme"
 import { Container, Form, Input } from "../styles/components/loginjoin/LoginJoinPage";
 import Label from "../components/form/Label";
-import { Button } from "../components/form/LoginJoinButton";
+import LoginJoinButton from "../components/form/LoginJoinButton";
 import {
   ButtonWrapper
 } from "../styles/components/loginjoin/LoginJoinButton";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
-
 const LoginPage = () => {
-  let [id, setId] = useState('');
-  let [pw, setPw] = useState('');
+  const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -23,8 +23,8 @@ const LoginPage = () => {
     <Container>
       <Form onSubmit={handleSubmit}>
 
-        <div className="Title">로그인</div>
-        <div className="Wrap">
+        <div className="title">로그인</div>
+        <div className="wrap">
           <Label label={"아이디"}>
             <Input
               type="text"
@@ -32,7 +32,7 @@ const LoginPage = () => {
               onChange={(e) => setId(e.target.value)}
               placeholder="아이디를 입력해주세요" />
           </Label>
-          <Label label={"비밀번호"} style={{marginTop:"12px"}}>
+          <Label label={"비밀번호"} style={{ margin: "12px" }}>
             <Input
               type="password"
               value={pw}
@@ -42,14 +42,20 @@ const LoginPage = () => {
         </div>
 
         <ButtonWrapper>
-          <Button
-            type="submit" onClick={()=>navigate("/join")}>
-            로그인
-          </Button>
-          <Button
-            type="join" onClick={() => navigate("/join")}>
-            회원가입
-          </Button>
+          <LoginJoinButton
+            text={"로그인"}
+            textColor={theme.color.gray0}
+            bgColor={theme.color.main}
+
+          />
+          <LoginJoinButton
+            text={"회원가입"}
+            textColor={theme.color.gray100}
+            bgColor={theme.color.gray0}
+            borderColor={theme.color.gray100}
+            onClick={()=>navigate("/join")}
+          />
+
         </ButtonWrapper>
 
       </Form>

@@ -11,7 +11,7 @@ const Form = styled.div`
 
 
 
-    & .Title{
+    & .title{
         font-size:30px;
         font-weight:700;
         line-height:normal;
@@ -19,7 +19,7 @@ const Form = styled.div`
         flex-direction: column;
         align-items: center;   
     }
-    & .Wrap{
+    & .wrap{
         margin:48px 85px;
         
     }
@@ -58,7 +58,7 @@ const Progress = styled.div`
     color: ${(props) => props.theme.color.gray40};
   }
   
-  & > .Active{
+  & > .active{
     color: ${(props) => props.theme.color.gray100};
   }
 

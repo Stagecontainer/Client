@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Container, Form, Progress } from "../styles/components/loginjoin/LoginJoinPage";
-import { Button } from "../components/form/LoginJoinButton";
+import LoginJoinButton from "../components/form/LoginJoinButton";
 import {
   ButtonWrapper
 } from "../styles/components/loginjoin/LoginJoinButton";
@@ -16,23 +16,20 @@ const JoinPage = () => {
       <Container>
         <Form>
   
-          <div className="Title">회원가입</div>
+          <div className="title">회원가입</div>
           <Progress>
-                <span className="Active">정보동의</span>
+                <span className="active">정보동의</span>
                 <Boldright/>
                 <span>인적사항</span>
                 <Boldright/>
                 <span>가입완료</span>
             </Progress>
-          <div className="Wrap">
+          <div className="wrap">
 
           </div>
   
           <ButtonWrapper>
-            <Button
-              type="submit" onClick={() => navigate("/join")}>
-              다음단계
-            </Button>
+          <LoginJoinButton/> 
           </ButtonWrapper>
   
         </Form>

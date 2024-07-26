@@ -1,16 +1,21 @@
 import styled from "styled-components";
 
-const LoginJoinButton = styled.button`
+const CustomButton = styled.button`
   width: 458px;
   height: 48px;
-  padding: 7.5px 12px;
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: ${props => props.border};
-  color: ${props => props.color};
-  background-color: ${props => props.backgroundColor};
+  font-size:16px;
+  border: 1px solid ${props => props.borderColor};
+  color: ${props => props.textColor};
+  background-color: ${props => props.bgColor};
+    &:disabled{
+      backgound-color: theme.color.gray40;
+      color: theme.color.gray0;
+    
+    }
 `;
 
 const ButtonWrapper = styled.div`
@@ -20,4 +25,4 @@ const ButtonWrapper = styled.div`
   align-items: center;
 `;
 
-export {LoginJoinButton, ButtonWrapper};
+export { CustomButton, ButtonWrapper };
