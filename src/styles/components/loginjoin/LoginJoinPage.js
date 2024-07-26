@@ -44,6 +44,25 @@ const Input = styled.input`
 
 `;
 
+const Progress = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: center;
+  margin-top:32px;
+
+  & span{
+    font-size:14px;
+    line-height: 150%; 
+    text-align: center;
+    color: ${(props) => props.theme.color.gray40};
+  }
+  
+  & > .Active{
+    color: ${(props) => props.theme.color.gray100};
+  }
+
+`;
 
 
 
@@ -51,4 +70,4 @@ const Input = styled.input`
 
 
 
-export { Container, Form, Input};
+export { Container, Form, Input, Progress };

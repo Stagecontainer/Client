@@ -1,19 +1,22 @@
 import styled from "styled-components";
-import { Container, Form, Input } from "../styles/components/login/LoginPage";
+import { Container, Form, Input } from "../styles/components/loginjoin/LoginJoinPage";
 import Label from "../components/form/Label";
 import { Button } from "../components/form/LoginJoinButton";
 import {
   ButtonWrapper
-} from "../styles/components/login/LoginJoinButton";
-import { useState } from "react";
+} from "../styles/components/loginjoin/LoginJoinButton";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 
 const LoginPage = () => {
   let [id, setId] = useState('');
   let [pw, setPw] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+
+    console.log('로그인 시도:', id, pw);
   };
 
   return (
@@ -39,20 +42,17 @@ const LoginPage = () => {
         </div>
 
         <ButtonWrapper>
-        <Button
-          type="login">
-          로그인
-        </Button>
-        <Button
-          type="join">
-          회원가입
-        </Button>
-      </ButtonWrapper>
+          <Button
+            type="submit" onClick={()=>navigate("/join")}>
+            로그인
+          </Button>
+          <Button
+            type="join" onClick={() => navigate("/join")}>
+            회원가입
+          </Button>
+        </ButtonWrapper>
 
       </Form>
-
-
-
     </Container>
 
   );

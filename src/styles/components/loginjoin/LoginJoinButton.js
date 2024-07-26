@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const LoginJoinButton = styled.div`
+const LoginJoinButton = styled.button`
   width: 458px;
   height: 48px;
   padding: 7.5px 12px;

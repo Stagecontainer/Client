@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
+import JoinPage from "./pages/JoinPage";
 import CompanyHomePage from "./pages/company/CompanyHomePage";
 import UserHomePage from "./pages/user/UserHomePage";
 import RegistCompanyPage from "./pages/company/RegistCompanyPage";
@@ -22,6 +23,7 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<UserHomePage />} />
               <Route path="login" element={<LoginPage />} />
+              <Route path="join" element={<JoinPage />} />
 
               <Route path="/company">
                 <Route index element={<CompanyHomePage />} />
