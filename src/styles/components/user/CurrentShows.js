@@ -26,4 +26,35 @@ const Container = styled.div`
   }
 `;
 
-export default Container
+const ShowCard = styled.div`
+  width: 300px;
+  height: 535px;
+
+  display: inline-block;
+  margin-right: 24px;
+  & .content {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 16px 8px;
+  }
+  & .title {
+    height: 56px;
+   
+    font-size: 18px;
+    font-weight: 600;
+    color: ${(props) => props.theme.color.gray100};
+  }
+  & .place {
+    font-size: 15px;
+    font-weight: 400;
+    color: ${(props) => props.theme.color.gray60};
+  }
+  & .date {
+    font-size: 14px;
+    font-weight: 400;
+    color: ${(props) => props.theme.color.gray60};
+  }
+`;
+
+export { Container, ShowCard };

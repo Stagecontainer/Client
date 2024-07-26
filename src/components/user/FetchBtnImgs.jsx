@@ -4,8 +4,8 @@ import { CustomButton } from "../../styles/components/request/RegistrationCompan
 import Container from "../../styles/components/user/FetchBtnImgs";
 
 const FetchBtnImgs = () => {
-  const [type, setType] = useState("");
-
+  const [type, setType] = useState("뮤지컬");
+  
   return (
     <Container>
       <div className="btn-wrap">
