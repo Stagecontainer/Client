@@ -17,11 +17,16 @@ const Form = styled.div`
         line-height:normal;
         display:flex;
         flex-direction: column;
-        align-items: center;   
+        align-items: center;    
     }
     & .wrap{
-        margin:48px 85px;
+      margin:48px 85px;
         
+    }
+    
+    & .join-wrap{
+
+      margin:99.5px 85px 99.5px 85px;
     }
 `;
 
@@ -43,31 +48,15 @@ const Input = styled.input`
   margin: 8px 0 12px 0;
 
 `;
-
-const Progress = styled.div`
+const Agree = styled.div`
+  width: 458px;
   display: flex;
   align-items: center;
-  gap: 4px;
-  justify-content: center;
-  margin-top:32px;
-
+  justify-content: space-between;
   & span{
-    font-size:14px;
-    line-height: 150%; 
-    text-align: center;
-    color: ${(props) => props.theme.color.gray40};
+    line-height:150%;
+    font-size:18px;
   }
-  
-  & > .active{
-    color: ${(props) => props.theme.color.gray100};
-  }
+`
 
-`;
-
-
-
-
-
-
-
-export { Container, Form, Input, Progress };
+export { Container, Form, Input, Agree };

@@ -48,7 +48,7 @@ const LoginPage = () => {
             text={"로그인"}
             textColor={theme.color.gray0}
             bgColor={theme.color.main}
-
+            onClick={(e) => handleSubmit()}
           />
           <LoginJoinButton
             text={"회원가입"}

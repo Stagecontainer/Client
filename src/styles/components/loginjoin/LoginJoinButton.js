@@ -7,7 +7,7 @@ const CustomButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size:16px;
+  font-size:18px;
   border: 1px solid ${props => props.borderColor};
   color: ${props => props.textColor};
   background-color: ${props => props.bgColor};
