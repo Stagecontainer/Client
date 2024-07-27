@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { userMenu } from "../../constans/MenuData";
 import { CustomButton } from "../../styles/components/request/RegistrationCompany";
 import Container from "../../styles/components/user/FetchBtnImgs";
 
-const FetchBtnImgs = () => {
-  const [type, setType] = useState("뮤지컬");
+const FetchBtnImgs = ({datas}) => {
+  const [type, setType] = useState(datas.data[0].name);
 
   return (
     <Container>
       <div className="btn-wrap">
-        {userMenu.data.map((value, idx) => {
+        {datas.data.map((value, idx) => {
           return (
             <CustomButton
               key={idx}
