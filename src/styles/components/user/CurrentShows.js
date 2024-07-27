@@ -40,7 +40,7 @@ const ShowCard = styled.div`
   }
   & .title {
     height: 56px;
-   
+
     font-size: 18px;
     font-weight: 600;
     color: ${(props) => props.theme.color.gray100};

@@ -1,21 +1,20 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-    width: 100%;
-    position: relative;
+  width: 100%;
+  position: relative;
 
-    & .wrap {
-        max-width: 100%;
-        height: ${(props) => props.height}px;
-        overflow: hidden;
-    }
+  & .wrap {
+    max-width: 100%;
+    height: ${(props) => props.height}px;
+    overflow: hidden;
+  }
 `;
 
 const CarouselBox = styled.div`
-    white-space: nowrap;
-    transition: ease 2000ms;
+  white-space: nowrap;
+  transition: ease 2000ms;
 `;
-
 
 const Btn = styled.div`
   width: 48px;
