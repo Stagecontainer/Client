@@ -48,3 +48,21 @@ export const companyMenu = {
     },
   ],
 };
+
+export const companyNavs = {
+  key: "company-nav",
+  data: [
+    {
+      name: "의상",
+      locate: "",
+    },
+    {
+      name: "소품",
+      locate: "",
+    },
+    {
+      name: "소모품",
+      locate: "",
+    },
+  ],
+};
