@@ -11,6 +11,8 @@ import Layout from "./components/layout/Layout";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/globalStyle";
 import theme from "./styles/theme";
+import OrderCompletePage from "./pages/order-request/OrderCompletePage";
+import OrderProgressPage from "./pages/order-request/OrderProgressPage";
 
 function App() {
   return (
@@ -33,6 +35,14 @@ function App() {
                   <Route
                     path="/company/:id/order-request"
                     element={<OrderRequestPage />}
+                  />
+                  <Route
+                    path="/company/:id/order-complete"
+                    element={<OrderCompletePage />}
+                  />
+                  <Route
+                    path="/company/:id/order-progress"
+                    element={<OrderProgressPage />}
                   />
                 </Route>
               </Route>

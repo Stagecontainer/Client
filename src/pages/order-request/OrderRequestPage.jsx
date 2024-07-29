@@ -1,8 +1,11 @@
+import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../../assets/icon/company-logo.svg";
 import menuIcon from "../../assets/icon/vertical-menu-icon.svg";
 
 const OrderRequestPage = () => {
+  const { id } = useParams();
+
   return (
     <Container>
       <div className="header">
@@ -42,9 +45,11 @@ const OrderRequestPage = () => {
               placeholder="예시 이미지나 컨셉 드로잉을 올려주세요 (파일형식: png, jpg, pdf)"
             />
           </div>
-          <button className="apply-btn" type="submit">
-            의뢰 신청
-          </button>
+          <Link to={`/company/${id}/order-complete`}>
+            <button className="apply-btn" type="submit">
+              의뢰 신청
+            </button>
+          </Link>
         </form>
       </div>
     </Container>
@@ -63,7 +68,8 @@ const Container = styled.div`
   box-sizing: border-box;
 
   input,
-  button {
+  button,
+  a {
     all: unset;
   }
 
