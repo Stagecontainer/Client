@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
+
 const LoginPage = () => {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
@@ -39,6 +40,7 @@ const LoginPage = () => {
                 value={pw}
                 onChange={(e) => setPw(e.target.value)}
                 placeholder="비밀번호를 입력해주세요" />
+
             </Label>
           </div>
         </div>

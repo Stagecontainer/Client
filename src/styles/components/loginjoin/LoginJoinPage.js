@@ -46,8 +46,20 @@ const Input = styled.input`
   border: 1px solid #ddd;
   border-radius: 4px;
   margin: 8px 0 12px 0;
+  position: relative;
+
+ 
 
 `;
+
+const PasswordToggle = styled.div`
+  position: absolute;
+  right: 12px;
+  top: 58%;
+  transform: translateY(-50%);
+
+`;
+
 const Agree = styled.div`
   width: 458px;
   display: flex;
@@ -59,4 +71,6 @@ const Agree = styled.div`
   }
 `
 
-export { Container, Form, Input, Agree };
+
+
+export { Container, Form, Input, Agree, PasswordToggle };
