@@ -39,7 +39,7 @@ const Container = styled.div`
   flex-direction: column;
   width: 907px;
   height: 54px;
-  margin: 0 0 62px 17px;
+  margin: 0 0 74px 18px;
 
   .progress-container {
     display: flex;

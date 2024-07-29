@@ -1,34 +1,67 @@
 import styled from "styled-components";
 import OrderProgress from "../../styles/components/order/OrderProgress";
 import logo from "../../assets/order/company-logo.svg";
+import orderReceiveImg from "../../assets/order/order-received.png";
+import inProductionImg from "../../assets/order/in-production.png";
+import inDeliveryImg from "../../assets/order/in-delivery.png";
+import deliveryCompleteImg from "../../assets/order/delivery-complete.png";
+import stepArrowIcon from "../../assets/order/step-arrow.svg";
 
 const OrderProgressPage = () => {
   return (
     <Container>
-      <div className="order-container">
-        <div className="logo-container">
-          <img src={logo} className="company-logo" alt="logo" />
+      <div className="flex-wrapper">
+        <div className="order-container">
+          <div className="logo-container">
+            <img src={logo} className="company-logo" alt="logo" />
+          </div>
+          <div className="order-details">
+            <h3 className="order-number">
+              주문번호: <span>ABCDEF123456</span>
+            </h3>
+            <strong className="order-type">한라상회 · 의상</strong>
+            <p className="order-content">
+              의뢰내용 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
+              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용 의뢰내용
+              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
+              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용 의뢰내용
+              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
+              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
+            </p>
+          </div>
         </div>
-        <div className="order-details">
-          <h3 className="order-number">
-            주문번호: <span>ABCDEF123456</span>
-          </h3>
-          <strong className="order-type">한라상회 · 의상</strong>
-          <p className="order-content">
-            의뢰내용 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-          </p>
+
+        <div className="service-buttons">
+          <button className="producer-report">제작자 신고</button>
+          <button className="messenger-consultation">메신저 상담</button>
+          <button className="order-cancellation">주문 취소</button>
+          <button className="confirm-delivery">상품 수령 확인</button>
+        </div>
+
+        <OrderProgress />
+
+        <div className="order-status">
+          <img
+            src={orderReceiveImg}
+            className="order-receive"
+            alt="order-receive"
+          />
+          <img src={stepArrowIcon} className="step-arrow" alt="step-arrow" />
+          <img
+            src={inProductionImg}
+            className="in-production"
+            alt="in-production"
+          />
+          <img src={stepArrowIcon} className="step-arrow" alt="step-arrow" />
+          <img src={inDeliveryImg} className="in-delivery" alt="in-delivery" />
+          <img src={stepArrowIcon} className="step-arrow" alt="step-arrow" />
+          <img
+            src={deliveryCompleteImg}
+            className="delivery-complete"
+            alt="delivery-complete"
+          />
         </div>
       </div>
-
-      <div className="service-buttons">
-        <button className="producer-report">제작자 신고</button>
-        <button className="messenger-consultation">메신저 상담</button>
-        <button className="order-cancellation">주문 취소</button>
-        <button className="confirm-delivery">상품 수령 확인</button>
-      </div>
-      <OrderProgress />
-
-      <div className="order-status"></div>
     </Container>
   );
 };
@@ -36,12 +69,16 @@ const OrderProgressPage = () => {
 export default OrderProgressPage;
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100vw;
   height: 82vh;
-  margin: 24px 0 0 80px;
+  padding-top: 24px;
 
   .order-container {
     display: flex;
+    justify-content: flex-start;
     align-items: center;
     height: 84px;
     margin-bottom: 27px;
@@ -80,8 +117,12 @@ const Container = styled.div`
     }
 
     .order-content {
+      width: 1172px;
       font-size: 16px;
       color: #1d1d1d;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
@@ -120,6 +161,23 @@ const Container = styled.div`
       border: 1px solid #aaaaaa;
       color: #999999;
       background-color: white;
+    }
+  }
+
+  .order-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .order-receive,
+    .in-production,
+    .in-delivery,
+    .delivery-complete {
+      margin-right: 36px;
+    }
+
+    .step-arrow {
+      margin-right: 36px;
     }
   }
 `;
