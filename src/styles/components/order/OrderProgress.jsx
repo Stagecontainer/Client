@@ -66,18 +66,6 @@ const Container = styled.div`
         color: #ff7a00;
       }
     }
-
-    .reload {
-      display: flex;
-      align-items: center;
-
-      .latest-date {
-        display: flex;
-        font-size: 10px;
-        font-weight: 500;
-        color: #999999;
-      }
-    }
   }
 `;
 
@@ -87,7 +75,7 @@ const ProgressBar = styled.div`
     height: 18px;
     border-radius: 76px;
     overflow: hidden;
-    background-color: white;
+    background-color: #f1f1f1;
   }
 
   .progress-indicator {

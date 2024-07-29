@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../../assets/icon/company-logo.svg";
-import menuIcon from "../../assets/icon/vertical-menu-icon.svg";
+import logo from "../../assets/order/company-logo.svg";
+import menuIcon from "../../assets/order/vertical-menu-icon.svg";
 
 const OrderRequestPage = () => {
   const { id } = useParams();
