@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  display: flex;
-  position: relative;
-
-  flex-direction: column;
-  justify-content: center;
+  width: 846px;
+  
 
   & > footer {
     height: 48px;
@@ -13,17 +10,23 @@ const Container = styled.div`
     justify-content: center;
 
     & > button {
-        height: 24px;
+      height: 24px;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-        font-size: 16px;
-        background-color: transparent;
-        border: none;
+      font-size: 16px;
+      background-color: transparent;
+      border: none;
     }
   }
 `;
+const ContentWrap = styled.div`
+  height: 0%;
+  width: 100%;
+  overflow: hidden;
+  transition: height 0.35s ease;
+`;
 
-export { Container };
+export { Container, ContentWrap };
