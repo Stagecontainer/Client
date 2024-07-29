@@ -1,21 +1,15 @@
 
-import React, { useState } from 'react';
 import theme from "../../styles/theme"
 import Circle from "../../assets/icon/circle-icon.svg?react"
 import ActiveCircle from "../../assets/icon/activecircle-icon.svg?react"
-
 import Right from "../../assets/icon/right-icon.svg?react"
 import {Agree} from "../../styles/components/loginjoin/LoginJoinPage";
 
-const RequiredAgreements = ({text, marginBottom}) => {
-    const [isActive, setIsActive] = useState(false);
-    const handleClick = () => {
-        setIsActive(!isActive);
-   
-    };    
+const RequiredAgreements = ({text, marginBottom, isActive, onClick}) => {
+
 
     return (
-        <div onClick={handleClick} style={{ display: "flex", marginBottom: marginBottom}}>
+        <div onClick={onClick} style={{ display: "flex", marginBottom: marginBottom}}>
         
           {isActive? <ActiveCircle/> : <Circle />}
           <Agree>

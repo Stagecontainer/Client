@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import theme from "../../theme"
 
 const CustomButton = styled.button`
   width: 458px;
@@ -12,9 +13,9 @@ const CustomButton = styled.button`
   color: ${props => props.textColor};
   background-color: ${props => props.bgColor};
     &:disabled{
-      backgound-color: theme.color.gray40;
-      color: theme.color.gray0;
-    
+      background-color: ${theme.color.gray40};
+      color: ${theme.color.gray0};
+      border: none;
     }
 `;
 
