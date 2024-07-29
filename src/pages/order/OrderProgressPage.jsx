@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import OrderProgress from "../../styles/components/order/OrderProgress";
 import logo from "../../assets/icon/company-logo.svg";
 
 const OrderProgressPage = () => {
@@ -25,6 +26,8 @@ const OrderProgressPage = () => {
         <button className="order-cancellation">주문 취소</button>
         <button className="confirm-delivery">상품 수령 확인</button>
       </div>
+
+      <OrderProgress />
     </Container>
   );
 };
