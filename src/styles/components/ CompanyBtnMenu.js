@@ -26,9 +26,9 @@ const Container = styled.div`
   }
 `;
 
-const ShowCard = styled.div`
+const NavCard = styled.div`
   width: 300px;
-  height: 535px;
+  height: 484px;
 
   display: inline-block;
   margin-right: 24px;
@@ -39,8 +39,6 @@ const ShowCard = styled.div`
     padding: 16px 8px;
   }
   & .title {
-    height: 56px;
-
     font-size: 18px;
     font-weight: 600;
     color: ${(props) => props.theme.color.gray100};
@@ -50,11 +48,6 @@ const ShowCard = styled.div`
     font-weight: 400;
     color: ${(props) => props.theme.color.gray60};
   }
-  & .date {
-    font-size: 14px;
-    font-weight: 400;
-    color: ${(props) => props.theme.color.gray60};
-  }
 `;
 
-export { Container, ShowCard };
+export {Container, NavCard};
