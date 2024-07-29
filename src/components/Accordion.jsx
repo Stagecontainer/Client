@@ -1,16 +1,19 @@
 import { useState } from "react";
+import { Container } from "../styles/components/Accordion";
 
 const Accordion = () => {
-    const [isCollapse, setIsCollapse] = useState(false);
-    
-    return (
-        <div>
-            <header>
-                <button>열기</button>
-            </header>
-            <div className="contentWrapper">
+  const [isCollapse, setIsCollapse] = useState(false);
 
-            </div>
-        </div>
-    );
-}
+  return (
+    <Container>
+      <div className="contentWrapper"></div>
+      <footer>
+        <button onClick={() => setIsCollapse((prev) => !prev)}>
+          {isCollapse ? "닫기" : "열기"}
+        </button>
+      </footer>
+    </Container>
+  );
+};
+
+export default Accordion;

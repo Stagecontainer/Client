@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import SearchBox from "../../components/search/SearchBox";
 import Container from "../../styles/pages/SearchItemPage";
+import Accordion from "../../components/Accordion";
 
 const SearchItemPage = () => {
   const id = 99;
@@ -8,6 +9,7 @@ const SearchItemPage = () => {
     <Container>
       <div className="wrap">
         <SearchBox />
+        <Accordion/>
         <h1>검색 페이지입니다</h1>
         <Link to={`/company/${id}`}>
           <button>디테일 페이지로 이동</button>
