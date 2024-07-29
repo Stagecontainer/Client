@@ -1,9 +1,9 @@
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
-import requestCompleteImg from "../../assets/request-completed.png";
+import requestCompleteImg from "../../assets/order/request-completed.png";
 
 const OrderCompletePage = () => {
-  const { id } = useParams;
+  const { id } = useParams();
   return (
     <Container>
       <img src={requestCompleteImg} alt="" />

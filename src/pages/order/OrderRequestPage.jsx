@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../../assets/icon/company-logo.svg";
-import menuIcon from "../../assets/icon/vertical-menu-icon.svg";
+import logo from "../../assets/order/company-logo.svg";
+import menuIcon from "../../assets/order/vertical-menu-icon.svg";
 
 const OrderRequestPage = () => {
   const { id } = useParams();
@@ -9,8 +9,11 @@ const OrderRequestPage = () => {
   return (
     <Container>
       <div className="header">
-        <img src={logo} alt="company-logo" />
-        <img src={menuIcon} alt="company-logo" />
+        <div className="logo-container">
+          <img src={logo} className="company-logo" alt="company-logo" />
+          <strong className="logo-text">한리상회</strong>
+        </div>
+        <img src={menuIcon} alt="menu-icon" />
       </div>
 
       <div className="content">
@@ -80,6 +83,21 @@ const Container = styled.div`
     width: 1062px;
     height: 72px;
     margin-bottom: 32px;
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+
+      .company-logo {
+        margin-right: 12px;
+      }
+
+      .logo-text {
+        font-size: 20px;
+        font-weight: 500;
+        color: #1d1d1d;
+      }
+    }
   }
 
   label {
