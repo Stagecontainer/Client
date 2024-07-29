@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import theme from "../styles/theme"
-import { Container, Form } from "../styles/components/loginjoin/LoginJoinPage";
-import LoginJoinButton from "../components/form/LoginJoinButton";
-import Progress from "../components/form/Progress";
-import RequiredAgreements from "../components/form/RequiredAgreements";
-import { ButtonWrapper } from "../styles/components/loginjoin/LoginJoinButton";
+import theme from "../../styles/theme"
+import { Container, Form } from "../../styles/components/loginjoin/LoginJoinPage";
+import LoginJoinButton from "../../components/form/LoginJoinButton";
+import Progress from "../../components/form/Progress";
+import RequiredAgreements from "../../components/form/RequiredAgreements";
+import { ButtonWrapper } from "../../styles/components/loginjoin/LoginJoinButton";
 import { useNavigate } from "react-router";
 import React, { useState } from 'react';
 
-const JoinPage = () => {
+const AgreementPage = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(
     {
@@ -46,11 +46,11 @@ const JoinPage = () => {
 
         <ButtonWrapper>
           <LoginJoinButton
-            text={"다음단계"}
+            text={"다음 단계"}
             textColor={theme.color.gray0}
             bgColor={theme.color.main}
             isDisabled={!(isActive.이용약관 && isActive.개인정보)}
-
+            onClick={() => navigate("/join/user")}
           />
         </ButtonWrapper>
 
@@ -60,4 +60,4 @@ const JoinPage = () => {
   );
 }
 
-export default JoinPage;
+export default AgreementPage;

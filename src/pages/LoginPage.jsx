@@ -55,7 +55,7 @@ const LoginPage = () => {
             textColor={theme.color.gray100}
             bgColor={theme.color.gray0}
             borderColor={theme.color.gray100}
-            onClick={() => navigate("/join")}
+            onClick={() => navigate("/join/agree")}
           />
 
         </ButtonWrapper>

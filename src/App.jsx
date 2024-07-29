@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
-import JoinPage from "./pages/JoinPage";
+import AgreementPage from "./pages/join/AgreementPage";
 import CompanyHomePage from "./pages/company/CompanyHomePage";
 import UserHomePage from "./pages/user/UserHomePage";
 import RegistCompanyPage from "./pages/company/RegistCompanyPage";
@@ -12,6 +12,9 @@ import Layout from "./components/layout/Layout";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/globalStyle";
 import theme from "./styles/theme";
+import UserDetailPage from "./pages/join/UserDetailPage";
+import SignUpSuccessPage from "./pages/join/SignUpSuccessPage";
+
 
 function App() {
   return (
@@ -23,7 +26,10 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<UserHomePage />} />
               <Route path="login" element={<LoginPage />} />
-              <Route path="join" element={<JoinPage />} />
+              <Route path="join/agree" element={<AgreementPage />} />
+              <Route path="join/user" element={<UserDetailPage />} />
+              <Route path="join/success" element={<SignUpSuccessPage />} />
+
 
               <Route path="/company">
                 <Route index element={<CompanyHomePage />} />
