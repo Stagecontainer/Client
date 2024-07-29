@@ -28,7 +28,7 @@ const AgreementPage = () => {
       <Form>
 
         <div className="title">회원가입</div>
-        <Progress />
+        <Progress currentStep={"정보동의"} />
         <div className="join-wrap">
           <RequiredAgreements 
             text={"이용약관 동의"}
