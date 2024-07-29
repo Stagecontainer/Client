@@ -5,22 +5,25 @@ import LoginJoinButton from "../../components/form/LoginJoinButton";
 import Progress from "../../components/form/Progress";
 import { ButtonWrapper } from "../../styles/components/loginjoin/LoginJoinButton";
 import Label from "../../components/form/Label"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import EyeOff from "../../assets/icon/eyeoff-icon.svg?react"
 import EyeOn from "../../assets/icon/eye-icon.svg?react"
 
 
 
 const UserDetailPage = () => {
+    const navigate = useNavigate();
     const [nick, setNick] = useState('');
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
     const [repw, setRepw] = useState('');
+    const [isFormValid, setIsFormValid] = useState(false);
     const [isShowPassword, setShowPassword] = useState(
         {
-            비밀번호 : false,
-            확인비밀번호 : false
-        }    
+            비밀번호: false,
+            확인비밀번호: false
+        }
     )
     const PasswordVisibility = (key) => {
         setShowPassword((prev) => ({
@@ -29,9 +32,21 @@ const UserDetailPage = () => {
         }));
     };
 
+    useEffect(() => {
+        const allFieldsFilled = nick !== '' && id !== '' && pw !== '' && repw !== '';
+        const PasswordMatch = pw === repw;
+
+        setIsFormValid(allFieldsFilled && PasswordMatch);
+    }, [nick, id, pw, repw])
+
+    const handleSubmit = (e) => {
+
+        console.log('회원가입 시도');
+        navigate("/join/success");
+    };
     return (
         <Container>
-            <Form>
+            <Form onSubmit={handleSubmit}>
 
                 <div className="title">회원가입</div>
                 <Progress currentStep={"인적사항"} />
@@ -85,8 +100,9 @@ const UserDetailPage = () => {
                         text={"다음 단계"}
                         textColor={theme.color.gray0}
                         bgColor={theme.color.main}
-                        isDisabled={true}
-                        onClick={() => navigate("/join/user")}
+                        isDisabled={!isFormValid}
+                        onClick={(e) => handleSubmit()}
+                        type="submit"
                     />
                 </ButtonWrapper>
 
