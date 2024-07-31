@@ -80,7 +80,7 @@ const OrderRequestPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputValue);
-    navigate(`/company/search/${id}/order-complete`);
+    navigate(`/company/products/${id}/order-complete`);
   };
 
   return (

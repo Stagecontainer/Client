@@ -13,7 +13,7 @@ const OrderCompletePage = () => {
         최종 기간은 제작사마다 상이하지만 평균 5-7일 정도 소요됩니다.
       </p>
       <div className="navigation-buttons">
-        <Link to={`/company/search/${id}/order-progress`}>
+        <Link to={`/company/products/${id}/order-progress`}>
           <button className="check-progress-btn">진행사항 확인하기</button>
         </Link>
         <Link to={"/company"}>

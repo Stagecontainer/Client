@@ -31,24 +31,26 @@ function App() {
               <Route path="join/user" element={<UserDetailPage />} />
               <Route path="join/success" element={<SignUpSuccessPage />} />
 
-
               <Route path="/company">
                 <Route index element={<CompanyHomePage />} />
                 <Route path="/company/regist" element={<RegistCompanyPage />} />
                 <Route path="/company/search" element={<SearchItemPage />} />
-                <Route path="/company/search/:id">
+                <Route path="/company/products/:id">
                   <Route index element={<SearchDetailPage />} />
-                  <Route path="/company/search/:id/chat" element={<ChattingPage />} />
                   <Route
-                    path="/company/search/:id/order-request"
+                    path="/company/products/:id/chat"
+                    element={<ChattingPage />}
+                  />
+                  <Route
+                    path="/company/products/:id/order-request"
                     element={<OrderRequestPage />}
                   />
                   <Route
-                    path="/company/search/:id/order-complete"
+                    path="/company/products/:id/order-complete"
                     element={<OrderCompletePage />}
                   />
                   <Route
-                    path="/company/search/:id/order-progress"
+                    path="/company/products/:id/order-progress"
                     element={<OrderProgressPage />}
                   />
                 </Route>

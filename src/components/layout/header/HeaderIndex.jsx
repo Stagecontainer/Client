@@ -13,9 +13,15 @@ import Logo from "../../../assets/icon/logo.svg?react";
 const HeaderIndex = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   return (
-    <Container>
+    <Container
+      index={
+        location?.pathname.startsWith("/company/products")
+          ? "isProductsPage"
+          : ""
+      }
+    >
       <TopBar>
         <div
           className="icon-box"
@@ -26,7 +32,7 @@ const HeaderIndex = () => {
           }}
           onClick={() => navigate("/")}
         >
-          <Logo/>
+          <Logo />
           <span>무대 창고</span>
         </div>
         <Search />
@@ -35,7 +41,9 @@ const HeaderIndex = () => {
         </NavButton>
         <NavButton>고객센터</NavButton>
       </TopBar>
-      {location?.pathname.startsWith("/company") ? (
+      {location?.pathname.startsWith(
+        "/company/products"
+      ) ? null : location?.pathname.startsWith("/company") ? (
         <Menu dataIndex={companyMenu} />
       ) : (
         <Menu dataIndex={userMenu} />
