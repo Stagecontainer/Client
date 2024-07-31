@@ -12,7 +12,14 @@ const Container = styled.div`
   & .icon-box {
     width: 193px;
     height: 48px;
-    border: 1px solid black;
+    display: flex;
+    cursor: pointer;
+    & > span {
+      font-size: 16px;
+      gap: 8px;
+      font-family: 'DNFBitBitv2' !important;
+      color: ${(props) => props.theme.color.main};
+    }
   }
 `;
 
@@ -42,6 +49,7 @@ const NavButton = styled.button`
       : props.theme.color.main};
   font-size: 16px;
   line-height: 140%;
+  cursor: pointer;
 `;
 
 export { Container, TopBar, NavButton };
