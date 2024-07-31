@@ -51,7 +51,7 @@ const DummyData = [
     user: "홍길동",
     rating: "4.8",
     text: "지난 공연에 사용하고 남은 소모품인데 높이는 3m정도 되고 길이는 15m정도 남아있어요 배송도 가능하고 직접 가지러 오셔도 됩니다",
-    price: "16,000원",
+    price: "16,000원 ~",
   }
 ];
 const SearchItem = () => {

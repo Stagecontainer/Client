@@ -10,6 +10,7 @@ const ItemCard = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 24px;
+  cursor: pointer;
 
   & > img {
     width: 193px;

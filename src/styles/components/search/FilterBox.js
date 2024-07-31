@@ -10,13 +10,15 @@ const FilterCell = styled.div`
   padding: 12px 0px 12px 0px;
 
   display: flex;
-  align-items: center;
+  
 
   border-bottom: 1px solid ${(props) => props.theme.color.gray20};
   & > .filter-title {
     width: 150px;
+
     font-size: 16px;
     font-weight: 600;
+   
   }
   & > .filter-content {
     display: flex;

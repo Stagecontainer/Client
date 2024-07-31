@@ -37,11 +37,11 @@ function App() {
                     element={<OrderRequestPage />}
                   />
                   <Route
-                    path="/company/:id/order-complete"
+                    path="/company/search/:id/order-complete"
                     element={<OrderCompletePage />}
                   />
                   <Route
-                    path="/company/:id/order-progress"
+                    path="/company/search/:id/order-progress"
                     element={<OrderProgressPage />}
                   />
                 </Route>

@@ -22,7 +22,7 @@ const FilterBox = () => {
         </div>
       </FilterCell>
       <FilterCell gap="78">
-        <span className="filter-title">카테고리</span>
+        <div className="filter-title">카테고리</div>
         <div className="filter-content">
           <CustomButton width="150" height="40" fontSize="16" radius="100">
             의상
@@ -36,7 +36,7 @@ const FilterBox = () => {
         </div>
       </FilterCell>
       <FilterCell gap="78">
-        <span className="filter-title">유형</span>
+        <div className="filter-title">유형</div>
         <div className="filter-content">
           <CustomButton width="150" height="40" fontSize="16" radius="100">
             의뢰제작
@@ -50,7 +50,7 @@ const FilterBox = () => {
         </div>
       </FilterCell>
       <FilterCell gap="12">
-        <span className="filter-title">평점</span>
+        <div className="filter-title">평점</div>
         <div className="filter-content">
           <RatingButton>
             <div className="star"></div>
