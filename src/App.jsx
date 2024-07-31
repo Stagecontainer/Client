@@ -6,11 +6,13 @@ import RegistCompanyPage from "./pages/company/RegistCompanyPage";
 import SearchItemPage from "./pages/company/SearchItemPage";
 import SearchDetailPage from "./pages/company/SearchDetailPage";
 import ChattingPage from "./pages/chat/ChattingPage";
-import OrderRequestPage from "./pages/order-request/OrderRequestPage";
+import OrderRequestPage from "./pages/order/OrderRequestPage";
 import Layout from "./components/layout/Layout";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/globalStyle";
 import theme from "./styles/theme";
+import OrderCompletePage from "./pages/order/OrderCompletePage";
+import OrderProgressPage from "./pages/order/OrderProgressPage";
 
 function App() {
   return (
@@ -33,6 +35,14 @@ function App() {
                   <Route
                     path="/company/search/:id/order-request"
                     element={<OrderRequestPage />}
+                  />
+                  <Route
+                    path="/company/:id/order-complete"
+                    element={<OrderCompletePage />}
+                  />
+                  <Route
+                    path="/company/:id/order-progress"
+                    element={<OrderProgressPage />}
                   />
                 </Route>
               </Route>
