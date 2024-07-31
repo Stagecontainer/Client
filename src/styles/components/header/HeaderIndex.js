@@ -7,7 +7,10 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid ${(props) => props.theme.color.gray40};
+  border-bottom: ${(props) =>
+    props.index === "isProductsPage"
+      ? "none"
+      : `1px solid ${props.theme.color.gray40}`};
 
   & .icon-box {
     width: 193px;
@@ -17,7 +20,7 @@ const Container = styled.div`
     & > span {
       font-size: 16px;
       gap: 8px;
-      font-family: 'DNFBitBitv2' !important;
+      font-family: "DNFBitBitv2" !important;
       color: ${(props) => props.theme.color.main};
     }
   }

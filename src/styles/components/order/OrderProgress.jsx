@@ -37,8 +37,8 @@ export default OrderProgress;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 907px;
-  height: 54px;
+  width: 1194px;
+  height: 72px;
   margin: 0 0 74px 18px;
 
   .progress-container {
@@ -71,7 +71,8 @@ const Container = styled.div`
 
 const ProgressBar = styled.div`
   .progress-root {
-    width: 907px;
+    /* width: 907px; */
+    width: 1194px;
     height: 18px;
     border-radius: 76px;
     overflow: hidden;

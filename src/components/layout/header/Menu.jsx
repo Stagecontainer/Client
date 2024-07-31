@@ -25,7 +25,7 @@ const Menu = ({ dataIndex }) => {
             onClick={() => {
               dataIndex.key !== "company" && navigate("/company");
             }}
-            style={dataIndex.key === "user"? {color : "#AAAAAA"} : {}}
+            style={dataIndex.key === "user" ? { color: "#AAAAAA" } : {}}
           >
             공연 준비
           </span>
@@ -33,7 +33,7 @@ const Menu = ({ dataIndex }) => {
             onClick={() => {
               dataIndex.key !== "user" && navigate("/");
             }}
-            style={dataIndex.key === "company"? {color : "#AAAAAA"} : {}}
+            style={dataIndex.key === "company" ? { color: "#AAAAAA" } : {}}
           >
             공연 찾기
           </span>

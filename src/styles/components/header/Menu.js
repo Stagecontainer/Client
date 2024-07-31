@@ -16,7 +16,7 @@ const Container = styled.div`
     gap: 32px;
     & span {
       color: ${(props) => props.theme.color.gray100};
-      font-weight : 600;
+      font-weight: 600;
       cursor: pointer;
     }
   }
@@ -27,14 +27,12 @@ const Container = styled.div`
     justify-content: center;
     gap: 46px;
     & > span {
-      font-family: 'GangwonEduPowerExtraBoldA' !important;
+      font-family: "GangwonEduPowerExtraBoldA" !important;
       font-size: 16px;
       font-weight: 800;
       cursor: pointer;
     }
   }
-
-  
 `;
 
 export default Container;
