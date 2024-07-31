@@ -32,7 +32,7 @@ const AgreementPage = () => {
         <div className="join-wrap">
           <RequiredAgreements 
             text={"이용약관 동의"}
-            marginBottom="12px"
+            marginBottom="24px"
             isActive={isActive.이용약관}
             onClick={() => handleClick('이용약관')}
           />

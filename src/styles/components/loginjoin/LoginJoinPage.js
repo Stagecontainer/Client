@@ -39,7 +39,7 @@ const Container = styled.div`
   padding: 64px 0;
 }`;
 
-const Input = styled.input`
+const LoginInput = styled.input`
   width: 458px;
   height: 48px;
   padding: 10px 12px;
@@ -47,15 +47,28 @@ const Input = styled.input`
   border-radius: 4px;
   margin: 8px 0 12px 0;
   position: relative;
+  font-size: 16px;
+  line-height: 140%;
 
- 
+`;
+
+const JoinInput = styled.input`
+  width: 458px;
+  height: 48px;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 8px 0 24px 0;
+  position: relative;
+  font-size: 16px;
+  line-height: 140%;
 
 `;
 
 const PasswordToggle = styled.div`
   position: absolute;
   right: 12px;
-  top: 58%;
+  top: 50%;
   transform: translateY(-50%);
 
 `;
@@ -73,4 +86,4 @@ const Agree = styled.div`
 
 
 
-export { Container, Form, Input, Agree, PasswordToggle };
+export { Container, Form, LoginInput, JoinInput, Agree, PasswordToggle };

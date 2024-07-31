@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "../styles/theme"
-import { Container, Form, Input } from "../styles/components/loginjoin/LoginJoinPage";
+import { Container, Form, LoginInput } from "../styles/components/loginjoin/LoginJoinPage";
 import Label from "../components/form/Label";
 import LoginJoinButton from "../components/form/LoginJoinButton";
 import {
@@ -27,7 +27,7 @@ const LoginPage = () => {
         <div className="title">로그인</div>
         <div className="wrap">
           <Label label={"아이디"}>
-            <Input
+            <LoginInput
               type="text"
               value={id}
               onChange={(e) => setId(e.target.value)}
@@ -35,7 +35,7 @@ const LoginPage = () => {
           </Label>
           <div style={{ margin: "12px 0" }}>
             <Label label={"비밀번호"}>
-              <Input
+              <LoginInput
                 type="password"
                 value={pw}
                 onChange={(e) => setPw(e.target.value)}
