@@ -3,32 +3,63 @@ import {
   CustomTextarea,
   CustomFileInput,
 } from "../../styles/components/request/InputFiled";
+import { forwardRef } from "react";
 
-const InputField = ({ type, holderText, width, height, accept = "" }) => {
-  if (type === "textarea")
-    return (
-      <CustomTextarea width={width} height={height} placeholder={holderText} />
-    );
+const InputField = forwardRef(
+  (
+    {
+      type,
+      holderText,
+      width,
+      height,
+      accept = "",
+      id,
+      onchangeFun,
+    },
+    ref
+  ) => {
+    if (type === "textarea") {
+      return (
+        <CustomTextarea
+          id={id}
+          width={width}
+          height={height}
+          placeholder={holderText}
+          ref={ref}
+          onChange={(e) => onchangeFun(id, e.target.value)}
+        />
+      );
+    }
 
-  if (type === "file") {
+    if (type === "file") {
+      return (
+        <CustomFileInput width={width} height={height}>
+          <label htmlFor={id}>
+            <span>{holderText}</span>
+          </label>
+          <input
+            type="file"
+            name="file"
+            id={id}
+            accept={accept}
+            ref={ref}
+          />
+        </CustomFileInput>
+      );
+    }
+
     return (
-      <CustomFileInput width={width} height={height}>
-        <label htmlFor="file">
-          <span>{holderText}</span>
-        </label>
-        <input type="file" name="file" id="file" accept={accept} />
-      </CustomFileInput>
+      <CustomInput
+        type="text"
+        width={width}
+        height={height}
+        placeholder={holderText}
+        ref={ref}
+        id={id}
+        onChange={(e) => onchangeFun(id, e.target.value)}
+      />
     );
   }
-
-  return (
-    <CustomInput
-      type="text"
-      width={width}
-      height={height}
-      placeholder={holderText}
-    />
-  );
-};
+);
 
 export default InputField;

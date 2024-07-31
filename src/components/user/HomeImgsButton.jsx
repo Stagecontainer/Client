@@ -21,4 +21,4 @@ const HomeImgsButton = () => {
   );
 };
 
-export default HomeImgsButton
+export default HomeImgsButton;

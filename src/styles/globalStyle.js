@@ -3,7 +3,14 @@ import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
     ${reset}
-
+    
+    @font-face{
+        font-family:'DNFBitBitv2';
+        font-style:normal;
+        font-weight:400;
+        src: url('https://cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf') format('opentype')
+    }
+    
     @font-face {
         font-family: 'Pretendard';
         src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
@@ -41,6 +48,9 @@ const GlobalStyle = createGlobalStyle`
     #root {
         min-width: 1440px;
     }
-`;
+    button {
+        cursor: pointer;
+    }
+`;  
 
 export default GlobalStyle;

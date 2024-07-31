@@ -7,14 +7,15 @@ import RegistCompanyPage from "./pages/company/RegistCompanyPage";
 import SearchItemPage from "./pages/company/SearchItemPage";
 import SearchDetailPage from "./pages/company/SearchDetailPage";
 import ChattingPage from "./pages/chat/ChattingPage";
-import OrderRequestPage from "./pages/order-request/OrderRequestPage";
+import OrderRequestPage from "./pages/order/OrderRequestPage";
 import Layout from "./components/layout/Layout";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/globalStyle";
 import theme from "./styles/theme";
 import UserDetailPage from "./pages/join/UserDetailPage";
 import SignUpSuccessPage from "./pages/join/SignUpSuccessPage";
-
+import OrderCompletePage from "./pages/order/OrderCompletePage";
+import OrderProgressPage from "./pages/order/OrderProgressPage";
 
 function App() {
   return (
@@ -35,12 +36,20 @@ function App() {
                 <Route index element={<CompanyHomePage />} />
                 <Route path="/company/regist" element={<RegistCompanyPage />} />
                 <Route path="/company/search" element={<SearchItemPage />} />
-                <Route path="/company/:id">
+                <Route path="/company/search/:id">
                   <Route index element={<SearchDetailPage />} />
-                  <Route path="/company/:id/chat" element={<ChattingPage />} />
+                  <Route path="/company/search/:id/chat" element={<ChattingPage />} />
                   <Route
-                    path="/company/:id/order-request"
+                    path="/company/search/:id/order-request"
                     element={<OrderRequestPage />}
+                  />
+                  <Route
+                    path="/company/search/:id/order-complete"
+                    element={<OrderCompletePage />}
+                  />
+                  <Route
+                    path="/company/search/:id/order-progress"
+                    element={<OrderProgressPage />}
                   />
                 </Route>
               </Route>

@@ -17,6 +17,7 @@ const Container = styled.div`
     & span {
       color: ${(props) => props.theme.color.gray100};
       font-weight : 600;
+      cursor: pointer;
     }
   }
 
@@ -29,6 +30,7 @@ const Container = styled.div`
       font-family: 'GangwonEduPowerExtraBoldA' !important;
       font-size: 16px;
       font-weight: 800;
+      cursor: pointer;
     }
   }
 
