@@ -10,8 +10,6 @@ const Container = styled.div`
     justify-content: center;
 
     & > button {
-      height: 24px;
-
       display: flex;
       justify-content: center;
       align-items: center;
@@ -23,7 +21,7 @@ const Container = styled.div`
   }
 `;
 const ContentWrap = styled.div`
-  height: 0%;
+  height: 0px;
   width: 100%;
   overflow: hidden;
   transition: height 0.35s ease;

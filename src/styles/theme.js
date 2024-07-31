@@ -8,7 +8,8 @@ const color = {
   gray20 : "#F1F1F1",
   gray0 : "#FFFFFF",
   blue : "#0033FF",
-  red : "#FF0004"
+  red : "#FF0004",
+  yellow : "#FFF500"
 };
 
 const typography = {};
