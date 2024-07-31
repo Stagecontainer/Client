@@ -27,11 +27,11 @@ function App() {
                 <Route index element={<CompanyHomePage />} />
                 <Route path="/company/regist" element={<RegistCompanyPage />} />
                 <Route path="/company/search" element={<SearchItemPage />} />
-                <Route path="/company/:id">
+                <Route path="/company/search/:id">
                   <Route index element={<SearchDetailPage />} />
-                  <Route path="/company/:id/chat" element={<ChattingPage />} />
+                  <Route path="/company/search/:id/chat" element={<ChattingPage />} />
                   <Route
-                    path="/company/:id/order-request"
+                    path="/company/search/:id/order-request"
                     element={<OrderRequestPage />}
                   />
                 </Route>
