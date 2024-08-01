@@ -8,13 +8,20 @@ import { useNavigate } from "react-router";
 import Menu from "./Menu";
 import { userMenu, companyMenu } from "../../../constans/MenuData";
 import { useLocation } from "react-router-dom";
+import Logo from "../../../assets/icon/logo.svg?react";
 
 const HeaderIndex = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location?.pathname)
+
   return (
-    <Container>
+    <Container
+      index={
+        location?.pathname.startsWith("/company/products")
+          ? "isProductsPage"
+          : ""
+      }
+    >
       <TopBar>
         <div
           className="icon-box"
@@ -25,7 +32,8 @@ const HeaderIndex = () => {
           }}
           onClick={() => navigate("/")}
         >
-          아이콘 예정
+          <Logo />
+          <span>무대 창고</span>
         </div>
         <Search />
         <NavButton bgcolor={"orange"} onClick={() => navigate("/login")}>
@@ -33,9 +41,13 @@ const HeaderIndex = () => {
         </NavButton>
         <NavButton>고객센터</NavButton>
       </TopBar>
-      {
-        location?.pathname.startsWith('/company') ? <Menu dataIndex={companyMenu}/> : <Menu dataIndex={userMenu}/>
-      }
+      {location?.pathname.startsWith(
+        "/company/products"
+      ) ? null : location?.pathname.startsWith("/company") ? (
+        <Menu dataIndex={companyMenu} />
+      ) : (
+        <Menu dataIndex={userMenu} />
+      )}
     </Container>
   );
 };

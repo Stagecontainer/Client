@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 1062px;
-  padding : 48px 0px 0px 0px;
+  padding: 48px 0px 0px 0px;
 
   display: flex;
   flex-direction: column;
@@ -16,13 +16,15 @@ const Container = styled.div`
   }
 `;
 
-const CustomButton = styled.div`
+const CustomButton = styled.button`
   min-width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   padding: ${(props) => props.pad};
-  border: 1px solid
-    ${(props) => (props.isChecked ? "" : props.defaultColor)};
+  border: 1px solid ${(props) => (props.isChecked ? "" : props.defaultColor)};
   border-radius: ${(props) => props.radius}px;
+
+  font-size: ${(props) => props.fontSize}px;
+  font-weight: ${(props) => props.fontWeight};
 
   color: ${(props) =>
     props.isChecked ? props.theme.color.gray0 : props.theme.color.gray100};
@@ -32,6 +34,9 @@ const CustomButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  &:disabled {
+    background-color: ${(props) => props.theme.color.gray60};
+  }
 `;
 
 const SubmitContainer = styled.div`

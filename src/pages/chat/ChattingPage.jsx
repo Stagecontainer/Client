@@ -7,7 +7,7 @@ const ChattingPage = () => {
   return (
     <>
       <h1>채팅 페이지입니다</h1>
-      <Link to={`/company/${id}/order-request`}>
+      <Link to={`/company/products/${id}/order-request`}>
         <button>의뢰서 작성</button>
       </Link>
     </>

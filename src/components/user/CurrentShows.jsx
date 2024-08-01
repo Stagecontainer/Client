@@ -5,6 +5,7 @@ import M1 from "../../assets/m1.png";
 import M2 from "../../assets/m2.png";
 import M3 from "../../assets/m3.png";
 import M4 from "../../assets/m4.png";
+import { userMenu } from "../../constans/MenuData";
 
 const showingData = [
   {
@@ -65,7 +66,7 @@ const CurrentShows = () => {
         <span className="header-title">지금 뜨고 있는 공연</span>
         <span className="header-sub">오늘 뭐볼까? 지금 HOT한 공연</span>
       </div>
-      <FetchBtnImgs />
+      <FetchBtnImgs datas={userMenu}/>
       <Carousel
         width={1280}
         height={535}

@@ -5,7 +5,7 @@
 - Node.js (v21.5.0)
 - Yarn (v1.22.19)
 
-## 구동
+## 로컬 실행
 - yarn install
 - yarn dev(http://localhost:5173/)
 
