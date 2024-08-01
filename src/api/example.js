@@ -5,7 +5,10 @@ export const getUsername = async() => {
     const response = await instance.get('/username');
     return response.data;
 }
-
+export const getPost = async() => {
+  const response = await instance.post('/posts');
+  return response;
+}
 // jsx에서 사용 
 const handleGetname = async () => {
     try {
