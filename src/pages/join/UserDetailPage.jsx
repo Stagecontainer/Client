@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import EyeOff from "../../assets/icon/eyeoff-icon.svg?react";
 import EyeOn from "../../assets/icon/eye-icon.svg?react";
-
+import postSignup from "../../api/users"
 
 
 const UserDetailPage = () => {
@@ -24,7 +24,25 @@ const UserDetailPage = () => {
             비밀번호: false,
             확인비밀번호: false
         }
-    )
+    );
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const user = {
+                nickname: nick,
+                password: pw
+            }
+            const res = await postSignup(user);
+            console.log(res);
+          } catch (error) {
+            if (error instanceof AxiosError) {
+              // error logic
+            }
+          }
+        
+    };
+
     const PasswordVisibility = (key) => {
         setShowPassword((prev) => ({
             ...prev,
@@ -37,13 +55,9 @@ const UserDetailPage = () => {
         const PasswordMatch = pw === repw;
 
         setIsFormValid(allFieldsFilled && PasswordMatch);
-    }, [nick, id, pw, repw])
+    }, [nick, id, pw, repw]);
 
-    const handleSubmit = (e) => {
 
-        console.log('회원가입 시도');
-        navigate("/join/success");
-    };
     return (
         <Container>
             <Form onSubmit={handleSubmit}>
@@ -101,11 +115,9 @@ const UserDetailPage = () => {
                         textColor={theme.color.gray0}
                         bgColor={theme.color.main}
                         isDisabled={!isFormValid}
-                        onClick={(e) => handleSubmit()}
                         type="submit"
                     />
                 </ButtonWrapper>
-
             </Form>
         </Container>
 
