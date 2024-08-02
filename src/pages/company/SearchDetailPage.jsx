@@ -1,117 +1,148 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+import { getDetailPost } from "../../api/example";
 import { product } from "../../assets/mock-data/product-mock-data";
+
 import notFoundImg from "../../assets/product/image-not-found.png";
 import ratingIcon from "../../assets/product/rating-icon.svg";
 import quotationLeftMark from "../../assets/product/quotation-mark-1.svg";
 import quotationRightMark from "../../assets/product/quotation-mark-2.svg";
 
+const BASE_URL = "https://port-0-server-1272llx0bndkw.sel5.cloudtype.app";
+
 const SearchDetailPage = () => {
   const { id } = useParams();
+  const [data, setData] = useState(null);
+
+  const handleLoadPost = async (id) => {
+    const response = await getDetailPost(id);
+    setData(response.data);
+    if (data) {
+      console.log(data);
+    }
+  };
+
+  useEffect(() => {
+    handleLoadPost(id);
+  }, []);
+
   return (
-    <Container>
-      <div className="reference-image">
-        <div className="representative-image-container">
-          <img
-            className="representative-image"
-            src={
-              product.images[0]?.image ? product.images[0].image : notFoundImg
-            }
-            alt=""
-          />
-        </div>
-        <div className="product-images">
-          {product.images
-            .filter((_, idx) => idx !== 0)
-            .map((_, idx) => (
+    <>
+      {data && (
+        <Container>
+          <div className="reference-image">
+            <div className="representative-image-container">
               <img
-                className="product-image"
-                key={product.images.image_id}
+                className="representative-image"
                 src={
-                  product.images[idx + 1]?.image
-                    ? product.images[idx + 1].image
+                  data.images[0]?.image
+                    ? `${BASE_URL}${data.images[0].image}`
                     : notFoundImg
                 }
+                alt="representative-image"
               />
-            ))}
-        </div>
-      </div>
-
-      <div className="product-header">
-        <div className="product-info-container">
-          <div className="company-logo">
-            <img src={product.company_img} alt="company-logo" />
-          </div>
-          <div className="product-info">
-            <div className="purpose">{product.purpose}</div>
-            <h2 className="product-title">{product.title}</h2>
-            <span className="company-address">{product.address}</span>
-            <div className="company-rating">
-              <img className="rating-icon" src={ratingIcon} alt="rating-icon" />
-              <strong className="rating">{product.rating}</strong>
-              <span className="review-count">123명 평가</span>
+            </div>
+            <div className="product-images">
+              {data.images
+                .filter((_, idx) => idx !== 0)
+                .map((_, idx) => (
+                  <img
+                    className="product-image"
+                    key={data.images.image_id}
+                    src={
+                      data.images[idx + 1]?.image
+                        ? `${BASE_URL}${data.images[idx + 1].image}`
+                        : notFoundImg
+                    }
+                  />
+                ))}
             </div>
           </div>
-        </div>
-        <div className="product-stats">
-          <div className="product-price">{product.price}~</div>
-          <div className="project-container">
-            <span className="current-projects">
-              현재 진행 중인 작업
-              <span className="current-highlight"> 2건</span>
-            </span>
-            <span className="total-projects">
-              지금까지 무대창고에서 진행한 작업
-              <span className="total-highlight"> 123건</span>
-            </span>
+
+          <div className="product-header">
+            <div className="product-info-container">
+              <div className="company-logo">
+                <img src={`${BASE_URL}${data.logo_img}`} alt="company-logo" />
+              </div>
+              <div className="product-info">
+                <div className="purpose">{data.purpose}</div>
+                <h2 className="product-title">{data.title}</h2>
+                <span className="company-address">{data.address}</span>
+                <div className="company-rating">
+                  <img
+                    className="rating-icon"
+                    src={ratingIcon}
+                    alt="rating-icon"
+                  />
+                  <strong className="rating">{product.rating}</strong>
+                  <span className="review-count">123명 평가</span>
+                </div>
+              </div>
+            </div>
+            <div className="product-stats">
+              <div className="product-price">{data.price}~</div>
+              <div className="project-container">
+                <span className="current-projects">
+                  현재 진행 중인 작업
+                  <span className="current-highlight"> 2건</span>
+                </span>
+                <span className="total-projects">
+                  지금까지 무대창고에서 진행한 작업
+                  <span className="total-highlight"> 123건</span>
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="product-content">
-        <div className="service-overview">
-          <div className="quotation-mark-1">
-            <img src={quotationLeftMark} alt="quotation-mark" />
+          <div className="product-content">
+            <div className="service-overview">
+              <div className="quotation-mark-1">
+                <img src={quotationLeftMark} alt="quotation-mark" />
+              </div>
+              <div className="quotation-mark-2">
+                <img src={quotationRightMark} alt="quotation-mark" />
+              </div>
+              <p className="overview">{data.promotion}</p>
+            </div>
+
+            <div className="product-description">
+              <p>{data.content}</p>
+            </div>
+
+            <div className="refund-policy">
+              <h3 className="refund-title">환불/취소 규정</h3>
+              <ul className="refund-details">
+                <li>
+                  · 제공자와 신청자가 상호 협의한 경우 이미 시작한 커미션을
+                  취소할 수 있어요. 이 경우 환불 금액은 상호 협의한 금액에
+                  따릅니다.
+                </li>
+                <li>
+                  · 이용 약관에 따라 커미션주의 귀책 사유로 커미션이 취소될 경우
+                  신청자는 결제 금액 전액을 환불받을 수 있습니다
+                </li>
+                <li>
+                  · 이용 약관에 따라 신청자의 귀책 사유로 커미션이 취소될 경우
+                  환불이 제한될 수 있습니다.
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="quotation-mark-2">
-            <img src={quotationRightMark} alt="quotation-mark" />
+
+          <div className="button-container">
+            <Link to={`/company/products/${id}/chat`}>
+              <button className="consult-button">상담하기</button>
+            </Link>
+            <Link to={`/company/products/${id}/order-request`}>
+              <button className="request-button">의뢰서 작성</button>
+            </Link>
           </div>
-          <p className="overview">{product.promotion}</p>
-        </div>
-
-        <div className="product-description">
-          <p>{product.content}</p>
-        </div>
-
-        <div className="refund-policy">
-          <h3 className="refund-title">환불/취소 규정</h3>
-          <ul className="refund-details">
-            <li>
-              · 제공자와 신청자가 상호 협의한 경우 이미 시작한 커미션을 취소할
-              수 있어요. 이 경우 환불 금액은 상호 협의한 금액에 따릅니다.
-            </li>
-            <li>
-              · 이용 약관에 따라 커미션주의 귀책 사유로 커미션이 취소될 경우
-              신청자는 결제 금액 전액을 환불받을 수 있습니다
-            </li>
-            <li>
-              · 이용 약관에 따라 신청자의 귀책 사유로 커미션이 취소될 경우
-              환불이 제한될 수 있습니다.
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="button-container">
-        <Link to={`/company/products/${id}/chat`}>
-          <button className="consult-button">상담하기</button>
-        </Link>
-        <Link to={`/company/products/${id}/order-request`}>
-          <button className="request-button">의뢰서 작성</button>
-        </Link>
-      </div>
-    </Container>
+        </Container>
+      )}
+    </>
   );
 };
 
@@ -125,6 +156,10 @@ const Container = styled.div`
   width: 100vw;
   height: auto;
   padding-top: 36px;
+
+  img {
+    object-fit: cover;
+  }
 
   .reference-image {
     display: flex;
@@ -163,7 +198,11 @@ const Container = styled.div`
       display: flex;
     }
 
-    .company-logo {
+    .company-logo > img {
+      display: block;
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
       margin-right: 26px;
     }
 
