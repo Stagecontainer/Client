@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { images } from "../../assets/mock-data/product-mock-data";
+import { product } from "../../assets/mock-data/product-mock-data";
 import notFoundImg from "../../assets/product/image-not-found.png";
+import ratingIcon from "../../assets/product/rating-icon.svg";
 
 const SearchDetailPage = () => {
   const { id } = useParams();
@@ -12,18 +13,24 @@ const SearchDetailPage = () => {
         <div className="representative-image-container">
           <img
             className="representative-image"
-            src={images[0]?.image ? images[0].image : notFoundImg}
+            src={
+              product.images[0]?.image ? product.images[0].image : notFoundImg
+            }
             alt=""
           />
         </div>
         <div className="product-images">
-          {images
+          {product.images
             .filter((_, idx) => idx !== 0)
             .map((_, idx) => (
               <img
                 className="product-image"
-                key={images.image_id}
-                src={images[idx]?.image ? images[idx].image : notFoundImg}
+                key={product.images.image_id}
+                src={
+                  product.images[idx + 1]?.image
+                    ? product.images[idx + 1].image
+                    : notFoundImg
+                }
               />
             ))}
         </div>
@@ -31,18 +38,29 @@ const SearchDetailPage = () => {
 
       <div className="product-header">
         <div className="company-logo">
-          <img src="" alt="" />
+          <img src={product.company_img} alt="company-logo" />
         </div>
         <div className="product-info">
-          <div className="index"></div>
-          <h2 className="product-title"></h2>
-          <div className="product-rating"></div>
+          <div className="purpose">{product.purpose}</div>
+          <h2 className="product-title">{product.title}</h2>
+          <span className="company-address">{product.address}</span>
+          <div className="company-rating">
+            <img className="rating-icon" src={ratingIcon} alt="rating-icon" />
+            <strong className="rating">{product.rating}</strong>
+            <span className="review-count">123명 평가</span>
+          </div>
         </div>
         <div className="product-stats">
-          <div className="product-price"></div>
+          <div className="product-price">{product.price}~</div>
           <div className="project-container">
-            <div className="current-projects"></div>
-            <div className="total-projects"></div>
+            <span className="current-projects">
+              현재 진행 중인 작업
+              <span className="current-highlight"> 2건</span>
+            </span>
+            <span className="total-projects">
+              지금까지 무대창고에서 진행한 작업
+              <span className="total-highlight"> 123건</span>
+            </span>
           </div>
         </div>
       </div>
@@ -55,7 +73,7 @@ const SearchDetailPage = () => {
           <div className="quotation-mark-2">
             <img src="" alt="" />
           </div>
-          <p className="overview"></p>
+          <p className="overview">{product.content}</p>
         </div>
 
         <div className="product-description">
@@ -116,11 +134,9 @@ const Container = styled.div`
 
   .reference-image {
     display: flex;
-    /* flex-wrap: wrap; */
     width: 1063px;
     height: 396px;
     margin-bottom: 42px;
-    background-color: greenyellow;
 
     .representative-image {
       width: 519px;
@@ -142,10 +158,107 @@ const Container = styled.div`
   }
 
   .product-header {
+    display: flex;
+    align-items: center;
     width: 1063px;
     height: 108px;
     margin-bottom: 38px;
-    background-color: #5c80eb;
+
+    .company-logo {
+      margin-right: 26px;
+    }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-right: 74px;
+
+      .purpose {
+        margin-bottom: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #ff7a00;
+      }
+
+      .product-title {
+        margin-bottom: 4px;
+        font-size: 24px;
+        font-weight: 700;
+        color: #1d1d1d;
+      }
+
+      .company-address {
+        margin-bottom: 12px;
+        font-size: 12px;
+        font-weight: 400;
+        color: #4d4d4d;
+      }
+
+      .company-rating {
+        display: flex;
+        align-items: center;
+
+        .rating-icon {
+          margin-right: 2px;
+        }
+
+        .rating {
+          margin-right: 6px;
+
+          font-size: 12px;
+          font-weight: 700;
+          color: #1d1d1d;
+        }
+        .review-count {
+          font-size: 12px;
+          font-weight: 400;
+          color: #999999;
+        }
+      }
+    }
+
+    .product-stats {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 425px;
+      height: 80px;
+      border: 1px solid #ff7a00;
+      border-radius: 8px;
+      background-color: #ffefe0;
+
+      .product-price {
+        margin-bottom: 12px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.4em;
+        color: #1d1d1d;
+      }
+
+      .project-container {
+        .current-projects,
+        .total-projects {
+          font-size: 14px;
+          font-weight: 400;
+          color: #1d1d1d;
+        }
+
+        .current-projects {
+          margin-right: 27px;
+        }
+
+        .current-highlight {
+          font-weight: 700;
+          color: #0033ff;
+        }
+        .total-highlight {
+          font-weight: 500;
+          color: #1d1d1d;
+        }
+      }
+    }
   }
 
   .product-content {
@@ -178,7 +291,7 @@ const Container = styled.div`
     position: fixed;
     bottom: 8%;
     left: 50%;
-    transform: translate(-49%, 0);
+    transform: translate(-50%, 0);
     display: flex;
 
     .consult-button,
