@@ -1,19 +1,32 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { images } from "../../assets/mock-data/product-mock-data";
+import notFoundImg from "../../assets/product/image-not-found.png";
 
 const SearchDetailPage = () => {
   const { id } = useParams();
   return (
     <Container>
       <div className="reference-image">
-        <div className="representative-image">
-          <img src="" alt="" />
+        <div className="representative-image-container">
+          <img
+            className="representative-image"
+            src={images[0]?.image ? images[0].image : notFoundImg}
+            alt=""
+          />
         </div>
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
+        <div className="product-images">
+          {images
+            .filter((_, idx) => idx !== 0)
+            .map((_, idx) => (
+              <img
+                className="product-image"
+                key={images.image_id}
+                src={images[idx]?.image ? images[idx].image : notFoundImg}
+              />
+            ))}
+        </div>
       </div>
 
       <div className="product-header">
@@ -93,6 +106,7 @@ export default SearchDetailPage;
 
 const Container = styled.div`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
   width: 100vw;
@@ -101,10 +115,30 @@ const Container = styled.div`
   background-color: skyblue;
 
   .reference-image {
+    display: flex;
+    /* flex-wrap: wrap; */
     width: 1063px;
     height: 396px;
     margin-bottom: 42px;
     background-color: greenyellow;
+
+    .representative-image {
+      width: 519px;
+      height: 396px;
+      margin-right: 24px;
+    }
+
+    .product-images {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 24px;
+      row-gap: 12px;
+
+      .product-image {
+        width: 248px;
+        height: 192px;
+      }
+    }
   }
 
   .product-header {
@@ -117,7 +151,7 @@ const Container = styled.div`
   .product-content {
     width: 1063px;
     height: auto;
-    margin-bottom: 104px;
+    margin-bottom: 110px;
 
     .service-overview {
       width: 1062px;
@@ -142,8 +176,7 @@ const Container = styled.div`
 
   .button-container {
     position: fixed;
-    /* bottom: 104px; */
-    bottom: 10%;
+    bottom: 8%;
     left: 50%;
     transform: translate(-49%, 0);
     display: flex;

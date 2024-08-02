@@ -1,27 +1,27 @@
 import { AxiosError } from "axios";
 import instance from "./instance";
 
-export const getUsername = async() => {
-    const response = await instance.get('/username');
-    return response.data;
-}
-export const getPost = async() => {
-  const response = await instance.post('/posts');
+export const getUsername = async () => {
+  const response = await instance.get("/username");
+  return response.data;
+};
+export const getPost = async () => {
+  const response = await instance.post("/posts");
   return response;
-}
-// jsx에서 사용 
+};
+// jsx에서 사용
 const handleGetname = async () => {
-    try {
-      const res = await getUsername();
-      if (res.data.success) {
-        // success logic
-      }
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        // error logic
-      }
+  try {
+    const res = await getUsername();
+    if (res.data.success) {
+      // success logic
     }
-  };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      // error logic
+    }
+  }
+};
 
 /* export const [methodType + apiName] = async ({ requestData : optional }) => {
     const response = await instance.get[put,post,delete...]('url', requestData);
