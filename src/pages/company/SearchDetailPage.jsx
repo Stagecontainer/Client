@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { product } from "../../assets/mock-data/product-mock-data";
 import notFoundImg from "../../assets/product/image-not-found.png";
 import ratingIcon from "../../assets/product/rating-icon.svg";
+import quotationLeftMark from "../../assets/product/quotation-mark-1.svg";
+import quotationRightMark from "../../assets/product/quotation-mark-2.svg";
 
 const SearchDetailPage = () => {
   const { id } = useParams();
@@ -37,17 +39,19 @@ const SearchDetailPage = () => {
       </div>
 
       <div className="product-header">
-        <div className="company-logo">
-          <img src={product.company_img} alt="company-logo" />
-        </div>
-        <div className="product-info">
-          <div className="purpose">{product.purpose}</div>
-          <h2 className="product-title">{product.title}</h2>
-          <span className="company-address">{product.address}</span>
-          <div className="company-rating">
-            <img className="rating-icon" src={ratingIcon} alt="rating-icon" />
-            <strong className="rating">{product.rating}</strong>
-            <span className="review-count">123명 평가</span>
+        <div className="product-info-container">
+          <div className="company-logo">
+            <img src={product.company_img} alt="company-logo" />
+          </div>
+          <div className="product-info">
+            <div className="purpose">{product.purpose}</div>
+            <h2 className="product-title">{product.title}</h2>
+            <span className="company-address">{product.address}</span>
+            <div className="company-rating">
+              <img className="rating-icon" src={ratingIcon} alt="rating-icon" />
+              <strong className="rating">{product.rating}</strong>
+              <span className="review-count">123명 평가</span>
+            </div>
           </div>
         </div>
         <div className="product-stats">
@@ -68,41 +72,32 @@ const SearchDetailPage = () => {
       <div className="product-content">
         <div className="service-overview">
           <div className="quotation-mark-1">
-            <img src="" alt="" />
+            <img src={quotationLeftMark} alt="quotation-mark" />
           </div>
           <div className="quotation-mark-2">
-            <img src="" alt="" />
+            <img src={quotationRightMark} alt="quotation-mark" />
           </div>
-          <p className="overview">{product.content}</p>
+          <p className="overview">{product.promotion}</p>
         </div>
 
         <div className="product-description">
-          <p>
-            여성복, · 남성복, 캐쥬얼, 유.아동복등 모든 옷의 패턴제작, 샘플제작,
-            소량생산을 하고 있습니다. <br />
-            개성있는 스트릿의류, 핏이 중요한 여성복, 박시한 유니섹스의류,
-            큐티하고 <br />
-            엘레강스한 유,아동복, 정밀한 아웃도어및 스포츠웨어, 활동성이 좋은
-            맨투맨과 후드티, <br />
-            전통미 가득한 개량한복, 패딩과 다운의류등 원하시는 모든 의류를
-            개발하고 있습니다 <br />
-          </p>
+          <p>{product.content}</p>
         </div>
 
         <div className="refund-policy">
           <h3 className="refund-title">환불/취소 규정</h3>
           <ul className="refund-details">
             <li>
-              제공자와 신청자가 상호 협의한 경우 이미 시작한 커미션을 취소할 수
-              있어요. 이 경우 환불 금액은 상호 협의한 금액에 따릅니다.
+              · 제공자와 신청자가 상호 협의한 경우 이미 시작한 커미션을 취소할
+              수 있어요. 이 경우 환불 금액은 상호 협의한 금액에 따릅니다.
             </li>
             <li>
-              이용 약관에 따라 커미션주의 귀책 사유로 커미션이 취소될 경우
+              · 이용 약관에 따라 커미션주의 귀책 사유로 커미션이 취소될 경우
               신청자는 결제 금액 전액을 환불받을 수 있습니다
             </li>
             <li>
-              이용 약관에 따라 신청자의 귀책 사유로 커미션이 취소될 경우 환불이
-              제한될 수 있습니다.
+              · 이용 약관에 따라 신청자의 귀책 사유로 커미션이 취소될 경우
+              환불이 제한될 수 있습니다.
             </li>
           </ul>
         </div>
@@ -130,7 +125,6 @@ const Container = styled.div`
   width: 100vw;
   height: auto;
   padding-top: 36px;
-  background-color: skyblue;
 
   .reference-image {
     display: flex;
@@ -160,9 +154,14 @@ const Container = styled.div`
   .product-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 1063px;
     height: 108px;
     margin-bottom: 38px;
+
+    .product-info-container {
+      display: flex;
+    }
 
     .company-logo {
       margin-right: 26px;
@@ -172,12 +171,12 @@ const Container = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
-      margin-right: 74px;
 
       .purpose {
         margin-bottom: 4px;
         font-size: 14px;
         font-weight: 500;
+        line-height: 1.4em;
         color: #ff7a00;
       }
 
@@ -185,6 +184,7 @@ const Container = styled.div`
         margin-bottom: 4px;
         font-size: 24px;
         font-weight: 700;
+        line-height: 1.4em;
         color: #1d1d1d;
       }
 
@@ -264,26 +264,74 @@ const Container = styled.div`
   .product-content {
     width: 1063px;
     height: auto;
-    margin-bottom: 110px;
+    margin-bottom: 120px;
 
     .service-overview {
+      position: relative;
       width: 1062px;
-      height: 104px;
+      height: auto;
+      padding: 24px 50px 24px 57px;
       margin-bottom: 40px;
+      border-radius: 8px;
       background-color: #f1f1f1;
+
+      .quotation-mark-1,
+      .quotation-mark-2 {
+        position: absolute;
+        top: 24px;
+      }
+      .quotation-mark-1 {
+        left: 16px;
+      }
+      .quotation-mark-2 {
+        right: 16px;
+      }
+
+      .overview {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1.4em;
+        color: #4d4d4d;
+      }
     }
 
     .product-description {
-      width: 940px;
+      width: 1062px;
       height: auto;
-      margin-bottom: 96px;
+      margin-bottom: 40px;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 2em;
+      color: #1d1d1d;
       background-color: white;
     }
 
     .refund-policy {
       width: 1062px;
       height: 168px;
+      padding-top: 24px;
       background-color: #f1f1f1;
+
+      .refund-title {
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 1.4em;
+        color: #1d1d1d;
+      }
+
+      .refund-details {
+        margin-left: 24px;
+      }
+
+      .refund-details > li {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.4em;
+        color: #1d1d1d;
+        margin-bottom: 1px;
+      }
     }
   }
 
