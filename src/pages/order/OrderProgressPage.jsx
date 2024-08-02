@@ -1,3 +1,4 @@
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import OrderProgress from "../../styles/components/order/OrderProgress";
 import logo from "../../assets/order/company-logo.svg";
@@ -8,6 +9,8 @@ import deliveryCompleteImg from "../../assets/order/delivery-complete.png";
 import stepArrowIcon from "../../assets/order/step-arrow.svg";
 
 const OrderProgressPage = () => {
+  const { id } = useParams();
+
   return (
     <Container>
       <div className="flex-wrapper">
@@ -33,7 +36,9 @@ const OrderProgressPage = () => {
 
         <div className="service-buttons">
           <button className="producer-report">제작자 신고</button>
-          <button className="messenger-consultation">메신저 상담</button>
+          <Link to={`/company/products/${id}/chat`}>
+            <button className="messenger-consultation">메신저 상담</button>
+          </Link>
           <button className="order-cancellation">주문 취소</button>
           <button className="confirm-delivery">상품 수령 확인</button>
         </div>
