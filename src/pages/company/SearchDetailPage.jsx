@@ -21,8 +21,8 @@ const SearchDetailPage = () => {
     const response = await getDetailPost(id);
     setData(response.data);
     if (data) {
-      console.log(data);
     }
+    console.log(data);
   };
 
   useEffect(() => {
@@ -38,9 +38,7 @@ const SearchDetailPage = () => {
               <img
                 className="representative-image"
                 src={
-                  data.images[0]?.image
-                    ? `${BASE_URL}${data.images[0].image}`
-                    : notFoundImg
+                  data?.images[0] ? `${BASE_URL}${data.images[0]}` : notFoundImg
                 }
                 alt="representative-image"
               />
@@ -53,8 +51,8 @@ const SearchDetailPage = () => {
                     className="product-image"
                     key={data.images.image_id}
                     src={
-                      data.images[idx + 1]?.image
-                        ? `${BASE_URL}${data.images[idx + 1].image}`
+                      data?.images[idx + 1]
+                        ? `${BASE_URL}${data.images[idx + 1]}`
                         : notFoundImg
                     }
                   />
@@ -166,6 +164,10 @@ const Container = styled.div`
     width: 1063px;
     height: 396px;
     margin-bottom: 42px;
+
+    img {
+      border-radius: 12px;
+    }
 
     .representative-image {
       width: 519px;
@@ -376,9 +378,9 @@ const Container = styled.div`
 
   .button-container {
     position: fixed;
-    bottom: 8%;
+    bottom: 5%;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translate(-49%, 0);
     display: flex;
 
     .consult-button,
