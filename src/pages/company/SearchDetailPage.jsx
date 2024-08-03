@@ -378,9 +378,9 @@ const Container = styled.div`
 
   .button-container {
     position: fixed;
-    bottom: 8%;
+    bottom: 5%;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translate(-49%, 0);
     display: flex;
 
     .consult-button,
