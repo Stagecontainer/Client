@@ -116,6 +116,7 @@ const UserDetailPage = () => {
                         bgColor={theme.color.main}
                         isDisabled={!isFormValid}
                         type="submit"
+                        onClick={(e) => handleSubmit(e)}
                     />
                 </ButtonWrapper>
             </Form>

@@ -55,4 +55,25 @@ const NavButton = styled.button`
   cursor: pointer;
 `;
 
-export { Container, TopBar, NavButton };
+const UserContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  & > span {
+    font-size: 16px;
+  }
+  & > div {
+    display: flex;
+    gap: 16px;
+  }
+  & .icon-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    & > span {
+      font-size: 12px;
+    }
+  }
+`;
+export { Container, TopBar, NavButton, UserContainer };
