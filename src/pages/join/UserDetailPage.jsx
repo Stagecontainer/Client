@@ -79,7 +79,7 @@ const UserDetailPage = () => {
             <Form onSubmit={handleSubmit}>
 
                 <div className="title">회원가입</div>
-                <Progress currentStep={"인적사항"} />
+                <Progress currentStep={"user"} />
                 <div style={{ margin: "48px 85px 48px 85px" }}>
                     <Label label={"닉네임"} valid={validnick}>
                         <div style={{ height: "8px" }} />

@@ -15,9 +15,9 @@ const SignUpSuccessPage = () => {
         <Form>
   
           <div className="title">회원가입</div>
-          <Progress currentStep={"가입완료"} />
+          <Progress currentStep={"success"} />
           <div style={{margin: "24px 0", display:"flex", width: "100%", justifyContent:"center" }}>
-            <img src={SuccessImg} alt="Success" style={{}} />  
+            <img src={SuccessImg} alt="Success" style={{width:"402px"}} />  
           </div>
   
           <ButtonWrapper>
