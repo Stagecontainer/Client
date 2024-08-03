@@ -21,7 +21,7 @@ const Btn = styled.div`
   height: 48px;
   border-radius: 50%;
   position: absolute;
-  top: ${(props) => props.height / 2}px;
+  top: ${(props) => props.height / 2 - 48}px;
   left: ${(props) => (props.arrow === "left" ? `-24px` : `calc(100% - 24px)`)};
   background-color: rgba(255, 255, 255, 90%);
   border: 1px solid rgba(0, 0, 0, 10%);

@@ -1,5 +1,5 @@
 import { Container, CarouselBox, Btn } from "../styles/components/Carousel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LeftIcon from "../assets/icon/left-arrow-icon.svg?react";
 import RightIcon from "../assets/icon/right-arrow-icon.svg?react";
 
@@ -12,6 +12,15 @@ const Carousel = ({
   components,
 }) => {
   const [index, setIndex] = useState(0);
+  const [carouselType, setCarouselType] = useState(type);
+
+  useEffect(() => {
+    if (index > 0 && carouselType !== "both") {
+      setCarouselType("both");
+    } else if (index === 0 && carouselType === "both") {
+      setCarouselType(type); // 원래의 타입으로 되돌리기
+    }
+  }, [index, carouselType, type]);
 
   return (
     <Container height={height}>
@@ -25,7 +34,7 @@ const Carousel = ({
           })}
         </CarouselBox>
       </div>
-      {type !== "right" && (
+      {carouselType !== "right" && (
         <Btn
           height={height}
           arrow={"left"}
@@ -36,7 +45,7 @@ const Carousel = ({
           <LeftIcon />
         </Btn>
       )}
-      {type !== "left" && (
+      {carouselType !== "left" && (
         <Btn
           height={height}
           arrow={"right"}
