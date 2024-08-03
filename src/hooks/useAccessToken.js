@@ -11,7 +11,7 @@ export const useAccessToken = () => {
   }, []);
 
   const saveAccessToken = (token) => {
-    localStorage.setItem("stageContainer", token);
+    localStorage.setItem("stageContainer", JSON.stringify({'user-token' : token}));
     setAccessToken(token);
   };
 

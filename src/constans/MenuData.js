@@ -40,7 +40,7 @@ export const companyMenu = {
     },
     {
       name: "재활용 판매",
-      locate: "/company/search",
+      locate: "",
     },
     {
       name: "공연 제작자 등록",

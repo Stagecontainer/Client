@@ -6,18 +6,34 @@ import LoginJoinButton from "../components/form/LoginJoinButton";
 import {
   ButtonWrapper
 } from "../styles/components/loginjoin/LoginJoinButton";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import { postLogin } from "../api/users";
+import { AuthenticationContext } from "../contexts/user";
 
 
 const LoginPage = () => {
+  const {login} = useContext(AuthenticationContext);
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-
-    console.log('로그인 시도:', id, pw);
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    try {
+      const res = await postLogin({
+        nickname : id,
+        password : pw
+      })
+      login(res.data);
+      navigate('/')
+    } catch(e) {
+      console.error(e);
+      alert("아이디와 비밀번호가 올바르지 않습니다.")
+      setId("")
+      setPw("")
+    }
+    
   };
 
   return (
@@ -51,6 +67,7 @@ const LoginPage = () => {
             textColor={theme.color.gray0}
             bgColor={theme.color.main}
             type= "submit"
+            onClick={(e) => handleSubmit(e)}
           />
           <LoginJoinButton
             text={"회원가입"}

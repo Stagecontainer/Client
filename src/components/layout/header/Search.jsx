@@ -9,7 +9,8 @@ const Search = ({
   textWeight = 400,
   textColor = "#4D4D4D",
   radius = "16",
-  pad = 12
+  pad = 12,
+  onclickFun
 }) => {
   return (
     <Container
@@ -18,6 +19,7 @@ const Search = ({
       radius={radius}
       textColor={textColor}
       pad={pad}
+      onClick={() => {onclickFun()}}
     >
       <div className="wrap">
         <input type="text" placeholder={text} style={{fontWeight : textWeight, fontSize : textSize+"px"}}/>

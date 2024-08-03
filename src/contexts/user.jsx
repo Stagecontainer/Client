@@ -1,11 +1,11 @@
 import { useCallback, useMemo, useState, useEffect } from "react";
 import React from "react";
-import instance from "../api/instance";
 import { useAccessToken } from "../hooks/useAccessToken";
 
 export const AuthenticationContext = React.createContext({
   isAuthenticating: false,
   isAuthenticated: false,
+  username : "",
   setIsAuthenticating: () => {},
   setIsAuthenticated: () => {},
   login: () => false,
@@ -26,20 +26,11 @@ export const AuthenticationContextProvider = ({ children }) => {
       setIsAuthenticating(false);
     }, [setIsAuthenticated, setIsAuthenticating]);*/
 
-  const login = useCallback(async (payload) => {
-    try {
-      const response = await instance.post("users/login", payload);
-      if (response.status === 200) {
-        const { access, profile } = response.data;
-        saveAccessToken(access);
-        setUsername(profile.nickname);
-        setIsAuthenticated(true);
-      }
-    } catch (error) {
-      console.log("로그인 오류", error);
-    }
-    return false;
-  }, []);
+  const login = (response) => {
+    saveAccessToken(response.access);
+    setUsername(response.nickname);
+    setIsAuthenticated(true);
+  };
 
   const logout = useCallback((navigate) => {
     clearAccessToken();

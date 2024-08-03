@@ -8,13 +8,7 @@ instance.interceptors.request.use((config) => {
   config.withCredentials = true;
   //config.headers["Access-Control-Allow-Origin"] = "*";
   config.headers["Content-Type"] = "application/json";
-  if (localStorage.stageContainer) {
-    const storage = JSON.parse(localStorage.stageContainer);
-
-    if (storage["user-token"]) {
-      config.headers.Authorization = `Bearer ${storage["user-token"]}`;
-    }
-  }
+  
   return config;
 });
 
