@@ -12,7 +12,7 @@ const Menu = ({ dataIndex }) => {
             return (
               <span
                 key={dataIndex.key + index}
-                style={value.name === "재활용 판매" ? {color : "#0033FF"} : {} && value.name === "공연 제작자 등록" ? {color : "#"} : {}}
+                style={value.name === "재활용 판매" ? {color : "#0033FF"} : {} && value.name === "공연 제작자 등록" ? {color : "#FF7A00"} : {}}
                 onClick={() => value.locate !== "" && navigate(value.locate)}
               >
                 {value.name}

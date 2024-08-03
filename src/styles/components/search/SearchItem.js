@@ -8,7 +8,6 @@ const Container = styled.div`
 
 const ItemCard = styled.div`
   display: flex;
-  justify-content: space-between;
   gap: 24px;
   cursor: pointer;
 
@@ -18,7 +17,6 @@ const ItemCard = styled.div`
     border-radius: 16px;
   }
   & > div {
-    max-width: 600px;
     display: flex;
     flex-direction: column;
     gap: 12px;

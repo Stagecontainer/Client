@@ -61,6 +61,9 @@ const UserContainer = styled.div`
   gap: 60px;
   & > span {
     font-size: 16px;
+    & > strong {
+      font-weight: 700;
+    }
   }
   & > div {
     display: flex;
