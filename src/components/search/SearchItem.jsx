@@ -1,84 +1,56 @@
 import { useNavigate } from "react-router-dom";
 import { Container, ItemCard } from "../../styles/components/search/SearchItem";
+import { useEffect, useState } from "react";
+import { getPosts } from "../../api/posts";
+import notFoundImg from "../../assets/product/image-not-found.png";
+const BaseURL = "https://port-0-server-1272llx0bndkw.sel5.cloudtype.app";
 
-const DummyData = [
-  {
-    id: 1,
-    img: "",
-    type: "중고판매·소모품",
-    title: "공연용 벽지(높이 3m) 판매합니다",
-    user: "홍길동",
-    rating: "4.8",
-    text: "지난 공연에 사용하고 남은 소모품인데 높이는 3m정도 되고 길이는 15m정도 남아있어요 배송도 가능하고 직접 가지러 오셔도 됩니다",
-    price: "16,000원",
-  },
-  {
-    id: 1,
-    img: "",
-    type: "중고판매·소모품",
-    title: "공연용 벽지(높이 3m) 판매합니다",
-    user: "홍길동",
-    rating: "4.8",
-    text: "지난 공연에 사용하고 남은 소모품인데 높이는 3m정도 되고 길이는 15m정도 남아있어요 배송도 가능하고 직접 가지러 오셔도 됩니다",
-    price: "16,000원",
-  },
-  {
-    id: 1,
-    img: "",
-    type: "중고판매·소모품",
-    title: "공연용 벽지(높이 3m) 판매합니다",
-    user: "홍길동",
-    rating: "4.8",
-    text: "지난 공연에 사용하고 남은 소모품인데 높이는 3m정도 되고 길이는 15m정도 남아있어요 배송도 가능하고 직접 가지러 오셔도 됩니다",
-    price: "16,000원",
-  },
-  {
-    id: 1,
-    img: "",
-    type: "중고판매·소모품",
-    title: "공연용 벽지(높이 3m) 판매합니다",
-    user: "홍길동",
-    rating: "4.8",
-    text: "지난 공연에 사용하고 남은 소모품인데 높이는 3m정도 되고 길이는 15m정도 남아있어요 배송도 가능하고 직접 가지러 오셔도 됩니다",
-    price: "16,000원",
-  },
-  {
-    id: 1,
-    img: "",
-    type: "중고판매·소모품",
-    title: "공연용 벽지(높이 3m) 판매합니다",
-    user: "홍길동",
-    rating: "4.8",
-    text: "지난 공연에 사용하고 남은 소모품인데 높이는 3m정도 되고 길이는 15m정도 남아있어요 배송도 가능하고 직접 가지러 오셔도 됩니다",
-    price: "16,000원 ~",
-  },
-];
 const SearchItem = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const posts = await handleGetData();
+      setData(posts);
+    };
+
+    fetchData();
+  }, []);
+  const handleGetData = async () => {
+    try {
+      const { data } = await getPosts();
+      console.log(data)
+      return data;
+    } catch (e) {
+      console.error(e);
+      return [];
+    }
+  };
+
   const navigate = useNavigate();
   return (
     <Container>
-      {DummyData.map((value, _) => {
+      {data?.map((value, _) => {
         return (
           <ItemCard
             key={value.id}
             onClick={() => {
-              navigate(`/company/products/${value.id}`);
+              navigate(`/company/products/${value.post_id}`);
             }}
           >
-            <img src={value.img}></img>
-            <div>
-              <span className="type">{value.type}</span>
+            <img src={value.images[0] === "" ? notFoundImg : BaseURL+value.images[0]}></img>
+            <div style={{width : "700px"}}>
+              <span className="type">{value.purpose}</span>
               <span className="title">{value.title}</span>
               <div className="user-rating">
-                <span className="user">{value.user}</span>
+                <span className="user">{value.company}</span>
                 <div className="rating-box">
                   <div className="star"></div>
-                  <span className="rating">{value.rating}</span>
+                  <span className="rating">{"4.8"}</span>
                 </div>
               </div>
-              <span className="text">{value.text}</span>
+              <span className="text">{value.content}</span>
             </div>
-            <div className="price">{value.price}</div>
+            <div className="price">{value.price}원</div>
           </ItemCard>
         );
       })}
