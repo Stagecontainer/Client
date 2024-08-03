@@ -4,9 +4,10 @@ import styled from "styled-components";
 
 import { getDetailPost } from "../../api/example";
 import { product } from "../../assets/mock-data/product-mock-data";
-import { BASE_URL } from "../../contexts/product";
+import { BASE_URL } from "../../constant/product";
 
 import notFoundImg from "../../assets/product/image-not-found.png";
+import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
 import ratingIcon from "../../assets/product/rating-icon.svg";
 import quotationLeftMark from "../../assets/product/quotation-mark-1.svg";
 import quotationRightMark from "../../assets/product/quotation-mark-2.svg";
@@ -15,6 +16,22 @@ const SearchDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
+
+  const handleLoadPost = async (id) => {
+    try {
+      const response = await getDetailPost(id);
+      setData(response.data);
+      if (data) {
+        console.log(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    handleLoadPost(id);
+  }, []);
 
   const navigateToChat = () => {
     navigate(`/company/products/${id}/chat`, {
@@ -27,6 +44,7 @@ const SearchDetailPage = () => {
       },
     });
   };
+
   const navigateToRequest = () => {
     navigate(`/company/products/${id}/order-request`, {
       state: {
@@ -35,18 +53,6 @@ const SearchDetailPage = () => {
       },
     });
   };
-
-  const handleLoadPost = async (id) => {
-    const response = await getDetailPost(id);
-    setData(response.data);
-    if (data) {
-    }
-    console.log(data);
-  };
-
-  useEffect(() => {
-    handleLoadPost(id);
-  }, []);
 
   return (
     <>
@@ -84,7 +90,9 @@ const SearchDetailPage = () => {
               <div className="company-logo">
                 <img
                   src={
-                    data?.logo_img ? `${BASE_URL}${data.logo_img}` : notFoundImg
+                    data?.logo_img
+                      ? `${BASE_URL}${data.logo_img}`
+                      : notFoundImg_2
                   }
                   alt="company-logo"
                 />

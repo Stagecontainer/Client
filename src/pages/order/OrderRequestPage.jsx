@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { BASE_URL } from "../../contexts/product";
+import { BASE_URL } from "../../constant/product";
 import notFoundImg from "../../assets/product/image-not-found.png";
 import menuIcon from "../../assets/order/vertical-menu-icon.svg";
 
