@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../../assets/order/company-logo.svg";
+import { BASE_URL } from "../../contexts/product";
+import notFoundImg from "../../assets/product/image-not-found.png";
 import menuIcon from "../../assets/order/vertical-menu-icon.svg";
 
 const OrderRequestPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [data, setData] = useState(location.state);
   const [inputValue, setInputValue] = useState({
     username: "",
     tel: "",
@@ -87,8 +90,14 @@ const OrderRequestPage = () => {
     <Container>
       <div className="header">
         <div className="logo-container">
-          <img src={logo} className="company-logo" alt="company-logo" />
-          <strong className="logo-text">한리상회</strong>
+          <img
+            src={
+              data?.companyLogo ? `${BASE_URL}${data.companyLogo}` : notFoundImg
+            }
+            className="company-logo"
+            alt="company-logo"
+          />
+          <strong className="logo-text">{data.company}</strong>
         </div>
         <img src={menuIcon} alt="menu-icon" />
       </div>
@@ -220,7 +229,11 @@ const Container = styled.div`
       align-items: center;
 
       .company-logo {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
         margin-right: 12px;
+        object-fit: cover;
       }
 
       .logo-text {

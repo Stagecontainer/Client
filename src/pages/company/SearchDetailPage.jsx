@@ -1,21 +1,40 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { getDetailPost } from "../../api/example";
 import { product } from "../../assets/mock-data/product-mock-data";
+import { BASE_URL } from "../../contexts/product";
 
 import notFoundImg from "../../assets/product/image-not-found.png";
 import ratingIcon from "../../assets/product/rating-icon.svg";
 import quotationLeftMark from "../../assets/product/quotation-mark-1.svg";
 import quotationRightMark from "../../assets/product/quotation-mark-2.svg";
 
-const BASE_URL = "https://port-0-server-1272llx0bndkw.sel5.cloudtype.app";
-
 const SearchDetailPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
+
+  const navigateToChat = () => {
+    navigate(`/company/products/${id}/chat`, {
+      state: {
+        companyLogo: data.logo_img,
+        title: data.company,
+        purpose: data.purpose,
+        rating: data.rating,
+        address: data.address,
+      },
+    });
+  };
+  const navigateToRequest = () => {
+    navigate(`/company/products/${id}/order-request`, {
+      state: {
+        companyLogo: data.logo_img,
+        company: data.company,
+      },
+    });
+  };
 
   const handleLoadPost = async (id) => {
     const response = await getDetailPost(id);
@@ -63,7 +82,12 @@ const SearchDetailPage = () => {
           <div className="product-header">
             <div className="product-info-container">
               <div className="company-logo">
-                <img src={`${BASE_URL}${data.logo_img}`} alt="company-logo" />
+                <img
+                  src={
+                    data?.logo_img ? `${BASE_URL}${data.logo_img}` : notFoundImg
+                  }
+                  alt="company-logo"
+                />
               </div>
               <div className="product-info">
                 <div className="purpose">{data.purpose}</div>
@@ -131,12 +155,12 @@ const SearchDetailPage = () => {
           </div>
 
           <div className="button-container">
-            <Link to={`/company/products/${id}/chat`}>
-              <button className="consult-button">상담하기</button>
-            </Link>
-            <Link to={`/company/products/${id}/order-request`}>
-              <button className="request-button">의뢰서 작성</button>
-            </Link>
+            <button className="consult-button" onClick={navigateToChat}>
+              상담하기
+            </button>
+            <button className="request-button" onClick={navigateToRequest}>
+              의뢰서 작성
+            </button>
           </div>
         </Container>
       )}

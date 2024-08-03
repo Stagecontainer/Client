@@ -45,27 +45,27 @@ function App() {
                 )}
 
                 <Route path="/company/search" element={<SearchItemPage />} />
-                {isAuthenticated && (
-                  <Route path="/company/products/:id">
-                    <Route index element={<SearchDetailPage />} />
-                    <Route
-                      path="/company/products/:id/chat"
-                      element={<ChattingPage />}
-                    />
-                    <Route
-                      path="/company/products/:id/order-request"
-                      element={<OrderRequestPage />}
-                    />
-                    <Route
-                      path="/company/products/:id/order-complete"
-                      element={<OrderCompletePage />}
-                    />
-                    <Route
-                      path="/company/products/:id/order-progress"
-                      element={<OrderProgressPage />}
-                    />
-                  </Route>
-                )}
+                {/* {isAuthenticated && ( */}
+                <Route path="/company/products/:id">
+                  <Route index element={<SearchDetailPage />} />
+                  <Route
+                    path="/company/products/:id/chat"
+                    element={<ChattingPage />}
+                  />
+                  <Route
+                    path="/company/products/:id/order-request"
+                    element={<OrderRequestPage />}
+                  />
+                  <Route
+                    path="/company/products/:id/order-complete"
+                    element={<OrderCompletePage />}
+                  />
+                  <Route
+                    path="/company/products/:id/order-progress"
+                    element={<OrderProgressPage />}
+                  />
+                </Route>
+                {/* )}*/}
               </Route>
             </Route>
           </Routes>

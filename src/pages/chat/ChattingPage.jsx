@@ -1,8 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const ChattingPage = () => {
   const { id } = useParams();
+  const location = useLocation();
+
+  console.log(location.state);
 
   return (
     <>
