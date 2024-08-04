@@ -52,17 +52,21 @@ const LoginInput = styled.input`
 
 `;
 
-const JoinInput = styled.input`
+const InputWrap = styled.div`
   width: 458px;
+  position: relative;
+`
+
+const JoinInput = styled.input`
+  width: 100%;
   height: 48px;
   padding: 10px 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin: 8px 0 24px 0;
+
   position: relative;
   font-size: 16px;
   line-height: 140%;
-
 `;
 
 const PasswordToggle = styled.div`
@@ -70,8 +74,9 @@ const PasswordToggle = styled.div`
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
-
 `;
+
+
 
 const Agree = styled.div`
   width: 458px;
@@ -86,4 +91,4 @@ const Agree = styled.div`
 
 
 
-export { Container, Form, LoginInput, JoinInput, Agree, PasswordToggle };
+export { Container, Form, LoginInput, JoinInput, Agree, PasswordToggle, InputWrap };
