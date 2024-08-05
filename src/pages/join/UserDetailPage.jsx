@@ -14,12 +14,11 @@ import postSignup from "../../api/users"
 
 const UserDetailPage = () => {
     const navigate = useNavigate();
-    const [nick, setNick] = useState('');
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
     const [repw, setRepw] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
-    const [validnick, setvalidNick] = useState(false);
+    const [validId, setvalidId] = useState(false);
     const [isShowPassword, setShowPassword] = useState(
         {
             password: false,
@@ -28,7 +27,6 @@ const UserDetailPage = () => {
     );
 
     const clearInput = () => {
-        setNick('');
         setId('');
         setPw('');
         setRepw('');
@@ -36,10 +34,10 @@ const UserDetailPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setvalidNick(false);
+        setvalidId(false);
         try {
             const user = {
-                nickname: nick,
+                nickname: id,
                 password: pw
             }
             const res = await postSignup(user);
@@ -50,7 +48,7 @@ const UserDetailPage = () => {
             if (error.response) {
                 switch (error.response.status) {
                     case 400:
-                        setvalidNick(true);
+                        setvalidId(true);
                         break;
                     default:
                         clearInput();
@@ -67,11 +65,11 @@ const UserDetailPage = () => {
     };
 
     useEffect(() => {
-        const allFieldsFilled = nick !== '' && id !== '' && pw !== '' && repw !== '';
+        const allFieldsFilled = id !== '' && pw !== '' && repw !== '';
         const PasswordMatch = pw === repw;
 
         setIsFormValid(allFieldsFilled && PasswordMatch);
-    }, [nick, id, pw, repw]);
+    }, [ id, pw, repw]);
 
 
     return (
@@ -81,16 +79,8 @@ const UserDetailPage = () => {
                 <div className="title">회원가입</div>
                 <Progress currentStep={"user"} />
                 <div style={{ margin: "48px 85px 48px 85px" }}>
-                    <Label label={"닉네임"} valid={validnick}>
-                        <div style={{ height: "8px" }} />
-                        <JoinInput
-                            type="text"
-                            value={nick}
-                            onChange={(e) => setNick(e.target.value)}
-                            placeholder="사용할 닉네임을 설정해주세요" />
-                    </Label>
-
-                    <Label label={"아이디"}>
+                
+                    <Label label={"아이디"} valid={validId}>
                         <div style={{ height: "8px" }} />
                         <JoinInput
                             type="text"
@@ -123,7 +113,7 @@ const UserDetailPage = () => {
                                 placeholder="비밀번호를 한번 더 입력해주세요"
 
                             />
-                            <PasswordToggle onClick={() => PasswordVisibility('confirmpassword')}>
+                            <PasswordToggle onClick={() => PasswordVisibility('confirmPassword')}>
                                 {isShowPassword.confirmPassword ? <EyeOn /> : <EyeOff />}
                             </PasswordToggle>
                         </InputWrap>
