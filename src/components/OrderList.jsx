@@ -40,7 +40,14 @@ const OrderList = () => {
                   <OrderCard key={index}>
                     <Receipt />
                     <div className="logo-box">
-                      <img src={value.post.logo_img === null ? "" : baseURL + value.post.logo_img} alt="" />
+                      <img
+                        src={
+                          value.post.logo_img === null
+                            ? ""
+                            : baseURL + value.post.logo_img
+                        }
+                        alt=""
+                      />
                     </div>
                     <div className="content-box">
                       <span className="request-id">{`ABCDEF12345-${value.request_id}`}</span>

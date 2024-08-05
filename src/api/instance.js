@@ -8,7 +8,7 @@ instance.interceptors.request.use((config) => {
   config.withCredentials = true;
   //config.headers["Access-Control-Allow-Origin"] = "*";
   config.headers["Content-Type"] = "application/json";
-  
+
   return config;
 });
 

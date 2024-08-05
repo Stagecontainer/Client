@@ -7,7 +7,7 @@ import {
 } from "../../../styles/components/header/HeaderIndex";
 import { useNavigate } from "react-router";
 import Menu from "./Menu";
-import { userMenu, companyMenu } from "../../../constans/MenuData";
+import { userMenu, companyMenu } from "../../../constant/MenuData";
 import { useLocation } from "react-router-dom";
 import Logo from "../../../assets/icon/logo.svg?react";
 import { useContext } from "react";
@@ -19,7 +19,9 @@ import UserIcon from "../../../assets/icon/user.svg?react";
 const HeaderIndex = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated, username, logout } = useContext(AuthenticationContext);
+  const { isAuthenticated, username, logout } = useContext(
+    AuthenticationContext
+  );
   const searchHandler = () => {
     navigate("/company/search");
   };
@@ -49,9 +51,12 @@ const HeaderIndex = () => {
           <UserContainer>
             <div className="user">
               <span>
-                <strong style={{fontWeight : "700"}}>{username}</strong>님 환영합니다
+                <strong style={{ fontWeight: "700" }}>{username}</strong>님
+                환영합니다
               </span>
-              <span className="logout" onClick={() => logout()}>로그아웃</span>
+              <span className="logout" onClick={() => logout()}>
+                로그아웃
+              </span>
             </div>
 
             <div className="icon">

@@ -1,28 +1,63 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { getDetailPost } from "../../api/example";
+import { getChatRoomList } from "../../api/chat";
+import { getDetailPost } from "../../api/products";
 import { product } from "../../assets/mock-data/product-mock-data";
+import { BASE_URL } from "../../constant/product";
 
 import notFoundImg from "../../assets/product/image-not-found.png";
+import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
 import ratingIcon from "../../assets/product/rating-icon.svg";
 import quotationLeftMark from "../../assets/product/quotation-mark-1.svg";
 import quotationRightMark from "../../assets/product/quotation-mark-2.svg";
-
-const BASE_URL = "https://port-0-server-1272llx0bndkw.sel5.cloudtype.app";
+import { createChatRoom } from "../../api/chat";
 
 const SearchDetailPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
 
   const handleLoadPost = async (id) => {
-    const response = await getDetailPost(id);
-    setData(response.data);
-    if (data) {
+    try {
+      const response = await getDetailPost(id);
+      setData(response.data);
+      if (data) {
+        console.log(data);
+      }
+    } catch (error) {
+      console.error(error);
     }
-    console.log(data);
+  };
+
+  // 새 채팅방 만들기
+  const startNewChat = async () => {
+    const response = await createChatRoom({
+      name: data.company,
+      invited_user_id: data.user,
+    });
+  };
+
+  // 이미 존재하는 채팅방 있는지 확인
+  const getChatList = async () => {
+    let hasChatRoom = false;
+    const response = await getChatRoomList();
+    response.data.map((chatRoom) => {
+      if (chatRoom.name === data.company) {
+        hasChatRoom = true;
+        return;
+      } else {
+        hasChatRoom = false;
+      }
+    });
+    hasChatRoom ? null : startNewChat();
+  };
+
+  // 채팅방 생성
+  const navigateToChat = async () => {
+    getChatList();
+    navigate(`/company/products/${id}/chat`);
   };
 
   useEffect(() => {
@@ -63,7 +98,14 @@ const SearchDetailPage = () => {
           <div className="product-header">
             <div className="product-info-container">
               <div className="company-logo">
-                <img src={`${BASE_URL}${data.logo_img}`} alt="company-logo" />
+                <img
+                  src={
+                    data?.logo_img
+                      ? `${BASE_URL}${data.logo_img}`
+                      : notFoundImg_2
+                  }
+                  alt="company-logo"
+                />
               </div>
               <div className="product-info">
                 <div className="purpose">{data.purpose}</div>
@@ -131,9 +173,9 @@ const SearchDetailPage = () => {
           </div>
 
           <div className="button-container">
-            <Link to={`/company/products/${id}/chat`}>
-              <button className="consult-button">상담하기</button>
-            </Link>
+            <button className="consult-button" onClick={navigateToChat}>
+              상담하기
+            </button>
             <Link to={`/company/products/${id}/order-request`}>
               <button className="request-button">의뢰서 작성</button>
             </Link>

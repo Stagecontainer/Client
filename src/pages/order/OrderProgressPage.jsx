@@ -1,7 +1,8 @@
-import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
+import OrderInfo from "./OrderInfo";
 import OrderProgress from "../../styles/components/order/OrderProgress";
-import logo from "../../assets/order/company-logo.svg";
 import orderReceiveImg from "../../assets/order/order-received.png";
 import inProductionImg from "../../assets/order/in-production.png";
 import inDeliveryImg from "../../assets/order/in-delivery.png";
@@ -10,30 +11,13 @@ import stepArrowIcon from "../../assets/order/step-arrow.svg";
 
 const OrderProgressPage = () => {
   const { id } = useParams();
+  const location = useLocation();
+  const [content, setContent] = useState(location.state.data);
 
   return (
     <Container>
       <div className="flex-wrapper">
-        <div className="order-container">
-          <div className="logo-container">
-            <img src={logo} className="company-logo" alt="logo" />
-          </div>
-          <div className="order-details">
-            <h3 className="order-number">
-              주문번호: <span>ABCDEF123456</span>
-            </h3>
-            <strong className="order-type">한라상회 · 의상</strong>
-            <p className="order-content">
-              의뢰내용 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
-              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용 의뢰내용
-              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
-              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용 의뢰내용
-              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
-              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
-            </p>
-          </div>
-        </div>
-
+        <OrderInfo id={id} content={content} />
         <div className="service-buttons">
           <button className="producer-report">제작자 신고</button>
           <Link to={`/company/products/${id}/chat`}>
@@ -80,56 +64,6 @@ const Container = styled.div`
   width: 100vw;
   height: 82vh;
   padding-top: 24px;
-
-  .order-container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 84px;
-    margin-bottom: 27px;
-
-    .logo-container {
-      margin-right: 24px;
-
-      .company-logo {
-        width: 84px;
-        height: 84px;
-      }
-    }
-
-    .order-details {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: inherit;
-
-      .order-number {
-        font-size: 12px;
-        font-weight: 500;
-      }
-
-      .order-number > span {
-        font-size: 12px;
-        font-weight: 400;
-        color: #0033ff;
-      }
-    }
-
-    .order-type {
-      font-size: 14px;
-      font-weight: 500;
-      color: #ff7a00;
-    }
-
-    .order-content {
-      width: 1172px;
-      font-size: 16px;
-      color: #1d1d1d;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-  }
 
   .service-buttons {
     display: flex;

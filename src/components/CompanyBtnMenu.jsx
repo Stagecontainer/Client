@@ -1,11 +1,11 @@
 import FetchBtnImgs from "./user/FetchBtnImgs";
 import Carousel from "./Carousel";
-import { companyNavs } from "../constans/MenuData";
+import { companyNavs } from "../constant/MenuData";
 import C1 from "../assets/c1.png";
 import C2 from "../assets/c2.png";
 import C3 from "../assets/c3.png";
 import C4 from "../assets/c4.png";
-import {Container, NavCard} from "../styles/components/ CompanyBtnMenu";
+import { Container, NavCard } from "../styles/components/ CompanyBtnMenu";
 
 const showingData = [
   {
