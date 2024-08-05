@@ -5,11 +5,11 @@ const Progress = ({currentStep}) => {
 
     return (
         <Head>
-            <span className={currentStep === "정보동의" ? "active" : ""}>정보동의</span>
+            <span className={currentStep === "agree" ? "active" : ""}>정보동의</span>
             <Boldright />
-            <span className={currentStep === "인적사항" ? "active" : ""}>인적사항</span>
+            <span className={currentStep === "user" ? "active" : ""}>인적사항</span>
             <Boldright />
-            <span className={currentStep === "가입완료" ? "active" : ""}>가입완료</span>
+            <span className={currentStep === "success" ? "active" : ""}>가입완료</span>
         </Head>
 
     );

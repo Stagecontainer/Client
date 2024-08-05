@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "../../styles/theme"
-import { Container, Form, JoinInput, PasswordToggle } from "../../styles/components/loginjoin/LoginJoinPage";
+import { Container, Form, JoinInput, PasswordToggle, InputWrap } from "../../styles/components/loginjoin/LoginJoinPage";
 import LoginJoinButton from "../../components/form/LoginJoinButton";
 import Progress from "../../components/form/Progress";
 import { ButtonWrapper } from "../../styles/components/loginjoin/LoginJoinButton";
@@ -19,30 +19,46 @@ const UserDetailPage = () => {
     const [pw, setPw] = useState('');
     const [repw, setRepw] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
+    const [validnick, setvalidNick] = useState(false);
     const [isShowPassword, setShowPassword] = useState(
         {
-            비밀번호: false,
-            확인비밀번호: false
+            password: false,
+            confirmPassword: false
         }
     );
 
+    const clearInput = () => {
+        setNick('');
+        setId('');
+        setPw('');
+        setRepw('');
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setvalidNick(false);
         try {
             const user = {
                 nickname: nick,
                 password: pw
             }
             const res = await postSignup(user);
-            console.log(res);
-          } catch (error) {
-            if (error instanceof AxiosError) {
-              // error logic
+            if (res.status === 201) {
+                navigate('/join/success')
             }
-          }
-        
-    };
-
+        } catch (error) {
+            if (error.response) {
+                switch (error.response.status) {
+                    case 400:
+                        setvalidNick(true);
+                        break;
+                    default:
+                        clearInput();
+                        alert('회원가입에 실패했습니다.');
+                }
+            }
+        }
+    }
     const PasswordVisibility = (key) => {
         setShowPassword((prev) => ({
             ...prev,
@@ -63,48 +79,54 @@ const UserDetailPage = () => {
             <Form onSubmit={handleSubmit}>
 
                 <div className="title">회원가입</div>
-                <Progress currentStep={"인적사항"} />
-                <div style={{margin: "48px 85px 24px 85px"}}>
-                    <Label label={"닉네임"}>
+                <Progress currentStep={"user"} />
+                <div style={{ margin: "48px 85px 48px 85px" }}>
+                    <Label label={"닉네임"} valid={validnick}>
+                        <div style={{ height: "8px" }} />
                         <JoinInput
                             type="text"
                             value={nick}
                             onChange={(e) => setNick(e.target.value)}
                             placeholder="사용할 닉네임을 설정해주세요" />
                     </Label>
-                    
+
                     <Label label={"아이디"}>
+                        <div style={{ height: "8px" }} />
                         <JoinInput
                             type="text"
                             value={id}
                             onChange={(e) => setId(e.target.value)}
                             placeholder="아이디를 입력해주세요" />
                     </Label>
-                    
+
                     <Label label={"비밀번호"}>
-                        <JoinInput
-                            type={isShowPassword.비밀번호 ? "text" : "password"}
-                            value={pw}
-                            onChange={(e) => setPw(e.target.value)}
-                            placeholder="비밀번호를 입력해주세요" />
-                        <PasswordToggle onClick={() => PasswordVisibility('비밀번호')}>
-                            {isShowPassword.비밀번호 ? <EyeOn /> : <EyeOff />}
-                        </PasswordToggle>
-
-
+                        <div style={{ height: "8px" }} />
+                        <InputWrap>
+                            <JoinInput
+                                type={isShowPassword.password ? "text" : "password"}
+                                value={pw}
+                                onChange={(e) => setPw(e.target.value)}
+                                placeholder="비밀번호를 입력해주세요" />
+                            <PasswordToggle onClick={() => PasswordVisibility('password')}>
+                                {isShowPassword.password ? <EyeOn /> : <EyeOff />}
+                            </PasswordToggle>
+                        </InputWrap>
                     </Label>
-                    
+
                     <Label label={"비밀번호 확인"}>
-                        <JoinInput
-                            type={isShowPassword.확인비밀번호 ? "text" : "password"}
-                            value={repw}
-                            onChange={(e) => setRepw(e.target.value)}
-                            placeholder="비밀번호를 한번 더 입력해주세요"
-                            
-                        />
-                        <PasswordToggle onClick={() => PasswordVisibility('확인비밀번호')}>
-                            {isShowPassword.확인비밀번호 ? <EyeOn /> : <EyeOff />}
-                        </PasswordToggle>
+                        <div style={{ height: "8px" }} />
+                        <InputWrap>
+                            <JoinInput
+                                type={isShowPassword.confirmPassword ? "text" : "password"}
+                                value={repw}
+                                onChange={(e) => setRepw(e.target.value)}
+                                placeholder="비밀번호를 한번 더 입력해주세요"
+
+                            />
+                            <PasswordToggle onClick={() => PasswordVisibility('confirmpassword')}>
+                                {isShowPassword.confirmPassword ? <EyeOn /> : <EyeOff />}
+                            </PasswordToggle>
+                        </InputWrap>
                     </Label>
 
                 </div>
@@ -115,8 +137,8 @@ const UserDetailPage = () => {
                         textColor={theme.color.gray0}
                         bgColor={theme.color.main}
                         isDisabled={!isFormValid}
+                        onClick={handleSubmit}
                         type="submit"
-                        onClick={(e) => handleSubmit(e)}
                     />
                 </ButtonWrapper>
             </Form>

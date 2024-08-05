@@ -18,6 +18,7 @@ import UserDetailPage from "./pages/join/UserDetailPage";
 import SignUpSuccessPage from "./pages/join/SignUpSuccessPage";
 import OrderCompletePage from "./pages/order/OrderCompletePage";
 import OrderProgressPage from "./pages/order/OrderProgressPage";
+import RegistCompletePage from "./pages/company/RegistCompletePage";
 
 function App() {
   const { isAuthenticated } = useContext(AuthenticationContext);
@@ -38,10 +39,13 @@ function App() {
               <Route path="/company">
                 <Route index element={<CompanyHomePage />} />
                 {isAuthenticated && (
-                  <Route
-                    path="/company/regist"
-                    element={<RegistCompanyPage />}
-                  />
+                  <Route path="/company/regist">
+                    <Route index element={<RegistCompanyPage/>}/>
+                    <Route
+                      path="/company/regist/complete"
+                      element={<RegistCompletePage />}
+                    />
+                  </Route>
                 )}
 
                 <Route path="/company/search" element={<SearchItemPage />} />

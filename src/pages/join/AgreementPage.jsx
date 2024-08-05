@@ -12,8 +12,8 @@ const AgreementPage = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(
     {
-      이용약관: false,
-      개인정보: false
+      terms: false,
+      personal: false
     }
   );
   const handleClick = (key) => {
@@ -28,19 +28,19 @@ const AgreementPage = () => {
       <Form>
 
         <div className="title">회원가입</div>
-        <Progress currentStep={"정보동의"} />
+        <Progress currentStep={"agree"} />
         <div className="join-wrap">
           <RequiredAgreements 
             text={"이용약관 동의"}
             marginBottom="24px"
-            isActive={isActive.이용약관}
-            onClick={() => handleClick('이용약관')}
+            isActive={isActive.terms}
+            onClick={() => handleClick('terms')}
           />
 
           <RequiredAgreements
             text={"개인정보처리방침 동의"}
-            isActive={isActive.개인정보}
-            onClick={() => handleClick('개인정보')}
+            isActive={isActive.personal}
+            onClick={() => handleClick('personal')}
             />
         </div>
 
@@ -49,7 +49,7 @@ const AgreementPage = () => {
             text={"다음 단계"}
             textColor={theme.color.gray0}
             bgColor={theme.color.main}
-            isDisabled={!(isActive.이용약관 && isActive.개인정보)}
+            isDisabled={!(isActive.terms && isActive.personal)}
             onClick={() => navigate("/join/user")}
           />
         </ButtonWrapper>

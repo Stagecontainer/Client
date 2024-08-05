@@ -25,7 +25,6 @@ const InputField = forwardRef(
           width={width}
           height={height}
           placeholder={holderText}
-          ref={ref}
           onChange={(e) => onchangeFun(id, e.target.value)}
         />
       );
@@ -42,7 +41,6 @@ const InputField = forwardRef(
             name="file"
             id={id}
             accept={accept}
-            ref={ref}
           />
         </CustomFileInput>
       );
@@ -54,7 +52,6 @@ const InputField = forwardRef(
         width={width}
         height={height}
         placeholder={holderText}
-        ref={ref}
         id={id}
         onChange={(e) => onchangeFun(id, e.target.value)}
       />

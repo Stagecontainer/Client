@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { getDetailPost } from "../../api/products";
 import { getChatRoomList } from "../../api/chat";
 import { BASE_URL } from "../../constant/product";
-import { roomId } from "../../constant/chat";
-import { userToken } from "../../constant/chat";
+import { roomId, userToken } from "../../constant/chat";
 
 import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
 import menuIcon from "../../assets/order/vertical-menu-icon.svg";
@@ -27,19 +26,15 @@ const ChattingPage = () => {
   const [messages, setMessages] = useState([]);
   const webSocket = useRef(null);
 
-  const handleLoadPost = async (id) => {
-    try {
-      const response = await getDetailPost(id);
-      setData(response.data);
-      if (data) {
-        console.log(data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
+    const handleLoadPost = async (id) => {
+      try {
+        const response = await getDetailPost(id);
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     handleLoadPost(id);
   }, []);
 
@@ -82,7 +77,7 @@ const ChattingPage = () => {
     e.preventDefault();
     if (webSocket.current && message.trim() !== "") {
       const messsageData = {
-        room: id,
+        room: 5,
         message: message,
       };
       webSocket.current.send(JSON.stringify(messsageData));

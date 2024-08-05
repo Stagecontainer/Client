@@ -7,3 +7,8 @@ export const createOrderRequest = async (data, userId, postId) => {
   );
   return response;
 };
+
+export const getOrderRequest = async (userId) => {
+  const response = await instance.get(`/posts/requests/${userId}/`);
+  response.response;
+};
