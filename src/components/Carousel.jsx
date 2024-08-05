@@ -1,17 +1,24 @@
 import { Container, CarouselBox, Btn } from "../styles/components/Carousel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LeftIcon from "../assets/icon/left-arrow-icon.svg?react";
 import RightIcon from "../assets/icon/right-arrow-icon.svg?react";
 
 const Carousel = ({
   width,
   height,
-  type = "both",
+  type: initialType = "both",
   step = 324,
   items = 4,
   components,
 }) => {
   const [index, setIndex] = useState(0);
+  const [type, setType] = useState(initialType);
+
+  useEffect(() => {
+    if (index !== 0) {
+      setType("both");
+    }
+  }, [index]);
 
   return (
     <Container height={height}>
@@ -25,7 +32,7 @@ const Carousel = ({
           })}
         </CarouselBox>
       </div>
-      {type !== "right" && (
+      {(type === "both" || type === "left") && (
         <Btn
           height={height}
           arrow={"left"}
@@ -36,7 +43,7 @@ const Carousel = ({
           <LeftIcon />
         </Btn>
       )}
-      {type !== "left" && (
+      {(type === "both" || type === "right") && (
         <Btn
           height={height}
           arrow={"right"}
