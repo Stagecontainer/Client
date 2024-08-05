@@ -29,7 +29,18 @@ const InputField = forwardRef(
         />
       );
     }
-
+    if (type === "number"){
+      return (
+        <CustomInput
+        type="number"
+        width={width}
+        height={height}
+        placeholder={holderText}
+        id={id}
+        onChange={(e) => onchangeFun(id, e.target.value)}
+      />
+      )
+    }
     if (type === "file") {
       return (
         <CustomFileInput width={width} height={height}>

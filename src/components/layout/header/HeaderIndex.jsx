@@ -44,7 +44,11 @@ const HeaderIndex = () => {
           <Logo />
           <span>무대 창고</span>
         </div>
+<<<<<<< HEAD
         <Search onclickFun={searchHandler} />
+=======
+        <Search onclickFun={searchHandler} readOnly={true}/>
+>>>>>>> main
         {isAuthenticated ? (
           <UserContainer>
             <span>

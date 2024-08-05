@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CustomButton } from "../../styles/components/request/RegistrationCompany";
+import { CustomSubmitButton } from "../../styles/components/request/RegistrationCompany";
 import Container from "../../styles/components/user/FetchBtnImgs";
 
 const FetchBtnImgs = ({datas}) => {
@@ -10,7 +10,7 @@ const FetchBtnImgs = ({datas}) => {
       <div className="btn-wrap">
         {datas.data.map((value, idx) => {
           return (
-            <CustomButton
+            <CustomSubmitButton
               key={idx}
               onClick={() => {
                 setType(value.name);
@@ -23,7 +23,7 @@ const FetchBtnImgs = ({datas}) => {
               isChecked={value.name === type}
             >
               {value.name}
-            </CustomButton>
+            </CustomSubmitButton>
           );
         })}
       </div>

@@ -18,3 +18,8 @@ export const Posts = async (payload) => {
   });
   return response;
 };
+
+export const PostsUser = async (user_id) => {
+  const response = await instance.get(`/posts/requests/${user_id}/`);
+  return response
+}
