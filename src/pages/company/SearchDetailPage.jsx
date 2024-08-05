@@ -11,6 +11,7 @@ import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
 import ratingIcon from "../../assets/product/rating-icon.svg";
 import quotationLeftMark from "../../assets/product/quotation-mark-1.svg";
 import quotationRightMark from "../../assets/product/quotation-mark-2.svg";
+import { createChatRoom } from "../../api/chat";
 
 const SearchDetailPage = () => {
   const { id } = useParams();
@@ -23,6 +24,19 @@ const SearchDetailPage = () => {
       if (data) {
         console.log(data);
       }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 채팅방 생성
+  const navigateToChat = async () => {
+    try {
+      const response = await createChatRoom({
+        name: data.company,
+        invited_user_id: 7,
+      });
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -141,7 +155,7 @@ const SearchDetailPage = () => {
           </div>
 
           <div className="button-container">
-            <Link to={`/company/products/${id}/chat`}>
+            <Link to={`/company/products/${id}/chat`} onClick={navigateToChat}>
               <button className="consult-button">상담하기</button>
             </Link>
             <Link to={`/company/products/${id}/order-request`}>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { getDetailPost } from "../../api/products";
@@ -26,11 +26,13 @@ import sendMessageIcon from "../../assets/chat/send-message.svg";
 const ChattingPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const webSocket = useRef(null);
+
   const [data, setData] = useState(null);
+  const [companyId, setCompanyId] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [chatRoomList, setChatRoomList] = useState([]);
-  const webSocket = useRef(null);
 
   // useEffect(() => {
   //   const handleGetId = async () => {
@@ -46,12 +48,13 @@ const ChattingPage = () => {
       try {
         const response = await getDetailPost(id);
         setData(response.data);
+        if (data) setCompanyId(response.data.user);
       } catch (error) {
         console.error(error);
       }
     };
     handleLoadPost(id);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     webSocket.current = new WebSocket(
@@ -76,25 +79,26 @@ const ChattingPage = () => {
   }, [id]);
 
   // 실시간 채팅 불러오기
-  useEffect(() => {
-    const getChat = async () => {
-      try {
-        const response = await getChatRoom(5);
-        if (response) console.log(response.data.messages);
-        setMessages(response.data.messages);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const getChat = async () => {
+  //     try {
+  //       const response = await getChatRoom(1);
+  //       if (response) console.log(response.data.messages);
+  //       setMessages(response.data.messages);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    getChat();
-  }, [message]);
+  //   getChat();
+  // }, []);
 
-  //채팅 리스트 불러오기
+  // 속해 있는 채팅방 리스트 불러오기
   useEffect(() => {
     const getChatList = async () => {
       const response = await getChatRoomList();
       setChatRoomList(response.data);
+      console.log(response.data);
     };
 
     getChatList();
@@ -113,15 +117,6 @@ const ChattingPage = () => {
     }
   };
 
-  const navigateToRequest = () => {
-    navigate(`/company/products/${id}/order-request`, {
-      state: {
-        companyLogo: data.companyLogo,
-        company: data.title,
-      },
-    });
-  };
-
   return (
     <Container>
       <ChatRoomList>
@@ -129,7 +124,10 @@ const ChattingPage = () => {
         <div className="chat-list">
           <ul className="chat-list">
             {chatRoomList.map((chatRoom, idx) => (
-              <li key={idx}>{chatRoom.name}</li>
+              <li key={idx}>
+                <h4>{chatRoom.name}</h4>
+                <span>{chatRoom.last_message?.message}</span>
+              </li>
             ))}
           </ul>
         </div>
@@ -213,10 +211,12 @@ const ChattingPage = () => {
             <span>신고하기</span>
           </button>
 
-          <button className="request-button" onClick={navigateToRequest}>
-            <img src={orderRequestIcon} alt="order-request-icon" />
-            <span>의뢰서 작성</span>
-          </button>
+          <Link to={`/company/products/${id}/order-request`}>
+            <button className="request-button">
+              <img src={orderRequestIcon} alt="order-request-icon" />
+              <span>의뢰서 작성</span>
+            </button>
+          </Link>
         </div>
       </CompanyInfo>
     </Container>
@@ -340,6 +340,10 @@ const CompanyInfo = styled.div`
   padding-top: 24px;
   margin-top: 36px;
   background-color: white;
+
+  a {
+    all: unset;
+  }
 
   .header {
     display: flex;
