@@ -3,7 +3,7 @@ import {
   Container,
   TopBar,
   NavButton,
-  UserContainer
+  UserContainer,
 } from "../../../styles/components/header/HeaderIndex";
 import { useNavigate } from "react-router";
 import Menu from "./Menu";
@@ -19,10 +19,10 @@ import UserIcon from "../../../assets/icon/user.svg?react";
 const HeaderIndex = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated, username } = useContext(AuthenticationContext);
+  const { isAuthenticated, username, logout } = useContext(AuthenticationContext);
   const searchHandler = () => {
-    navigate('/company/search');
-  }
+    navigate("/company/search");
+  };
   return (
     <Container
       index={
@@ -44,24 +44,30 @@ const HeaderIndex = () => {
           <Logo />
           <span>무대 창고</span>
         </div>
-        <Search onclickFun={searchHandler} readOnly={true}/>
+        <Search onclickFun={searchHandler} readOnly={true} />
         {isAuthenticated ? (
           <UserContainer>
-          <span><strong>{username}</strong>님 환영합니다</span>
-          <div>
-            <div className="icon-container">
-              <FormIcon/>
-              <span>주문 내역</span>
+            <div className="user">
+              <span>
+                <strong style={{fontWeight : "700"}}>{username}</strong>님 환영합니다
+              </span>
+              <span className="logout" onClick={() => logout()}>로그아웃</span>
             </div>
-            <div className="icon-container">
-              <BellIcon/>
-              <span>알림</span>
+
+            <div className="icon">
+              <div className="icon-container">
+                <FormIcon />
+                <span>주문 내역</span>
+              </div>
+              <div className="icon-container">
+                <BellIcon />
+                <span>알림</span>
+              </div>
+              <div className="icon-container">
+                <UserIcon />
+                <span>마이페이지</span>
+              </div>
             </div>
-            <div className="icon-container">
-              <UserIcon/>
-              <span>마이페이지</span>
-            </div>
-          </div>
           </UserContainer>
         ) : (
           <>

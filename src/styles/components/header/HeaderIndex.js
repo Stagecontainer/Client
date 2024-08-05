@@ -65,7 +65,17 @@ const UserContainer = styled.div`
       font-weight: 700;
     }
   }
-  & > div {
+  & > .user {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    & > .logout {
+      font-size: 12px;
+      cursor: pointer;
+      color: ${(props) => props.theme.color.red};
+    }
+  }
+  & > .icon {
     display: flex;
     gap: 16px;
   }
