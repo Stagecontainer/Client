@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { createOrderRequest } from "../../api/order-request";
 import { BASE_URL } from "../../constant/product";
-import notFoundImg from "../../assets/product/image-not-found.png";
 import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
 import menuIcon from "../../assets/order/vertical-menu-icon.svg";
 
@@ -81,10 +81,17 @@ const OrderRequestPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputValue);
-    navigate(`/company/products/${id}/order-complete`);
+    try {
+      const response = await createOrderRequest(inputValue, 1, id);
+      console.log(response);
+      navigate(`/company/products/${id}/order-complete`, {
+        state: { data: response.data },
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -1,7 +1,10 @@
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { getDetailPost } from "../../api/products";
+import { BASE_URL } from "../../constant/product";
 import styled from "styled-components";
 import OrderProgress from "../../styles/components/order/OrderProgress";
-import logo from "../../assets/order/company-logo.svg";
+import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
 import orderReceiveImg from "../../assets/order/order-received.png";
 import inProductionImg from "../../assets/order/in-production.png";
 import inDeliveryImg from "../../assets/order/in-delivery.png";
@@ -10,27 +13,45 @@ import stepArrowIcon from "../../assets/order/step-arrow.svg";
 
 const OrderProgressPage = () => {
   const { id } = useParams();
+  const location = useLocation();
+  const [content, setContent] = useState(location.state.data);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const handleLoadPost = async (id) => {
+      try {
+        const response = await getDetailPost(id);
+        setData(response.data);
+        if (data) {
+          console.log(response.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    handleLoadPost(id);
+  }, [id]);
 
   return (
     <Container>
       <div className="flex-wrapper">
         <div className="order-container">
           <div className="logo-container">
-            <img src={logo} className="company-logo" alt="logo" />
+            {/* <img src={logo} className="company-logo" alt="logo" /> */}
+            <img
+              src={
+                data?.logo_img ? `${BASE_URL}${data.logo_img}` : notFoundImg_2
+              }
+              alt="company-logo"
+            />
           </div>
           <div className="order-details">
             <h3 className="order-number">
               주문번호: <span>ABCDEF123456</span>
             </h3>
-            <strong className="order-type">한라상회 · 의상</strong>
-            <p className="order-content">
-              의뢰내용 ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
-              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용 의뢰내용
-              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
-              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용 의뢰내용
-              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
-              ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ 의뢰내용
-            </p>
+            <strong className="order-type">{data?.purpose}</strong>
+            <p className="order-content">{content?.content}</p>
           </div>
         </div>
 

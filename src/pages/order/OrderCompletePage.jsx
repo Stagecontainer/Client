@@ -1,9 +1,25 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import styled from "styled-components";
 import requestCompleteImg from "../../assets/order/request-completed.png";
 
 const OrderCompletePage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [data, setData] = useState(location.state.data);
+
+  const navigateToProgress = () => {
+    navigate(`/company/products/${id}/order-progress`, {
+      state: { data: data },
+    });
+  };
+
+  const navigateToMain = () => {
+    navigate("/company", { state: { data: data } });
+  };
+
+  console.log(location.state.data.content);
   return (
     <Container>
       <img src={requestCompleteImg} alt="" />
@@ -13,12 +29,12 @@ const OrderCompletePage = () => {
         최종 기간은 제작사마다 상이하지만 평균 5-7일 정도 소요됩니다.
       </p>
       <div className="navigation-buttons">
-        <Link to={`/company/products/${id}/order-progress`}>
-          <button className="check-progress-btn">진행사항 확인하기</button>
-        </Link>
-        <Link to={"/company"}>
-          <button className="back-to-main">메인으로 돌아가기</button>
-        </Link>
+        <button className="check-progress-btn" onClick={navigateToProgress}>
+          진행사항 확인하기
+        </button>
+        <button className="back-to-main" onClick={navigateToMain}>
+          메인으로 돌아가기
+        </button>
       </div>
     </Container>
   );
