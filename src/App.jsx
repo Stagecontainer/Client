@@ -40,7 +40,7 @@ function App() {
                 <Route index element={<CompanyHomePage />} />
                 {isAuthenticated && (
                   <Route path="/company/regist">
-                    <Route index element={<RegistCompanyPage/>}/>
+                    <Route index element={<RegistCompanyPage />} />
                     <Route
                       path="/company/regist/complete"
                       element={<RegistCompletePage />}

@@ -3,7 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { getDetailPost } from "../../api/products";
-import { getChatRoomList } from "../../api/chat";
+import {
+  getChatRoomList,
+  getUserId,
+  getChatRoom,
+  sendMessage,
+} from "../../api/chat";
 import { BASE_URL } from "../../constant/product";
 import { roomId, userToken } from "../../constant/chat";
 
@@ -24,7 +29,17 @@ const ChattingPage = () => {
   const [data, setData] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [chatRoomList, setChatRoomList] = useState([]);
   const webSocket = useRef(null);
+
+  // useEffect(() => {
+  //   const handleGetId = async () => {
+  //     const response = await getUserId();
+  //     console.log(response);
+  //   };
+
+  //   handleGetId();
+  // }, []);
 
   useEffect(() => {
     const handleLoadPost = async (id) => {
@@ -47,10 +62,6 @@ const ChattingPage = () => {
       console.log("WebSocket 연결 성공");
     };
 
-    webSocket.current.onmessage = (e) => {
-      setMessages((prev) => [...prev, e.data]);
-    };
-
     webSocket.current.onerror = (error) => {
       console.log(error);
     };
@@ -64,23 +75,40 @@ const ChattingPage = () => {
     };
   }, [id]);
 
+  // 실시간 채팅 불러오기
+  useEffect(() => {
+    const getChat = async () => {
+      try {
+        const response = await getChatRoom(5);
+        if (response) console.log(response.data.messages);
+        setMessages(response.data.messages);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getChat();
+  }, [message]);
+
+  //채팅 리스트 불러오기
   useEffect(() => {
     const getChatList = async () => {
       const response = await getChatRoomList();
-      if (response) console.log(response);
+      setChatRoomList(response.data);
     };
 
     getChatList();
-  }, []);
+  }, [messages]);
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
     if (webSocket.current && message.trim() !== "") {
       const messsageData = {
         room: 5,
         message: message,
       };
-      webSocket.current.send(JSON.stringify(messsageData));
+      const response = await sendMessage(messsageData);
+      console.log(response);
       setMessage("");
     }
   };
@@ -98,7 +126,13 @@ const ChattingPage = () => {
     <Container>
       <ChatRoomList>
         <h3>채팅</h3>
-        <div className="chat-list"></div>
+        <div className="chat-list">
+          <ul className="chat-list">
+            {chatRoomList.map((chatRoom, idx) => (
+              <li key={idx}>{chatRoom.name}</li>
+            ))}
+          </ul>
+        </div>
       </ChatRoomList>
 
       <ChatWindow>
@@ -114,6 +148,12 @@ const ChattingPage = () => {
           </div>
           <img src={menuIcon} alt="menu-icon" />
         </div>
+
+        <ul className="chat">
+          {messages.map((msg, idx) => (
+            <li key={idx}>{msg.message}</li>
+          ))}
+        </ul>
 
         <span></span>
       </ChatWindow>

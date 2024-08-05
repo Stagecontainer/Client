@@ -7,22 +7,22 @@ import OrderInfo from "../pages/order/OrderInfo";
 const OrderList = () => {
   const { id } = useParams();
   const location = useLocation();
-  const [data, setData] = useState(location.state.data);
-  console.log(location);
+  // const [data, setData] = useState(location.state.data);
+  // console.log(location);
 
-  useEffect(() => {
-    const handleLoadOrder = async () => {
-      try {
-        const response = await getOrderRequest(1);
-        console.log(response);
-        // setData(response)
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const handleLoadOrder = async () => {
+  //     try {
+  //       const response = await getOrderRequest(1);
+  //       console.log(response);
+  //       // setData(response)
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    handleLoadOrder();
-  }, []);
+  //   handleLoadOrder();
+  // }, []);
 
   return (
     <Container>
