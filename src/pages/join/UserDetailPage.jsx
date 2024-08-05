@@ -123,7 +123,7 @@ const UserDetailPage = () => {
                                 placeholder="비밀번호를 한번 더 입력해주세요"
 
                             />
-                            <PasswordToggle onClick={() => PasswordVisibility('confirmpassword')}>
+                            <PasswordToggle onClick={() => PasswordVisibility('confirmPassword')}>
                                 {isShowPassword.confirmPassword ? <EyeOn /> : <EyeOff />}
                             </PasswordToggle>
                         </InputWrap>
