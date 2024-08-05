@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import { getDetailPost } from "../../api/products";
 import { getChatRoomList } from "../../api/chat";
 import { BASE_URL } from "../../constant/product";
 import { roomId } from "../../constant/chat";
@@ -22,11 +23,27 @@ const ChattingPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const [data, setData] = useState(location.state);
-
+  // const [data, setData] = useState(location.state);
+  const [data, setData] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const webSocket = useRef(null);
+
+  const handleLoadPost = async (id) => {
+    try {
+      const response = await getDetailPost(id);
+      setData(response.data);
+      if (data) {
+        console.log(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    handleLoadPost(id);
+  }, []);
 
   useEffect(() => {
     webSocket.current = new WebSocket(
@@ -96,14 +113,11 @@ const ChattingPage = () => {
           <div className="logo-container">
             <img
               src={
-                data?.companyLogo
-                  ? `${BASE_URL}${data.companyLogo}`
-                  : notFoundImg_2
+                data?.logo_img ? `${BASE_URL}${data.logo_img}` : notFoundImg_2
               }
               className="company-logo"
-              alt="company-logo"
             />
-            <strong className="logo-text">{data.title}</strong>
+            <strong className="logo-text">{data?.company}</strong>
           </div>
           <img src={menuIcon} alt="menu-icon" />
         </div>
@@ -132,15 +146,11 @@ const ChattingPage = () => {
       <CompanyInfo>
         <div className="header">
           <img
-            src={
-              data?.companyLogo
-                ? `${BASE_URL}${data.companyLogo}`
-                : notFoundImg_2
-            }
-            className="company-logo big-size"
+            src={data?.logo_img ? `${BASE_URL}${data.logo_img}` : notFoundImg_2}
             alt="company-logo"
+            className="big-size"
           />
-          <strong className="logo-text">{data.title}</strong>
+          <strong className="logo-text-big">{data?.company}</strong>
           <span className="category">의상</span>
         </div>
 
@@ -157,11 +167,11 @@ const ChattingPage = () => {
 
         <div className="company-info">
           <div className="purpose-rating-container">
-            <span className="purpose">{data.purpose}</span>
+            <span className="purpose">{data?.purpose}</span>
             <img src={ratingIcon} alt="rating-icon" />
             <strong className="rating">4.9</strong>
           </div>
-          <span className="address">{data.address}</span>
+          <span className="address">{data?.address}</span>
         </div>
 
         <div className="button-container">
@@ -311,7 +321,8 @@ const CompanyInfo = styled.div`
       margin-bottom: 8px;
     }
 
-    .logo-text {
+    .logo-text-big {
+      margin-bottom: 2px;
       font-size: 14px;
       font-weight: 700;
       line-height: 1.4em;
