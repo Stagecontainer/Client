@@ -44,6 +44,9 @@ export const AuthenticationContextProvider = ({ children }) => {
           const res = await getUserId()
           setUserid(res.data.id); // 필요시 user_id도 복원
         }
+      } else {
+        console.log("WHAT")
+        setIsAuthenticated(false)
       }
       setIsAuthenticating(false);
     } catch (e) {

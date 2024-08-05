@@ -25,7 +25,7 @@ const OrderList = () => {
         if (posts.status === 200) setOrders(posts.data);
       }
     } catch (e) {
-      alert("불러오기 오류 발생"); // error
+      //alert("불러오기 오류 발생"); // error
     }
   };
   return (
@@ -43,7 +43,7 @@ const OrderList = () => {
                       <img
                         src={
                           value.post.logo_img === null
-                            ? NonImage
+                            ? ""
                             : baseURL + value.post.logo_img
                         }
                         alt=""

@@ -19,7 +19,9 @@ import UserIcon from "../../../assets/icon/user.svg?react";
 const HeaderIndex = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated, username } = useContext(AuthenticationContext);
+  const { isAuthenticated, username, logout } = useContext(
+    AuthenticationContext
+  );
   const searchHandler = () => {
     navigate("/company/search");
   };
@@ -47,10 +49,17 @@ const HeaderIndex = () => {
         <Search onclickFun={searchHandler} readOnly={true} />
         {isAuthenticated ? (
           <UserContainer>
-            <span>
-              <strong>{username}</strong>님 환영합니다
-            </span>
-            <div>
+            <div className="user">
+              <span>
+                <strong style={{ fontWeight: "700" }}>{username}</strong>님
+                환영합니다
+              </span>
+              <span className="logout" onClick={() => logout()}>
+                로그아웃
+              </span>
+            </div>
+
+            <div className="icon">
               <div className="icon-container">
                 <FormIcon />
                 <span>주문 내역</span>
