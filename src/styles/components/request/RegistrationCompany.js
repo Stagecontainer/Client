@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.div`
+const Container = styled.form`
   width: 1062px;
   padding: 48px 0px 0px 0px;
 
@@ -13,6 +13,9 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  & .span-blue {
+    color: ${(props) => props.theme.color.blue};
   }
 `;
 

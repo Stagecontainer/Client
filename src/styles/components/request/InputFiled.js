@@ -25,7 +25,7 @@ const CustomInput = styled.input`
 
 const CustomTextarea = styled.textarea`
   width: ${(props) => props.width}px;
-  height: ${(props) => props.height}px;
+  min-height: ${(props) => props.height}px;
   padding: 10px 12px;
 
   font-size: 16px;
@@ -42,7 +42,7 @@ const CustomTextarea = styled.textarea`
 
 const CustomFileInput = styled.div`
   width: ${(props) => props.width}px;
-  height: ${(props) => props.height}px;
+  min-height: ${(props) => props.height}px;
   padding: 10px 12px;
 
   font-size: 16px;
@@ -61,4 +61,11 @@ const CustomFileInput = styled.div`
   }
 `;
 
-export { CustomInput, CustomTextarea, CustomFileInput };
+const FileItem = styled.div`
+  display: flex;
+  height: 48px;
+  gap: 12px;
+  align-items: center;
+`;
+
+export { CustomInput, CustomTextarea, CustomFileInput, FileItem };
