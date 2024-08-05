@@ -1,14 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { getDetailPost } from "../../api/products";
-import {
-  getChatRoomList,
-  getUserId,
-  getChatRoom,
-  sendMessage,
-} from "../../api/chat";
+import { getChatRoomList, getChatRoom, sendMessage } from "../../api/chat";
 import { BASE_URL } from "../../constant/product";
 import { roomId, userToken } from "../../constant/chat";
 
@@ -22,33 +17,25 @@ import orderRequestIcon from "../../assets/chat/order-request.svg";
 import emojiIcon from "../../assets/chat/emoji.svg";
 import paperClipIcon from "../../assets/chat/paper-clip.svg";
 import sendMessageIcon from "../../assets/chat/send-message.svg";
+import { getPosts } from "../../api/posts";
 
 const ChattingPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const webSocket = useRef(null);
 
   const [data, setData] = useState(null);
   const [companyId, setCompanyId] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [sender, setSender] = useState("");
   const [chatRoomList, setChatRoomList] = useState([]);
-
-  // useEffect(() => {
-  //   const handleGetId = async () => {
-  //     const response = await getUserId();
-  //     console.log(response);
-  //   };
-
-  //   handleGetId();
-  // }, []);
 
   useEffect(() => {
     const handleLoadPost = async (id) => {
       try {
         const response = await getDetailPost(id);
         setData(response.data);
-        if (data) setCompanyId(response.data.user);
+        setCompanyId(response.data.user);
       } catch (error) {
         console.error(error);
       }
@@ -84,8 +71,10 @@ const ChattingPage = () => {
       try {
         if (companyId) {
           const response = await getChatRoom(companyId);
-          if (response) console.log(response.data.messages);
           setMessages(response.data.messages);
+          if (response.data.messages.length > 0) {
+            setSender(response.data.messages[0].sender);
+          }
         }
       } catch (error) {
         console.error(error);
@@ -93,7 +82,7 @@ const ChattingPage = () => {
     };
 
     getChat();
-  }, [message]);
+  }, [companyId]);
 
   // 속해 있는 채팅방 리스트 불러오기
   useEffect(() => {
@@ -104,11 +93,11 @@ const ChattingPage = () => {
     };
 
     getChatList();
-  }, [messages]);
+  }, []);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    if (webSocket.current && message.trim() !== "") {
+    if (companyId) {
       const messsageData = {
         room: companyId,
         message: message,
@@ -116,6 +105,7 @@ const ChattingPage = () => {
       const response = await sendMessage(messsageData);
       console.log(response);
       setMessage("");
+      setMessages((prevMessages) => [...prevMessages, { sender, message }]);
     }
   };
 
@@ -123,16 +113,25 @@ const ChattingPage = () => {
     <Container>
       <ChatRoomList>
         <h3>채팅</h3>
-        <div className="chat-list">
-          <ul className="chat-list">
-            {chatRoomList.map((chatRoom, idx) => (
-              <li key={idx}>
+        <ul className="chat-list">
+          {chatRoomList.map((chatRoom, idx) => (
+            <li className="chat-room" key={idx}>
+              <img
+                src={
+                  data?.logo_img ? `${BASE_URL}${data.logo_img}` : notFoundImg_2
+                }
+              />
+              <div className="chat-info">
                 <h4>{chatRoom.name}</h4>
-                <span>{chatRoom.last_message?.message}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+                <span>
+                  {chatRoom.last_message?.message
+                    ? chatRoom.last_message.message
+                    : "새로운 채팅방입니다"}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
       </ChatRoomList>
 
       <ChatWindow>
@@ -151,7 +150,12 @@ const ChattingPage = () => {
 
         <ul className="chat">
           {messages.map((msg, idx) => (
-            <li key={idx}>{msg.message}</li>
+            <li
+              className={msg.sender === sender ? "user" : "company"}
+              key={idx}
+            >
+              {msg.message}
+            </li>
           ))}
         </ul>
 
@@ -244,12 +248,55 @@ const ChatRoomList = styled.div`
   margin-top: 41px;
   border-right: 1px solid #f1f1f1;
   background-color: white;
+  overflow: auto;
 
   h3 {
+    margin-bottom: 24px;
     font-size: 24px;
     font-weight: 700;
     line-height: 1.4em;
     color: #ff7a00;
+  }
+
+  .chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .chat-room {
+      display: flex;
+      align-items: center;
+      width: 300px;
+      height: 68px;
+      padding-left: 10px;
+      border-radius: 6px;
+      background-color: #f1f1f1;
+
+      img {
+        width: 40px;
+        height: 40px;
+        margin-right: 8px;
+      }
+
+      .chat-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 38px;
+        h4 {
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 1.4em;
+          color: #ff7a00;
+        }
+        span {
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 1.4em;
+          color: #999999;
+        }
+      }
+    }
   }
 `;
 
@@ -258,6 +305,7 @@ const ChatWindow = styled.div`
   height: 674px;
   margin-top: 15px;
   background-color: white;
+  overflow: auto;
 
   .header {
     display: flex;
@@ -287,6 +335,34 @@ const ChatWindow = styled.div`
       }
     }
   }
+
+  .chat {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 24px;
+
+    .user,
+    .company {
+      max-width: 360px;
+      padding: 12px;
+      line-height: 1.4em;
+    }
+
+    .user {
+      align-self: flex-end;
+      background-color: #ff7a00;
+      color: white;
+      border-radius: 10px 10px 0 10px;
+    }
+
+    .company {
+      align-self: flex-start;
+      background-color: #e1e1e1;
+      color: #1d1d1d;
+      border-radius: 10px 10px 10px 0;
+    }
+  }
 `;
 
 const MessageInput = styled.div`
@@ -296,7 +372,7 @@ const MessageInput = styled.div`
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-49%);
   width: 792px;
   height: 68px;
   background-color: #f1f1f1;

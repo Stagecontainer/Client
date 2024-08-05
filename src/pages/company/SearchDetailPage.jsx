@@ -52,7 +52,6 @@ const SearchDetailPage = () => {
       }
     });
     hasChatRoom ? null : startNewChat();
-    console.log(response.data);
   };
 
   // 채팅방 생성
