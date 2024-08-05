@@ -79,19 +79,21 @@ const ChattingPage = () => {
   }, [id]);
 
   // 실시간 채팅 불러오기
-  // useEffect(() => {
-  //   const getChat = async () => {
-  //     try {
-  //       const response = await getChatRoom(1);
-  //       if (response) console.log(response.data.messages);
-  //       setMessages(response.data.messages);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+  useEffect(() => {
+    const getChat = async () => {
+      try {
+        if (companyId) {
+          const response = await getChatRoom(companyId);
+          if (response) console.log(response.data.messages);
+          setMessages(response.data.messages);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  //   getChat();
-  // }, []);
+    getChat();
+  }, [message]);
 
   // 속해 있는 채팅방 리스트 불러오기
   useEffect(() => {
@@ -108,7 +110,7 @@ const ChattingPage = () => {
     e.preventDefault();
     if (webSocket.current && message.trim() !== "") {
       const messsageData = {
-        room: 5,
+        room: companyId,
         message: message,
       };
       const response = await sendMessage(messsageData);

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import { getChatRoomList } from "../../api/chat";
 import { getDetailPost } from "../../api/products";
 import { product } from "../../assets/mock-data/product-mock-data";
 import { BASE_URL } from "../../constant/product";
@@ -15,6 +16,7 @@ import { createChatRoom } from "../../api/chat";
 
 const SearchDetailPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
 
   const handleLoadPost = async (id) => {
@@ -29,17 +31,34 @@ const SearchDetailPage = () => {
     }
   };
 
+  // 새 채팅방 만들기
+  const startNewChat = async () => {
+    const response = await createChatRoom({
+      name: data.company,
+      invited_user_id: data.user,
+    });
+  };
+
+  // 이미 존재하는 채팅방 있는지 확인
+  const getChatList = async () => {
+    let hasChatRoom = false;
+    const response = await getChatRoomList();
+    response.data.map((chatRoom) => {
+      if (chatRoom.name === data.company) {
+        hasChatRoom = true;
+        return;
+      } else {
+        hasChatRoom = false;
+      }
+    });
+    hasChatRoom ? null : startNewChat();
+    console.log(response.data);
+  };
+
   // 채팅방 생성
   const navigateToChat = async () => {
-    try {
-      const response = await createChatRoom({
-        name: data.company,
-        invited_user_id: 7,
-      });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+    getChatList();
+    navigate(`/company/products/${id}/chat`);
   };
 
   useEffect(() => {
@@ -155,9 +174,9 @@ const SearchDetailPage = () => {
           </div>
 
           <div className="button-container">
-            <Link to={`/company/products/${id}/chat`} onClick={navigateToChat}>
-              <button className="consult-button">상담하기</button>
-            </Link>
+            <button className="consult-button" onClick={navigateToChat}>
+              상담하기
+            </button>
             <Link to={`/company/products/${id}/order-request`}>
               <button className="request-button">의뢰서 작성</button>
             </Link>
