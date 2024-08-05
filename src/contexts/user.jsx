@@ -34,7 +34,7 @@ export const AuthenticationContextProvider = ({ children }) => {
           refresh: token,
         });
         if (status >= 200 && status < 300) {
-          setIsAuthenticated(true);
+          setIsAuthenticated(true); 
            // user-token 설정
           localStorage.setItem("stageContainer", JSON.stringify({
             'refresh-token': token,

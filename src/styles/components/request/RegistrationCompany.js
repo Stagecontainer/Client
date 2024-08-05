@@ -23,6 +23,30 @@ const CustomButton = styled.button`
   min-width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   padding: ${(props) => props.pad};
+  border: 1px solid ${(props) => (props.isChecked ? props.theme.color.serve : props.defaultColor)};
+  border-radius: ${(props) => props.radius}px;
+
+  font-size: ${(props) => props.fontSize}px;
+  font-weight: ${(props) => props.fontWeight};
+
+  color: ${(props) =>
+    props.isChecked ? props.theme.color.main : props.theme.color.gray100};
+  background-color: ${(props) =>
+    props.isChecked ? props.theme.color.serve : props.theme.color.gray0};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:disabled {
+    background-color: ${(props) => props.theme.color.gray60};
+    color: ${(props)=> props.theme.color.gray0};
+  }
+`;
+ 
+const CustomSubmitButton = styled.button`
+  min-width: ${(props) => props.width}px;
+  height: ${(props) => props.height}px;
+  padding: ${(props) => props.pad};
   border: 1px solid ${(props) => (props.isChecked ? "" : props.defaultColor)};
   border-radius: ${(props) => props.radius}px;
 
@@ -39,6 +63,7 @@ const CustomButton = styled.button`
   align-items: center;
   &:disabled {
     background-color: ${(props) => props.theme.color.gray60};
+    color: ${(props)=> props.theme.color.gray0};
   }
 `;
 
@@ -62,4 +87,4 @@ const SubmitContainer = styled.div`
   }
 `;
 
-export { Container, CustomButton, SubmitContainer };
+export { Container, CustomButton, SubmitContainer, CustomSubmitButton };
