@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+
 import { BASE_URL } from "../../constant/product";
+import { roomId } from "../../constant/chat";
+import { userToken } from "../../constant/chat";
+
+import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
 import menuIcon from "../../assets/order/vertical-menu-icon.svg";
 import infoIcon from "../../assets/chat/info.svg";
 import sharedIcon from "../../assets/chat/shared.svg";
@@ -11,6 +16,7 @@ import orderRequestIcon from "../../assets/chat/order-request.svg";
 import emojiIcon from "../../assets/chat/emoji.svg";
 import paperClipIcon from "../../assets/chat/paper-clip.svg";
 import sendMessageIcon from "../../assets/chat/send-message.svg";
+import { getChatRoomList } from "../../api/example";
 
 const ChattingPage = () => {
   const { id } = useParams();
@@ -18,10 +24,55 @@ const ChattingPage = () => {
   const location = useLocation();
   const [data, setData] = useState(location.state);
 
-  console.log(location.state);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const webSocket = useRef(null);
+
+  useEffect(() => {
+    webSocket.current = new WebSocket(
+      `wss://port-0-server-1272llx0bndkw.sel5.cloudtype.app/ws/chat/${roomId}/?token=${userToken}`
+    );
+
+    webSocket.current.onopen = () => {
+      console.log("WebSocket 연결 성공");
+    };
+
+    webSocket.current.onmessage = (e) => {
+      setMessages((prev) => [...prev, e.data]);
+    };
+
+    webSocket.current.onerror = (error) => {
+      console.log(error);
+    };
+
+    webSocket.current.onclose = () => {
+      console.log("WebSocket 연결 종료");
+    };
+
+    return () => {
+      webSocket.current?.close();
+    };
+  }, [id]);
+
+  useEffect(() => {
+    const getChatList = async () => {
+      const response = await getChatRoomList();
+      if (response) console.log(response);
+    };
+
+    getChatList();
+  }, []);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
+    if (webSocket.current && message.trim() !== "") {
+      const messsageData = {
+        room: id,
+        message: message,
+      };
+      webSocket.current.send(JSON.stringify(messsageData));
+      setMessage("");
+    }
   };
 
   const navigateToRequest = () => {
@@ -47,7 +98,7 @@ const ChattingPage = () => {
               src={
                 data?.companyLogo
                   ? `${BASE_URL}${data.companyLogo}`
-                  : notFoundImg
+                  : notFoundImg_2
               }
               className="company-logo"
               alt="company-logo"
@@ -56,11 +107,18 @@ const ChattingPage = () => {
           </div>
           <img src={menuIcon} alt="menu-icon" />
         </div>
+
+        <span></span>
       </ChatWindow>
 
       <MessageInput>
         <form action="" onSubmit={handleSendMessage}>
-          <input type="text" placeholder="내용을 입력해주세요" />
+          <input
+            type="text"
+            placeholder="내용을 입력해주세요"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
           <div className="icon-container">
             <img src={emojiIcon} alt="emoji-icon" />
             <img src={paperClipIcon} alt="paper-clip-icon" />
@@ -75,7 +133,9 @@ const ChattingPage = () => {
         <div className="header">
           <img
             src={
-              data?.companyLogo ? `${BASE_URL}${data.companyLogo}` : notFoundImg
+              data?.companyLogo
+                ? `${BASE_URL}${data.companyLogo}`
+                : notFoundImg_2
             }
             className="company-logo big-size"
             alt="company-logo"
