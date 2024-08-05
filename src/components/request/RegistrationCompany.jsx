@@ -5,32 +5,47 @@ import {
   CustomButton,
   SubmitContainer,
 } from "../../styles/components/request/RegistrationCompany";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
+import FileField from "./FileField";
+import { useNavigate } from "react-router-dom";
+import { AuthenticationContext } from "../../contexts/user";
+import { Posts } from "../../api/posts";
 
 const RegistrationCompany = () => {
+  const navigate = useNavigate();
+  const { userid } = useContext(AuthenticationContext);
   const inputRef = useRef([]);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [fileInfo, setFileInfo] = useState({
+    content_img: [],
+    logo_img: [],
+    images: [],
+    company_img: [],
+  });
+
   const [companyInfo, setCompanyInfo] = useState({
-    companyName: "",
-    companyType: "",
+    company: "",
+    purpose: "",
     category: {
       costume: false,
       prop: false,
       expendables: false,
     },
-    ad: "",
-    poster: "",
-    main: "",
-    logo: "",
+    content: "",
+    address: "",
+    title: "",
+    promotion: "",
     price: "",
-    businessNum: "",
-    businessCard: "",
+    company_num: "",
   });
 
   const [validCheck, setValidCheck] = useState({
-    companyName: true,
-    ad: true,
-    main: true,
+    company: true,
+    category: true,
+    address: true,
+    title: true,
+    content: true,
+    promotion: true,
     price: true,
   });
 
@@ -56,10 +71,10 @@ const RegistrationCompany = () => {
   const disabledHandler = () => {
     for (const key in validCheck) {
       if (!validCheck[key] || companyInfo[key] === "") {
-        return true; 
+        return true;
       }
     }
-    return false; 
+    return false;
   };
 
   const validHandler = (key, updatedCompanyInfo) => {
@@ -75,32 +90,84 @@ const RegistrationCompany = () => {
       }));
     }
   };
+  const getCategoryValue = () => {
+    if (companyInfo.category.costume) return "의상";
+    if (companyInfo.category.prop) return "소품";
+    if (companyInfo.category.expendables) return "소모품";
+    return ""; // 선택된 카테고리가 없을 경우
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // FormData 객체 생성
+    const formData = new FormData();
+
+    // 기존 파일 정보 업데이트
+    const updatedFileInfo = Object.keys(fileInfo).reduce((acc, key) => {
+      acc[key] = fileInfo[key].length > 0 ? fileInfo[key] : null; // 빈 배열이면 null로 설정
+      return acc;
+    }, {});
+
+    // 요청 정보 구성
+    const requestInfo = {
+      ...companyInfo,
+      category: getCategoryValue(),
+      user: userid,
+    };
+
+    // 일반 요청 정보 추가
+    Object.keys(requestInfo).forEach((key) => {
+      formData.append(key, requestInfo[key]);
+    });
+
+    // 파일 정보 추가 (여러 개의 이미지 처리)
+    Object.keys(updatedFileInfo).forEach((key) => {
+      if (updatedFileInfo[key]) {
+        updatedFileInfo[key].forEach((file, index) => {
+          if (key === "images")
+            formData.append(key.slice(0, -1) + (index + 1), file);
+          else formData.append(key, file);
+        });
+      } else {
+        formData.append(key, "");
+      }
+    });
+
+    console.log("FormData 내용:", Array.from(formData.entries())); // FormData 내용 확인
+
+    try {
+      const { status } = await Posts(formData); // FormData 전송
+      if (status === 201) navigate("/company/regist/complete");
+    } catch (e) {
+      alert("등록 오류") // 오류 처리
+    }
+    // navigate("/company/regist/complete"); // 필요 시 네비게이션
+  };
 
   return (
-    <Container>
+    <Container onSubmit={(e) => e.preventDefault()}>
       <div className="field-box" style={{ width: "100%" }}>
-        <LabelField label={"제작사 명"} valid={validCheck.companyName}>
+        <LabelField label={"제작사 명"} valid={validCheck.company}>
           <InputField
             width={519}
             height={48}
             holderText={"예)대한의상"}
             type={"text"}
-            ref={(el) => (inputRef.current[0] = el)}
             onchangeFun={updateValue}
-            id={"companyName"}
+            id={"company"}
           />
         </LabelField>
         <LabelField label={"유형"} valid={validCheck.type}>
           <div className="field-box" style={{ width: "519px" }}>
             <CustomButton
-              width={243}
+              width={150}
               height={40}
               radius={200}
               defaultColor={"#1D1D1D"}
-              isChecked={companyInfo.companyType === "make"}
+              isChecked={companyInfo.purpose === "의뢰 제작"}
               onClick={() => {
-                updateValue("companyType", "make");
-                console.log("A")
+                updateValue("purpose", "의뢰 제작");
               }}
               fontSize={16}
               fontWeight={500}
@@ -108,17 +175,30 @@ const RegistrationCompany = () => {
               의뢰 제작
             </CustomButton>
             <CustomButton
-              width={243}
+              width={150}
               height={40}
               radius={200}
-              isChecked={companyInfo.companyType === "sell"}
+              isChecked={companyInfo.purpose === "중고 판매"}
               onClick={() => {
-                updateValue("companyType", "sell");
+                updateValue("purpose", "중고 판매");
               }}
               fontSize={16}
               fontWeight={500}
             >
-              중고 판매/대여
+              중고 판매
+            </CustomButton>
+            <CustomButton
+              width={150}
+              height={40}
+              radius={200}
+              isChecked={companyInfo.purpose === "중고 대여"}
+              onClick={() => {
+                updateValue("purpose", "중고 대여");
+              }}
+              fontSize={16}
+              fontWeight={500}
+            >
+              중고 대여
             </CustomButton>
           </div>
         </LabelField>
@@ -130,9 +210,9 @@ const RegistrationCompany = () => {
             height={40}
             radius={200}
             isChecked={companyInfo.category.costume}
-            onClick={() =>
-              updateValue("costume", !companyInfo.category.costume)
-            }
+            onClick={() => {
+              updateValue("costume", !companyInfo.category.costume);
+            }}
             fontSize={16}
             fontWeight={500}
           >
@@ -143,7 +223,9 @@ const RegistrationCompany = () => {
             height={40}
             radius={200}
             isChecked={companyInfo.category.prop}
-            onClick={() => updateValue("prop", !companyInfo.category.prop)}
+            onClick={() => {
+              updateValue("prop", !companyInfo.category.prop);
+            }}
             fontSize={16}
             fontWeight={500}
           >
@@ -154,9 +236,9 @@ const RegistrationCompany = () => {
             height={40}
             radius={200}
             isChecked={companyInfo.category.expendables}
-            onClick={() =>
-              updateValue("expendables", !companyInfo.category.expendables)
-            }
+            onClick={() => {
+              updateValue("expendables", !companyInfo.category.expendables);
+            }}
             fontSize={16}
             fontWeight={500}
           >
@@ -164,46 +246,92 @@ const RegistrationCompany = () => {
           </CustomButton>
         </div>
       </LabelField>
-      <LabelField label={"홍보내용"} valid={validCheck.ad}>
+      <LabelField label={"주소"} valid={validCheck.address}>
         <InputField
-          type="textarea"
+          type="text"
           width={1062}
-          height={140}
-          holderText={"제작사의 포트폴리오나 어필 내용을 입력해주세요"}
-          ref={(el) => (inputRef.current[1] = el)}
-          id={"ad"}
+          height={48}
+          holderText={"판매처 주소를 입력해주세요"}
+          id={"address"}
           onchangeFun={updateValue}
         />
       </LabelField>
-      <LabelField label={"홍보 포스터"}>
+      <LabelField label={"게시글 제목"} valid={validCheck.title}>
         <InputField
-          type="file"
+          type="text"
+          width={1062}
+          height={48}
+          holderText={"예)중고 의상 판매합니다"}
+          id={"title"}
+          onchangeFun={updateValue}
+        />
+      </LabelField>
+      <LabelField
+        label={"홍보내용"}
+        valid={validCheck.content}
+        subText={
+          "홍보 텍스트와 포트폴리오는 함께 등록할 수 없으므로 <span class=span-blue>하나만</span> 작성해주세요."
+        }
+      >
+        <InputField
+          type="textarea"
+          width={1062}
+          height={48}
+          holderText={"제작사의 포트폴리오나 어필 내용을 입력해주세요"}
+          ref={(el) => (inputRef.current[1] = el)}
+          id={"content"}
+          onchangeFun={updateValue}
+        />
+        <FileField
           width={1062}
           height={48}
           holderText={
-            "홍보 포스터나 페이지의 경우, 이곳에 등록해주세요(파일형식: pdf, png, jpg...)"
+            "미리 제작된 포트폴리오를 등록해주세요(파일형식: pdf, png, jpg...)"
           }
-          ref={(el) => (inputRef.current[2] = el)}
-          id={"poster"}
+          id={"content_img"}
+          file={fileInfo.content_img}
+          setFile={setFileInfo}
+          accept={".pdf, .png, .jpg, .jpeg"}
+          maxFiles={1}
         />
       </LabelField>
-      <LabelField label={"메인 홍보 문구"} valid={validCheck.main}>
+      <LabelField
+        label={"홍보 이미지"}
+        subText="최대 5개의 이미지를 등록할 수 있고 한번 등록할 때, 5개를 <span class=span-blue>함께</span> 선택하여 주세요"
+      >
+        <FileField
+          width={1062}
+          height={48}
+          holderText={
+            "홍보에 사용할 이미지를 등록해주세요(파일형식: png, jpg...)"
+          }
+          id={"images"}
+          file={fileInfo.images}
+          setFile={setFileInfo}
+          accept={".png, .jpg, .jpeg"}
+          maxFiles={5}
+        />
+      </LabelField>
+      <LabelField label={"메인 홍보 문구"} valid={validCheck.promotion}>
         <InputField
           type="text"
           width={1062}
           height={48}
           holderText={"최상단에 띄울 홍보 문구를 입력해주세요"}
-          id={"main"}
+          id={"promotion"}
           onchangeFun={updateValue}
         />
       </LabelField>
-      <LabelField label={"로고 파일"}>
-        <InputField
-          type="file"
+      <LabelField label={"(선택) 로고 파일"}>
+        <FileField
           width={1062}
           height={48}
-          holderText={"로고 파일을 등록해주세요(파일형식: pdf, png, jpg...)"}
-          id={"logo"}
+          holderText={"로고 파일을 등록해주세요(파일형식: png, jpg...)"}
+          id={"logo_img"}
+          file={fileInfo.logo_img}
+          setFile={setFileInfo}
+          accept={".png, .jpg, .jpeg"}
+          maxFiles={1}
         />
       </LabelField>
       <LabelField label={"가격"} valid={validCheck.price}>
@@ -224,18 +352,22 @@ const RegistrationCompany = () => {
           height={48}
           holderText={"사업자 번호를 입력해주세요"}
           ref={(el) => (inputRef.current[4] = el)}
-          id={"bussinessNum"}
+          id={"company_num"}
           onchangeFun={updateValue}
         />
       </LabelField>
       <LabelField label={"사업자 등록증"}>
-        <InputField
-          type="file"
+        <FileField
           width={1062}
           height={48}
-          holderText={"사업자 등록증 사본을 등록해주세요(pdf)"}
-          ref={(el) => (inputRef.current[5] = el)}
-          id={"businessCard"}
+          holderText={
+            "홍보에 사용할 이미지를 등록해주세요(파일형식: png, jpg...)"
+          }
+          id={"company_img"}
+          file={fileInfo.company_img}
+          accept={".png, .jpg, .jpeg"}
+          maxFiles={1}
+          setFile={setFileInfo}
         />
       </LabelField>
       <SubmitContainer>
@@ -244,9 +376,10 @@ const RegistrationCompany = () => {
           height={60}
           radius={8}
           isChecked={true}
-          disabled={isDisabled}
+          disabled={!isDisabled}
           fontSize={20}
           fontWeight={600}
+          onClick={(e) => handleSubmit(e)}
         >
           제작자 등록 신청
         </CustomButton>
