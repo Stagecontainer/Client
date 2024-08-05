@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import { getChatRoomList } from "../../api/chat";
 import { BASE_URL } from "../../constant/product";
 import { roomId } from "../../constant/chat";
 import { userToken } from "../../constant/chat";
@@ -16,7 +17,6 @@ import orderRequestIcon from "../../assets/chat/order-request.svg";
 import emojiIcon from "../../assets/chat/emoji.svg";
 import paperClipIcon from "../../assets/chat/paper-clip.svg";
 import sendMessageIcon from "../../assets/chat/send-message.svg";
-import { getChatRoomList } from "../../api/example";
 
 const ChattingPage = () => {
   const { id } = useParams();

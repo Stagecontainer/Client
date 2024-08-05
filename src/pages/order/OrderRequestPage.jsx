@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { BASE_URL } from "../../constant/product";
 import notFoundImg from "../../assets/product/image-not-found.png";
+import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
 import menuIcon from "../../assets/order/vertical-menu-icon.svg";
 
 const OrderRequestPage = () => {
@@ -11,25 +12,25 @@ const OrderRequestPage = () => {
   const location = useLocation();
   const [data, setData] = useState(location.state);
   const [inputValue, setInputValue] = useState({
-    username: "",
-    tel: "",
+    name: "",
+    number: "",
     address: "",
-    details: "",
-    reference: "",
+    content: "",
+    reference: null,
   });
   const [inputValid, setInputValid] = useState({
-    usernameValid: true,
-    telValid: true,
+    nameValid: true,
+    numberValid: true,
     addressValid: true,
-    detailsValid: true,
+    contentValid: true,
     referenceValid: false,
   });
 
   const isValid =
-    inputValue.username &&
-    inputValue.tel &&
+    inputValue.name &&
+    inputValue.number &&
     inputValue.address &&
-    inputValue.details;
+    inputValue.content;
 
   const handleInput = (e) => {
     const { value, id } = e.target;
@@ -39,17 +40,17 @@ const OrderRequestPage = () => {
     };
 
     switch (id) {
-      case "username":
-        handleInput("username");
+      case "name":
+        handleInput("name");
         break;
-      case "tel":
-        handleInput("tel");
+      case "number":
+        handleInput("number");
         break;
       case "address":
         handleInput("address");
         break;
-      case "details":
-        handleInput("details");
+      case "content":
+        handleInput("content");
         break;
     }
   };
@@ -65,17 +66,17 @@ const OrderRequestPage = () => {
     };
 
     switch (id) {
-      case "username":
-        handleValid("username");
+      case "name":
+        handleValid("name");
         break;
-      case "tel":
-        handleValid("tel");
+      case "number":
+        handleValid("number");
         break;
       case "address":
         handleValid("address");
         break;
-      case "details":
-        handleValid("details");
+      case "content":
+        handleValid("content");
         break;
     }
   };
@@ -92,7 +93,9 @@ const OrderRequestPage = () => {
         <div className="logo-container">
           <img
             src={
-              data?.companyLogo ? `${BASE_URL}${data.companyLogo}` : notFoundImg
+              data?.companyLogo
+                ? `${BASE_URL}${data.companyLogo}`
+                : notFoundImg_2
             }
             className="company-logo"
             alt="company-logo"
@@ -104,31 +107,31 @@ const OrderRequestPage = () => {
 
       <div className="content">
         <form onSubmit={handleSubmit}>
-          <div className="client-tel-container">
+          <div className="client-number-container">
             <div className="client-container">
-              <label
-                htmlFor="username"
-                className={inputValid.usernameValid || "empty"}
-              >
-                의뢰자{inputValid.usernameValid ? "" : "*"}
+              <label htmlFor="name" className={inputValid.nameValid || "empty"}>
+                의뢰자{inputValid.nameValid ? "" : "*"}
               </label>
               <input
                 type="text"
-                value={inputValue.username}
-                id="username"
+                value={inputValue.name}
+                id="name"
                 placeholder="홍길동"
                 onChange={handleInput}
                 onBlur={handleBlur}
               />
             </div>
-            <div className="tel-container">
-              <label htmlFor="tel" className={inputValid.telValid || "empty"}>
-                연락처{inputValid.telValid ? "" : "*"}
+            <div className="number-container">
+              <label
+                htmlFor="number"
+                className={inputValid.numberValid || "empty"}
+              >
+                연락처{inputValid.numberValid ? "" : "*"}
               </label>
               <input
                 type="number"
-                value={inputValue.tel}
-                id="tel"
+                value={inputValue.number}
+                id="number"
                 placeholder="010-0000-0000"
                 onChange={handleInput}
                 onBlur={handleBlur}
@@ -151,16 +154,16 @@ const OrderRequestPage = () => {
               onBlur={handleBlur}
             />
           </div>
-          <div className="details-container">
+          <div className="content-container">
             <label
-              htmlFor="details"
-              className={inputValid.detailsValid || "empty"}
+              htmlFor="content"
+              className={inputValid.contentValid || "empty"}
             >
-              의뢰내용{inputValid.detailsValid ? "" : "*"}
+              의뢰내용{inputValid.contentValid ? "" : "*"}
             </label>
             <textarea
-              id="details"
-              value={inputValue.details}
+              id="content"
+              value={inputValue.content}
               placeholder="의상 컨셉과 필요한 장식, 색상 등을 작성해주세요&#13;&#10;
               *치수의 경우, 필수적인 요소이기에 의뢰자와 먼저 상담 후 작성여부를 정해주세요"
               onChange={handleInput}
@@ -269,13 +272,13 @@ const Container = styled.div`
     width: 1062px;
     height: 476px;
 
-    .client-tel-container {
+    .client-number-container {
       display: flex;
       justify-content: space-between;
     }
 
     .client-container,
-    .tel-container {
+    .number-container {
       display: flex;
       flex-direction: column;
     }
@@ -288,28 +291,28 @@ const Container = styled.div`
       margin-bottom: 64px;
     }
 
-    #username,
-    #tel,
+    #name,
+    #number,
     #address,
-    #details,
+    #content,
     #reference-image {
       border: 1px solid #f1f1f1;
       border-radius: 8px;
       margin-bottom: 24px;
       background-color: white;
     }
-    #username,
-    #tel {
+    #name,
+    #number {
       width: 519px;
     }
 
     #address,
-    #details,
+    #content,
     #reference-image {
       width: 100%;
     }
 
-    #details {
+    #content {
       height: 140px;
     }
 

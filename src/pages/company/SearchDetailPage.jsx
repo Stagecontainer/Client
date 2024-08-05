@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { getDetailPost } from "../../api/example";
+import { getDetailPost } from "../../api/products";
 import { product } from "../../assets/mock-data/product-mock-data";
 import { BASE_URL } from "../../constant/product";
 
