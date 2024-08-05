@@ -75,7 +75,7 @@ function App() {
                     />
                   </Route>
                 ) : (
-                  <Route path="/company/products/">
+                  <Route path="/company/products/:id">
                     <Route index element={<NeedLoginPage />} />
                   </Route>
                 )}
