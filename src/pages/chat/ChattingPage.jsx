@@ -22,8 +22,6 @@ import sendMessageIcon from "../../assets/chat/send-message.svg";
 const ChattingPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
-  // const [data, setData] = useState(location.state);
   const [data, setData] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);

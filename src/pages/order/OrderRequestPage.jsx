@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { getDetailPost } from "../../api/products";
 import { createOrderRequest } from "../../api/order-request";
 import { BASE_URL } from "../../constant/product";
 import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
@@ -9,8 +10,7 @@ import menuIcon from "../../assets/order/vertical-menu-icon.svg";
 const OrderRequestPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
-  const [data, setData] = useState(location.state);
+  const [data, setData] = useState(null);
   const [inputValue, setInputValue] = useState({
     name: "",
     number: "",
@@ -31,6 +31,22 @@ const OrderRequestPage = () => {
     inputValue.number &&
     inputValue.address &&
     inputValue.content;
+
+  const handleLoadPost = async (id) => {
+    try {
+      const response = await getDetailPost(id);
+      setData(response.data);
+      if (data) {
+        console.log(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    handleLoadPost(id);
+  }, []);
 
   const handleInput = (e) => {
     const { value, id } = e.target;
@@ -99,15 +115,10 @@ const OrderRequestPage = () => {
       <div className="header">
         <div className="logo-container">
           <img
-            src={
-              data?.companyLogo
-                ? `${BASE_URL}${data.companyLogo}`
-                : notFoundImg_2
-            }
+            src={data?.logo_img ? `${BASE_URL}${data.logo_img}` : notFoundImg_2}
             className="company-logo"
-            alt="company-logo"
           />
-          <strong className="logo-text">{data.company}</strong>
+          <strong className="logo-text">{data?.company}</strong>
         </div>
         <img src={menuIcon} alt="menu-icon" />
       </div>

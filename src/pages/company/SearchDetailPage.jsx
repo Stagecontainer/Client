@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { getDetailPost } from "../../api/products";
@@ -14,7 +14,6 @@ import quotationRightMark from "../../assets/product/quotation-mark-2.svg";
 
 const SearchDetailPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [data, setData] = useState(null);
 
   const handleLoadPost = async (id) => {
@@ -32,27 +31,6 @@ const SearchDetailPage = () => {
   useEffect(() => {
     handleLoadPost(id);
   }, []);
-
-  const navigateToChat = () => {
-    navigate(`/company/products/${id}/chat`, {
-      state: {
-        companyLogo: data.logo_img,
-        title: data.company,
-        purpose: data.purpose,
-        rating: data.rating,
-        address: data.address,
-      },
-    });
-  };
-
-  const navigateToRequest = () => {
-    navigate(`/company/products/${id}/order-request`, {
-      state: {
-        companyLogo: data.logo_img,
-        company: data.company,
-      },
-    });
-  };
 
   return (
     <>
@@ -163,12 +141,12 @@ const SearchDetailPage = () => {
           </div>
 
           <div className="button-container">
-            <button className="consult-button" onClick={navigateToChat}>
-              상담하기
-            </button>
-            <button className="request-button" onClick={navigateToRequest}>
-              의뢰서 작성
-            </button>
+            <Link to={`/company/products/${id}/chat`}>
+              <button className="consult-button">상담하기</button>
+            </Link>
+            <Link to={`/company/products/${id}/order-request`}>
+              <button className="request-button">의뢰서 작성</button>
+            </Link>
           </div>
         </Container>
       )}

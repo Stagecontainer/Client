@@ -19,7 +19,6 @@ const OrderCompletePage = () => {
     navigate("/company", { state: { data: data } });
   };
 
-  console.log(location.state.data.content);
   return (
     <Container>
       <img src={requestCompleteImg} alt="" />
