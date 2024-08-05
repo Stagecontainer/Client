@@ -25,7 +25,7 @@ const OrderList = () => {
         if (posts.status === 200) setOrders(posts.data);
       }
     } catch (e) {
-      alert("불러오기 오류 발생"); // error
+      //alert("불러오기 오류 발생"); // error
     }
   };
   return (
@@ -40,7 +40,7 @@ const OrderList = () => {
                   <OrderCard key={index}>
                     <Receipt />
                     <div className="logo-box">
-                      <img src={value.post.logo_img === null ? NonImage : baseURL + value.post.logo_img} alt="" />
+                      <img src={value.post.logo_img === null ? "" : baseURL + value.post.logo_img} alt="" />
                     </div>
                     <div className="content-box">
                       <span className="request-id">{`ABCDEF12345-${value.request_id}`}</span>

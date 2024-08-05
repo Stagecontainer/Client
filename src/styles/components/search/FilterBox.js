@@ -34,9 +34,9 @@ const RatingButton = styled.button`
   padding: 0px 16px 0px 16px;
   border: 1px solid
     ${(props) =>
-      props.isCheck ? props.theme.color.main : props.theme.color.gray100};
+      props.isChecked ? props.theme.color.main : props.theme.color.gray100};
   color: ${(props) =>
-    props.isCheck ? props.theme.color.main : props.theme.color.gray100};
+    props.isChecked ? props.theme.color.main : props.theme.color.gray100};
   font-size: 14px;
   background-color: transparent;
 
