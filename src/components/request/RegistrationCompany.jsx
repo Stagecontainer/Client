@@ -304,7 +304,7 @@ const RegistrationCompany = () => {
         />
       </LabelField>
       <LabelField
-        label={"홍보 이미지"}
+        label={"(선택) 홍보 이미지"}
         subText="최대 5개의 이미지를 등록할 수 있고 한번 등록할 때, 5개를 <span class=span-blue>함께</span> 선택하여 주세요"
       >
         <FileField
@@ -373,7 +373,7 @@ const RegistrationCompany = () => {
           }
           id={"company_img"}
           file={fileInfo.company_img}
-          accept={".png, .jpg, .jpeg"}
+          accept={".png, .jpg, .jpeg, .pdf"}
           maxFiles={1}
           setFile={setFileInfo}
         />
