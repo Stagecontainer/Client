@@ -15,6 +15,7 @@ const InputField = forwardRef(
       accept = "",
       id,
       onchangeFun,
+      readOnly = false
     },
     ref
   ) => {
@@ -26,6 +27,7 @@ const InputField = forwardRef(
           height={height}
           placeholder={holderText}
           onChange={(e) => onchangeFun(id, e.target.value)}
+          readOnly={readOnly}
         />
       );
     }
@@ -38,6 +40,7 @@ const InputField = forwardRef(
         placeholder={holderText}
         id={id}
         onChange={(e) => onchangeFun(id, e.target.value)}
+        readOnly={readOnly}
       />
       )
     }
@@ -52,6 +55,7 @@ const InputField = forwardRef(
             name="file"
             id={id}
             accept={accept}
+            readOnly={readOnly}
           />
         </CustomFileInput>
       );
@@ -65,6 +69,7 @@ const InputField = forwardRef(
         placeholder={holderText}
         id={id}
         onChange={(e) => onchangeFun(id, e.target.value)}
+        readOnly={readOnly}
       />
     );
   }

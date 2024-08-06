@@ -274,7 +274,7 @@ const RegistrationCompany = () => {
       </LabelField>
       <LabelField
         label={"홍보내용"}
-        valid={validCheck.content}
+        valid={fileInfo.content_img.length != 0 || validCheck.content}
         subText={
           "홍보 텍스트와 포트폴리오는 함께 등록할 수 없으므로 <span class=span-blue>하나만</span> 작성해주세요."
         }
@@ -287,6 +287,7 @@ const RegistrationCompany = () => {
           ref={(el) => (inputRef.current[1] = el)}
           id={"content"}
           onchangeFun={updateValue}
+          readOnly={fileInfo.content_img.length > 0}
         />
         <FileField
           width={1062}
@@ -299,6 +300,7 @@ const RegistrationCompany = () => {
           setFile={setFileInfo}
           accept={".pdf, .png, .jpg, .jpeg"}
           maxFiles={1}
+          readOnly={companyInfo.content.length > 0}
         />
       </LabelField>
       <LabelField
