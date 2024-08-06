@@ -162,7 +162,6 @@ const ChattingPage = () => {
           ))}
         </ul>
 
-        <span></span>
         <MessageInput>
           <form action="" onSubmit={handleSendMessage}>
             <input
@@ -351,8 +350,10 @@ const ChatWindow = styled.div`
   .chat {
     display: flex;
     flex-direction: column;
+    width: inherit;
     gap: 15px;
-    padding: 24px;
+    padding: 24px 24px 0 24px;
+    box-sizing: border-box;
 
     .user,
     .company {
@@ -381,7 +382,7 @@ const MessageInput = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
