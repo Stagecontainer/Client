@@ -17,7 +17,12 @@ const LoginPage = () => {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const navigate = useNavigate();
-
+  const Enter = (e) => {
+    if(e.key === "Enter"){
+      handleSubmit(e);
+    }
+  }
+ 
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
@@ -55,7 +60,8 @@ const LoginPage = () => {
                 type="password"
                 value={pw}
                 onChange={(e) => setPw(e.target.value)}
-                placeholder="비밀번호를 입력해주세요" />
+                placeholder="비밀번호를 입력해주세요"
+                onKeyDown = {(e) => Enter(e)}/>
 
             </Label>
           </div>
