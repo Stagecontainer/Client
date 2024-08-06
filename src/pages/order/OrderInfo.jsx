@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getDetailPost } from "../../api/products";
+import { BASE_URL } from "../../constant/product";
 import styled from "styled-components";
 import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
 
