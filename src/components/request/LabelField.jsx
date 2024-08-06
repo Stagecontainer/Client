@@ -17,7 +17,7 @@ const LabelField = ({ children, label, valid = true, subText = "" }) => {
         
         {!valid ? label + "*" : label}
       </span>
-      {subText !== "" ? <span style={{fontSize : "12px", color : "#4D4D4D"}} dangerouslySetInnerHTML={{__html : subText}}></span> : ""}
+      {subText !== "" ? <span style={{fontSize : "12px", color : !valid? "#FF0004" :"#4D4D4D"}} dangerouslySetInnerHTML={{__html : subText}}></span> : ""}
       {children}
     </div>
   );
