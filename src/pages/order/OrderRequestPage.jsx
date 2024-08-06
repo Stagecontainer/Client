@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getDetailPost } from "../../api/products";
+import { getUserId } from "../../api/users";
 import { createOrderRequest } from "../../api/order-request";
 import { BASE_URL } from "../../constant/product";
 import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
@@ -10,6 +11,7 @@ import menuIcon from "../../assets/order/vertical-menu-icon.svg";
 const OrderRequestPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [userId, setUserId] = useState("");
   const [data, setData] = useState(null);
   const [inputValue, setInputValue] = useState({
     name: "",
@@ -25,7 +27,6 @@ const OrderRequestPage = () => {
     contentValid: true,
     referenceValid: false,
   });
-
   const isValid =
     inputValue.name &&
     inputValue.number &&
@@ -34,6 +35,9 @@ const OrderRequestPage = () => {
 
   const handleLoadPost = async (id) => {
     try {
+      const res = await getUserId();
+      console.log(res);
+      setUserId(res.data.id);
       const response = await getDetailPost(id);
       setData(response.data);
       if (data) {
@@ -100,7 +104,7 @@ const OrderRequestPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await createOrderRequest(inputValue, 1, id);
+      const response = await createOrderRequest(inputValue, userId, id);
       console.log(response);
       navigate(`/company/products/${id}/order-complete`, {
         state: { data: response.data },
