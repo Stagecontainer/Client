@@ -2,10 +2,12 @@ import axios from "axios";
 import { BASE_URL } from "../constant/product";
 
 const tokens = JSON.parse(localStorage.stageContainer);
+// const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyOTQwNzI2LCJpYXQiOjE3MjI4NTQzMjYsImp0aSI6ImIyM2QxZTExNjZkYzQxNDZhNGZjMGJkM2E2ZTUwOWNiIiwidXNlcl9pZCI6Miwibmlja25hbWUiOiJcdWQ1NThcdWIwZTVcdWM3NzQifQ.UofceIUHmIQaq7XixBgW43V6xUNa42NJVH2k0hHd1P0`;
 
 const headers = {
   "Content-Type": "application/json",
   Authorization: `Bearer ${tokens["user-token"]}`,
+  // Authorization: `Bearer ${token}`,
 };
 
 export const createChatRoom = async (data) => {

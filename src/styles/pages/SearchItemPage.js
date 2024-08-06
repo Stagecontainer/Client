@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  margin-top: 36px;
+  margin: 36px 0 90px 0;
   display: flex;
   justify-content: center;
 
