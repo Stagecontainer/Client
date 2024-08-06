@@ -160,25 +160,24 @@ const ChattingPage = () => {
         </ul>
 
         <span></span>
+        <MessageInput>
+          <form action="" onSubmit={handleSendMessage}>
+            <input
+              type="text"
+              placeholder="내용을 입력해주세요"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <div className="icon-container">
+              <img src={emojiIcon} alt="emoji-icon" />
+              <img src={paperClipIcon} alt="paper-clip-icon" />
+              <button type="submit">
+                <img src={sendMessageIcon} alt="paper-clip-icon" />
+              </button>
+            </div>
+          </form>
+        </MessageInput>
       </ChatWindow>
-
-      <MessageInput>
-        <form action="" onSubmit={handleSendMessage}>
-          <input
-            type="text"
-            placeholder="내용을 입력해주세요"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <div className="icon-container">
-            <img src={emojiIcon} alt="emoji-icon" />
-            <img src={paperClipIcon} alt="paper-clip-icon" />
-            <button type="submit">
-              <img src={sendMessageIcon} alt="paper-clip-icon" />
-            </button>
-          </div>
-        </form>
-      </MessageInput>
 
       <CompanyInfo>
         <div className="header">
@@ -301,17 +300,19 @@ const ChatRoomList = styled.div`
 `;
 
 const ChatWindow = styled.div`
+  position: relative;
   width: 792px;
-  height: 674px;
+  height: 88vh;
   margin-top: 15px;
   background-color: white;
+  box-sizing: border-box;
   overflow: auto;
 
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 792px;
+    width: inherit;
     height: 72px;
     padding: 0 24px;
     border-bottom: 2px solid #f1f1f1;
@@ -372,7 +373,7 @@ const MessageInput = styled.div`
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateX(-49%);
+  transform: translateX(-50%);
   width: 792px;
   height: 68px;
   background-color: #f1f1f1;
