@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { getChatRoomList } from "../../api/chat";
+import { getChatRoomList, createChatRoom } from "../../api/chat";
 import { getDetailPost } from "../../api/products";
 import { product } from "../../assets/mock-data/product-mock-data";
 import { BASE_URL } from "../../constant/product";
@@ -12,11 +12,11 @@ import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
 import ratingIcon from "../../assets/product/rating-icon.svg";
 import quotationLeftMark from "../../assets/product/quotation-mark-1.svg";
 import quotationRightMark from "../../assets/product/quotation-mark-2.svg";
-import { createChatRoom } from "../../api/chat";
 
 const SearchDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [roomId, setRoomId] = useState(0);
   const [data, setData] = useState(null);
 
   const handleLoadPost = async (id) => {
@@ -41,17 +41,18 @@ const SearchDetailPage = () => {
       }
     });
     if (!hasChatRoom) {
-      createChatRoom({
+      const res = createChatRoom({
         name: data.company,
         invited_user_id: data.user,
       });
+      if (res) setRoomId(res.id);
     }
   };
 
   // 채팅방 생성
   const navigateToChat = async () => {
     getChatList();
-    navigate(`/company/products/${id}/chat`);
+    navigate(`/company/products/${id}/chat`, { state: { roomId } });
   };
 
   useEffect(() => {
