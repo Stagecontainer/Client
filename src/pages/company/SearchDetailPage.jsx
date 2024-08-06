@@ -31,27 +31,21 @@ const SearchDetailPage = () => {
     }
   };
 
-  // 새 채팅방 만들기
-  const startNewChat = async () => {
-    const response = await createChatRoom({
-      name: data.company,
-      invited_user_id: data.user,
-    });
-  };
-
   // 이미 존재하는 채팅방 있는지 확인
   const getChatList = async () => {
     let hasChatRoom = false;
     const response = await getChatRoomList();
-    response.data.map((chatRoom) => {
+    response.data.forEach((chatRoom) => {
       if (chatRoom.name === data.company) {
         hasChatRoom = true;
-        return;
-      } else {
-        hasChatRoom = false;
       }
     });
-    hasChatRoom ? null : startNewChat();
+    if (!hasChatRoom) {
+      createChatRoom({
+        name: data.company,
+        invited_user_id: data.user,
+      });
+    }
   };
 
   // 채팅방 생성
