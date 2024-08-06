@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
-
 import { getDetailPost } from "../../api/products";
 import { getChatRoomList, getChatRoom, sendMessage } from "../../api/chat";
 import { BASE_URL } from "../../constant/product";
@@ -17,7 +16,7 @@ import orderRequestIcon from "../../assets/chat/order-request.svg";
 import emojiIcon from "../../assets/chat/emoji.svg";
 import paperClipIcon from "../../assets/chat/paper-clip.svg";
 import sendMessageIcon from "../../assets/chat/send-message.svg";
-import { getPosts } from "../../api/posts";
+import chatRoomImg from "../../assets/chat/chat-room.svg";
 
 const ChattingPage = () => {
   const { id } = useParams();
@@ -114,23 +113,27 @@ const ChattingPage = () => {
       <ChatRoomList>
         <h3>채팅</h3>
         <ul className="chat-list">
-          {chatRoomList.map((chatRoom, idx) => (
-            <li className="chat-room" key={idx}>
-              <img
-                src={
-                  data?.logo_img ? `${BASE_URL}${data.logo_img}` : notFoundImg_2
+          {data &&
+            chatRoomList.map((chatRoom, idx) => (
+              <li
+                className={
+                  chatRoom.name === data.company
+                    ? "select-chat-room"
+                    : "chat-room"
                 }
-              />
-              <div className="chat-info">
-                <h4>{chatRoom.name}</h4>
-                <span>
-                  {chatRoom.last_message?.message
-                    ? chatRoom.last_message.message
-                    : "새로운 채팅방입니다"}
-                </span>
-              </div>
-            </li>
-          ))}
+                key={idx}
+              >
+                <img src={chatRoomImg} />
+                <div className="chat-info">
+                  <h4>{chatRoom.name}</h4>
+                  <span>
+                    {chatRoom.last_message?.message
+                      ? chatRoom.last_message.message
+                      : "새로운 채팅방입니다"}
+                  </span>
+                </div>
+              </li>
+            ))}
         </ul>
       </ChatRoomList>
 
@@ -262,6 +265,13 @@ const ChatRoomList = styled.div`
     flex-direction: column;
     gap: 12px;
 
+    img {
+      width: 40px;
+      height: 40px;
+      margin-right: 8px;
+    }
+
+    .select-chat-room,
     .chat-room {
       display: flex;
       align-items: center;
@@ -269,31 +279,32 @@ const ChatRoomList = styled.div`
       height: 68px;
       padding-left: 10px;
       border-radius: 6px;
+    }
+
+    .select-chat-room {
+      border: 1px solid #f1f1f1;
+      background-color: white;
+    }
+
+    .chat-room {
       background-color: #f1f1f1;
-
-      img {
-        width: 40px;
-        height: 40px;
-        margin-right: 8px;
+    }
+    .chat-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 38px;
+      h4 {
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.4em;
+        color: #ff7a00;
       }
-
-      .chat-info {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 38px;
-        h4 {
-          font-size: 12px;
-          font-weight: 700;
-          line-height: 1.4em;
-          color: #ff7a00;
-        }
-        span {
-          font-size: 12px;
-          font-weight: 400;
-          line-height: 1.4em;
-          color: #999999;
-        }
+      span {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.4em;
+        color: #999999;
       }
     }
   }
