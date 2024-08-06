@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { getDetailPost } from "../../api/products";
 import { getChatRoomList, getChatRoom, sendMessage } from "../../api/chat";
 import { BASE_URL } from "../../constant/product";
-import { roomId, userToken } from "../../constant/chat";
+import { userToken } from "../../constant/chat";
 
 import notFoundImg_2 from "../../assets/product/image-not-found-2.png";
 import menuIcon from "../../assets/order/vertical-menu-icon.svg";
@@ -21,8 +21,10 @@ import chatRoomImg from "../../assets/chat/chat-room.svg";
 const ChattingPage = () => {
   const { id } = useParams();
   const webSocket = useRef(null);
+  const location = useLocation();
 
   const [data, setData] = useState(null);
+  const [roomId, setRoomId] = useState(location.state.roomId);
   const [companyId, setCompanyId] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
